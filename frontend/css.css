@@ -1,0 +1,96 @@
+/*reset*/
+body {
+  margin: 0;
+  font-family: sans-serif;
+  color: #E90076;
+  background-color: #000;
+}
+
+h1, h2, p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*app*/
+.main--app {
+  display: flex;
+}
+
+/*sidebar*/
+.aside--sidebar {
+  width: 200px;
+  padding: 24px;
+}
+
+.li--type {
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.button--new {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  font-size: 14px;
+  padding: 8px 0;
+  color: inherit;
+}
+
+/*main*/
+.section--content {
+  width: calc(100vw - 200px);
+}
+
+.h1--main {
+  font-size: 48px;
+}
+
+.h2--main {
+  font-size: 24px;
+}
+
+/*search*/
+.input--search {
+  border: none;
+  padding: 4px 16px;
+  border: 1px solid grey;
+  border-radius: 16px;
+}
+
+.nav--search {
+  padding: 8px 0;
+}
+
+/*artist*/
+.p--monthly-listens {
+  font-size: 12px;
+  float: right;
+}
+
+.li--song-list {
+    padding: 16px;
+    border-top: 1px solid grey;
+}
+
+/*artists*/
+.ul--block-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.li--block-list {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+    border-radius: 75px;
+    margin: 15px;
+}
