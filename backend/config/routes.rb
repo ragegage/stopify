@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  resources :songs, only: [:index], defaults: { format: 'json' }
+  resources :artists, only: [:index, :show]
+  resources :albums, only: [:index, :show]
+
 end

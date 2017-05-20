@@ -12467,7 +12467,7 @@ exports.default = RootReducer;
 //     all: {
 //       1: {
 //         id: 1,
-//         name: "good kid maad city",
+//         title: "good kid maad city",
 //         img_src: "maad.png",
 //         date: "1/1/2011",
 //         song_ids: [1]

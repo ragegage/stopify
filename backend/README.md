@@ -1,24 +1,9 @@
-# README
+# notes
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+create_table :playlists do |t|
+  t.string :name, null: false
+  t.integer :user_id, null: false
+  t.img_src :string
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  t.timestamps
+end
