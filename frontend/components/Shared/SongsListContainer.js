@@ -3,8 +3,14 @@ import { connect } from 'react-redux'
 import SongsList from './SongsList'
 import { byId } from './Selector'
 
+import { startSong } from '../../actions/songs'
+
 const mapStateToProps = ({ songs }) => ({
   songs: byId(songs)
 })
 
-export default connect(mapStateToProps, null)(SongsList)
+const mapDispatchToProps = dispatch => ({
+  startSong: song => () => dispatch(startSong(song))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SongsList)
