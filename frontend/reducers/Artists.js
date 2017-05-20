@@ -2,7 +2,8 @@ const artists = {
   all: {
     1: {
       id: 1,
-      name: "Kendrick Lamar"
+      name: "Kendrick Lamar",
+      img_src: ''
     }
   },
   byId: [1] // <-- set

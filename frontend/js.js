@@ -28240,9 +28240,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(111);
+
+var _songs = __webpack_require__(300);
 
 var _SongsHeader = __webpack_require__(278);
 
@@ -28254,15 +28260,57 @@ var _SongsListContainer2 = _interopRequireDefault(_SongsListContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
-  return _react2.default.createElement(
-    'article',
-    { className: 'article--songs' },
-    _react2.default.createElement(_SongsHeader2.default, null),
-    _react2.default.createElement(_SongsListContainer2.default, null)
-  );
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Songs = function (_React$Component) {
+  _inherits(Songs, _React$Component);
+
+  function Songs() {
+    _classCallCheck(this, Songs);
+
+    return _possibleConstructorReturn(this, (Songs.__proto__ || Object.getPrototypeOf(Songs)).apply(this, arguments));
+  }
+
+  _createClass(Songs, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'article',
+        { className: 'article--songs' },
+        _react2.default.createElement(_SongsHeader2.default, null),
+        _react2.default.createElement(_SongsListContainer2.default, null)
+      );
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.requestAllSongs();
+    }
+  }]);
+
+  return Songs;
+}(_react2.default.Component);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestAllSongs: function requestAllSongs() {
+      return dispatch((0, _songs.requestAllSongs)());
+    }
+  };
 };
-// import SongsList from './SongsList'
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Songs);
+
+// export default () => (
+//   <article className="article--songs">
+//     <SongsHeader/>
+//     <SongsListContainer/>
+//   </article>
+// )
 
 /***/ }),
 /* 281 */,
@@ -28361,8 +28409,8 @@ exports.default = function () {
   var action = arguments[1];
 
   switch (action.type) {
-    case "TEST":
-      return "test";
+    case "RECEIVE_SONGS":
+      return action.payload;
     default:
       return state;
   }
@@ -28382,7 +28430,8 @@ var artists = {
   all: {
     1: {
       id: 1,
-      name: "Kendrick Lamar"
+      name: "Kendrick Lamar",
+      img_src: ''
     }
   },
   byId: [1] // <-- set
@@ -28677,6 +28726,63 @@ var mapStateToProps = function mapStateToProps(_ref) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(_ArtistsList2.default);
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchSongs = exports.fetchSongs = function fetchSongs() {
+  return fetch('http://localhost:3000/songs', { method: 'GET', mode: 'cors' }).then(function (res) {
+    return res.json();
+  });
+};
+
+var fetchArtists = exports.fetchArtists = function fetchArtists() {
+  return fetch('http://localhost:3000/artists').then(function (res) {
+    return res.json();
+  });
+};
+
+var fetchAlbums = exports.fetchAlbums = function fetchAlbums() {
+  return fetch('http://localhost:3000/albums').then(function (res) {
+    return res.json();
+  });
+};
+
+/***/ }),
+/* 300 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.receiveSongs = exports.requestAllSongs = undefined;
+
+var _APIUtil = __webpack_require__(299);
+
+var requestAllSongs = exports.requestAllSongs = function requestAllSongs() {
+  return function (dispatch) {
+    return (0, _APIUtil.fetchSongs)().then(function (songs) {
+      return dispatch(receiveSongs(songs));
+    });
+  };
+};
+
+var receiveSongs = exports.receiveSongs = function receiveSongs(songs) {
+  return {
+    type: "RECEIVE_SONGS",
+    payload: songs
+  };
+};
 
 /***/ })
 /******/ ]);

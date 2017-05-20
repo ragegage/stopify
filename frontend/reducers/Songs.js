@@ -15,8 +15,8 @@ const songs = {
 
 export default (state = songs, action) => {
   switch(action.type) {
-    case "TEST":
-      return "test"
+    case "RECEIVE_SONGS":
+      return action.payload
     default:
       return state
   }
