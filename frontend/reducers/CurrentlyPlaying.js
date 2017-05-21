@@ -9,7 +9,6 @@ const currentlyPlaying = {
 }
 
 export default (state = currentlyPlaying, action) => {
-  console.log(action);
   let ns
   switch(action.type) {
     case "START_SONG":

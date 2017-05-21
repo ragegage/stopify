@@ -5,6 +5,7 @@ json.all do
       json.title song.title
       json.album song.album.title
       json.artist song.artist.name
+      json.url song.url
     end
   end
 end

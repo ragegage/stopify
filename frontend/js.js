@@ -12791,7 +12791,6 @@ var PlayerBar = function PlayerBar(_ref) {
       updateProgress = _ref.updateProgress,
       updateLength = _ref.updateLength;
 
-  console.log(song);
   return _react2.default.createElement(
     'footer',
     { className: 'footer--player' },
@@ -12834,7 +12833,7 @@ var PlayerBar = function PlayerBar(_ref) {
           playing: song.playing,
           volume: song.volume || 0.3,
           onProgress: updateProgress,
-          url: 'http://danosongs.com/music/danosongs.com-junk-ship-gold.mp3' })
+          url: song.url })
       ),
       _react2.default.createElement(
         'div',
@@ -13336,7 +13335,6 @@ exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : currentlyPlaying;
   var action = arguments[1];
 
-  console.log(action);
   var ns = void 0;
   switch (action.type) {
     case "START_SONG":

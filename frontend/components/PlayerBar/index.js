@@ -7,7 +7,6 @@ import { pauseSong, playSong, updateProgress, updateLength } from '../../actions
 // import SongsHeader from './SongsHeader'
 
 const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength }) => {
-  console.log(song);
   return (
   <footer className="footer--player">
     <aside className="aside--player-song-info">
@@ -29,7 +28,7 @@ const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength }) 
           playing={song.playing}
           volume={song.volume || 0.3}
           onProgress={updateProgress}
-          url='http://danosongs.com/music/danosongs.com-junk-ship-gold.mp3'/>
+          url={song.url}/>
       </div>
       <div className="div--player-progress-bar-container">
         <p className="p--player-current-time">{parseInt(song.progress)}</p>
