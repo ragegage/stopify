@@ -1,5 +1,5 @@
 export const fetchSongs = () => (
-  fetch('http://localhost:3000/songs', { method: 'GET', mode: 'cors'})
+  fetch('http://localhost:3000/songs')
     .then(res => res.json())
 )
 
@@ -10,5 +10,16 @@ export const fetchArtists = () => (
 
 export const fetchAlbums = () => (
   fetch('http://localhost:3000/albums')
+    .then(res => res.json())
+)
+
+export const postSong = (song) => (
+  fetch('http://localhost:3000/songs', {
+    method: 'POST',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(song)
+  })
     .then(res => res.json())
 )

@@ -1,8 +1,10 @@
+/*highlight color pink: #E90076*/
+
 /*reset*/
 body {
   margin: 0;
   font-family: sans-serif;
-  color: #E90076;
+  color: white;
   background-color: #000;
 }
 
@@ -14,6 +16,11 @@ ul {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 /*app*/
