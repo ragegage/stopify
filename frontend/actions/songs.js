@@ -1,16 +1,29 @@
 import { fetchSongs, postSong } from './APIUtil'
 
-// import { extractMetadataFrom } from './Util'
+import jsmediatags from 'jsmediatags'
 
 export const requestAllSongs = () => dispatch => (
   fetchSongs().then(songs => dispatch(receiveSongs(songs)))
 )
 
 export const createSong = path => dispatch => {
-  console.log(path)
-  // console.log(extractMetadataFrom(path))
-  // debugger
-  postSong({song: {url: path}}).then(song => dispatch(receiveSong(song)))
+  jsmediatags.read(path, { // gets metadata from mp3 file
+    onSuccess: ({ tags }) => {
+      postSong({
+        song: {
+          url: path, 
+          title: tags.title, 
+          album: tags.album, 
+          artist: tags.artist, 
+          track_num: tags.track, 
+          genre: tags.genre
+        }
+      }).then(song => dispatch(receiveSong(song)))
+    },
+    onError: (error) => {
+      console.log(error);
+    }
+  });
 }
 
 export const receiveSongs = songs => ({

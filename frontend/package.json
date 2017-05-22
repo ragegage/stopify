@@ -17,6 +17,7 @@
     "babel-preset-react": "^6.24.1",
     "electron": "^1.6.8",
     "ffmetadata": "^1.4.0",
+    "jsmediatags": "^3.4.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-file-input": "^0.2.5",
