@@ -4,16 +4,13 @@ class SongsController < ApplicationController
   end
 
   def create
-    artist = Artist.find_or_create_by(name: song_artist_params[:artist])
-    album = Album.find_or_create_by(title: song_album_params[:album], artist: artist)
-    
+    artist = Artist.find_or_create_by(name: song_artist_params[:artist] || "Unknown")
+    album = Album.find_or_create_by(title: song_album_params[:album] || "Untitled Album", artist: artist)
+
     @song = Song.new(song_params)
     @song.album = album
 
-    unless @song.valid?
-      @song.album = Album.first
-      @song.title = "Untitled"
-    end
+    @song.title ||= "Untitled"
 
     if @song.save
       render json: @song

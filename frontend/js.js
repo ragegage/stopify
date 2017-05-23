@@ -14406,18 +14406,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var songs = {
-  all: {
-    1: {
-      id: 1,
-      title: "Backseat Freestyle",
-      artist: "Kendrick Lamar",
-      album: "good kid maad city",
-      length: 257,
-      plays: 17609,
-      created_at: "5/19/2017 11:58pm"
-    }
-  },
-  byId: [1] // <-- set
+  all: {},
+  byId: []
 };
 
 exports.default = function () {
@@ -14428,14 +14418,16 @@ exports.default = function () {
     case "RECEIVE_SONGS":
       return action.payload;
     case "RECEIVE_SONG":
-      console.log(action);
+      console.log(action.payload);
       var ns = { all: {}, byId: [] };
       state.byId.forEach(function (id) {
-        ns.all[id] = Object.assign({}, state[id]);
+        ns.all[id] = Object.assign({}, state.all[id]);
       });
       ns.byId = state.byId.map(function (id) {
         return id;
       });
+      ns.byId.push(action.payload.id);
+      ns.all[action.payload.id] = action.payload;
       return ns;
     default:
       return state;
