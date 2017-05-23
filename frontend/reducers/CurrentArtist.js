@@ -11,8 +11,8 @@ const currentArtist = {
 
 export default (state = currentArtist, action) => {
   switch(action.type) {
-    case "TEST":
-      return "test"
+    case "RECEIVE_ARTIST":
+      return action.payload
     default:
       return state
   }

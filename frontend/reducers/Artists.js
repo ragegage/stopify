@@ -5,7 +5,6 @@ const artists = {
 
 
 export default (state = artists, action) => {
-  console.log(artists);
   switch(action.type) {
     case "RECEIVE_ARTISTS":
       return action.payload

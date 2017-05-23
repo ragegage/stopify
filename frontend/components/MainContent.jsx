@@ -18,8 +18,8 @@ export default () => (
     <Route path="/artists" component={Artists}/>
     <Route path="/songs" component={Songs}/>
     <Route path="/albums" component={Albums}/>
-    <Route path="/artist" component={Artist}/>
-    <Route path="/album" component={Album}/>
+    <Route path="/artist/:id" component={Artist}/>
+    <Route path="/album/:id" component={Album}/>
   </section>
 )
 

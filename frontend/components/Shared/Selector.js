@@ -1,3 +1,3 @@
-export const byId = ({ byId, all }) => (
-  byId.map(id => all[id])
+export const byId = ({ byId, all }, ids) => (
+  (ids || byId).map(id => all[id])
 )

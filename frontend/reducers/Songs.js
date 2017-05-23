@@ -8,7 +8,6 @@ export default (state = songs, action) => {
     case "RECEIVE_SONGS":
       return action.payload
     case "RECEIVE_SONG":
-      console.log(action.payload);
       let ns = {all: {}, byId: []}
       state.byId.forEach(id => {
         ns.all[id] = Object.assign({}, state.all[id])

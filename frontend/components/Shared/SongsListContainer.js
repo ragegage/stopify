@@ -5,8 +5,8 @@ import { byId } from './Selector'
 
 import { startSong } from '../../actions/songs'
 
-const mapStateToProps = ({ songs }) => ({
-  songs: byId(songs)
+const mapStateToProps = ({ songs }, ownProps) => ({
+  songs: byId(songs, ownProps.song_ids)
 })
 
 const mapDispatchToProps = dispatch => ({

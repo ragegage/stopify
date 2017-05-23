@@ -8,6 +8,11 @@ export const fetchArtists = () => (
     .then(res => res.json())
 )
 
+export const fetchArtist = (id) => (
+  fetch(`http://localhost:3000/artists/${id}`)
+    .then(res => res.json())
+)
+
 export const fetchAlbums = () => (
   fetch('http://localhost:3000/albums')
     .then(res => res.json())
