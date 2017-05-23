@@ -1,19 +1,14 @@
 const artists = {
-  all: {
-    1: {
-      id: 1,
-      name: "Kendrick Lamar",
-      img_src: ''
-    }
-  },
-  byId: [1] // <-- set
+  all: {},
+  byId: []
 }
 
 
 export default (state = artists, action) => {
+  console.log(artists);
   switch(action.type) {
-    case "TEST":
-      return "test"
+    case "RECEIVE_ARTISTS":
+      return action.payload
     default:
       return state
   }

@@ -13404,6 +13404,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStateToProps = function mapStateToProps(_ref) {
   var albums = _ref.albums;
+
+  console.log(albums);
   return {
     albums: (0, _Selector.byId)(albums)
   };
@@ -13422,9 +13424,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(17);
+
+var _albums = __webpack_require__(329);
 
 var _AlbumsHeader = __webpack_require__(125);
 
@@ -13436,14 +13444,50 @@ var _AlbumsListContainer2 = _interopRequireDefault(_AlbumsListContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
-  return _react2.default.createElement(
-    'article',
-    { className: 'article--albums' },
-    _react2.default.createElement(_AlbumsHeader2.default, null),
-    _react2.default.createElement(_AlbumsListContainer2.default, null)
-  );
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Albums = function (_React$Component) {
+  _inherits(Albums, _React$Component);
+
+  function Albums() {
+    _classCallCheck(this, Albums);
+
+    return _possibleConstructorReturn(this, (Albums.__proto__ || Object.getPrototypeOf(Albums)).apply(this, arguments));
+  }
+
+  _createClass(Albums, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'article',
+        { className: 'article--albums' },
+        _react2.default.createElement(_AlbumsHeader2.default, null),
+        _react2.default.createElement(_AlbumsListContainer2.default, null)
+      );
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.requestAllAlbums();
+    }
+  }]);
+
+  return Albums;
+}(_react2.default.Component);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestAllAlbums: function requestAllAlbums() {
+      return dispatch((0, _albums.requestAllAlbums)());
+    }
+  };
 };
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Albums);
 
 /***/ }),
 /* 129 */
@@ -13663,9 +13707,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(17);
+
+var _artists = __webpack_require__(328);
 
 var _ArtistsHeader = __webpack_require__(132);
 
@@ -13677,14 +13727,50 @@ var _ArtistsListContainer2 = _interopRequireDefault(_ArtistsListContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
-  return _react2.default.createElement(
-    'article',
-    { className: 'article--artists' },
-    _react2.default.createElement(_ArtistsHeader2.default, null),
-    _react2.default.createElement(_ArtistsListContainer2.default, null)
-  );
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Artists = function (_React$Component) {
+  _inherits(Artists, _React$Component);
+
+  function Artists() {
+    _classCallCheck(this, Artists);
+
+    return _possibleConstructorReturn(this, (Artists.__proto__ || Object.getPrototypeOf(Artists)).apply(this, arguments));
+  }
+
+  _createClass(Artists, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'article',
+        { className: 'article--artists' },
+        _react2.default.createElement(_ArtistsHeader2.default, null),
+        _react2.default.createElement(_ArtistsListContainer2.default, null)
+      );
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.requestAllArtists();
+    }
+  }]);
+
+  return Artists;
+}(_react2.default.Component);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestAllArtists: function requestAllArtists() {
+      return dispatch((0, _artists.requestAllArtists)());
+    }
+  };
 };
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Artists);
 
 /***/ }),
 /* 136 */
@@ -14194,17 +14280,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var albums = {
-  all: {
-    1: {
-      id: 1,
-      title: "good kid maad city",
-      img_src: "maad.png",
-      date: "1/1/2011",
-      song_ids: [1]
-      // associated with list of songs - they get updated at the same time
-    }
-  },
-  byId: [1] // <-- set
+  all: {},
+  byId: []
 };
 
 exports.default = function () {
@@ -14212,8 +14289,8 @@ exports.default = function () {
   var action = arguments[1];
 
   switch (action.type) {
-    case "TEST":
-      return "test";
+    case "RECEIVE_ALBUMS":
+      return action.payload;
     default:
       return state;
   }
@@ -14230,23 +14307,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var artists = {
-  all: {
-    1: {
-      id: 1,
-      name: "Kendrick Lamar",
-      img_src: ''
-    }
-  },
-  byId: [1] // <-- set
+  all: {},
+  byId: []
 };
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : artists;
   var action = arguments[1];
 
+  console.log(artists);
   switch (action.type) {
-    case "TEST":
-      return "test";
+    case "RECEIVE_ARTISTS":
+      return action.payload;
     default:
       return state;
   }
@@ -14354,15 +14426,7 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var currentlyPlaying = {
-  // id: 1,
-  // title: "Backseat Freestyle",
-  // artist: "Kendrick Lamar",
-  // length: 257,
-  // playing: true,
-  // volume: 0.8
-  // progress: 0
-};
+var currentlyPlaying = {};
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : currentlyPlaying;
@@ -36077,6 +36141,64 @@ module.exports = require("os");
 /***/ (function(module, exports) {
 
 module.exports = require("url");
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.receiveArtists = exports.requestAllArtists = undefined;
+
+var _APIUtil = __webpack_require__(122);
+
+var requestAllArtists = exports.requestAllArtists = function requestAllArtists() {
+  return function (dispatch) {
+    return (0, _APIUtil.fetchArtists)().then(function (artists) {
+      return dispatch(receiveArtists(artists));
+    });
+  };
+};
+
+var receiveArtists = exports.receiveArtists = function receiveArtists(artists) {
+  return {
+    type: "RECEIVE_ARTISTS",
+    payload: artists
+  };
+};
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.receiveAlbums = exports.requestAllAlbums = undefined;
+
+var _APIUtil = __webpack_require__(122);
+
+var requestAllAlbums = exports.requestAllAlbums = function requestAllAlbums() {
+  return function (dispatch) {
+    return (0, _APIUtil.fetchAlbums)().then(function (albums) {
+      return dispatch(receiveAlbums(albums));
+    });
+  };
+};
+
+var receiveAlbums = exports.receiveAlbums = function receiveAlbums(albums) {
+  return {
+    type: "RECEIVE_ALBUMS",
+    payload: albums
+  };
+};
 
 /***/ })
 /******/ ]);

@@ -13,7 +13,7 @@ export const fetchAlbums = () => (
     .then(res => res.json())
 )
 
-export const postSong = (song) => (
+export const postSong = song => (
   fetch('http://localhost:3000/songs', {
     method: 'POST',
     headers: {

@@ -1,12 +1,4 @@
-const currentlyPlaying = {
-  // id: 1,
-  // title: "Backseat Freestyle",
-  // artist: "Kendrick Lamar",
-  // length: 257,
-  // playing: true,
-  // volume: 0.8
-  // progress: 0
-}
+const currentlyPlaying = {}
 
 export default (state = currentlyPlaying, action) => {
   let ns
