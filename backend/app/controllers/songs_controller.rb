@@ -4,8 +4,8 @@ class SongsController < ApplicationController
   end
 
   def create
-    artist_name = song_artist_params[:artist].split.join(" ") || "Unknown"
-    album_name = song_album_params[:album].split.join(" ") || "Untitled Album"
+    artist_name = song_artist_params[:artist]&.split&.join(" ") || "Unknown"
+    album_name = song_album_params[:album]&.split&.join(" ") || "Untitled Album"
     # strip whitespace
     artist = Artist.find_or_create_by(name: artist_name)
     album = Album.find_or_create_by(title: album_name, artist: artist)
