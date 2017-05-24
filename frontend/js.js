@@ -5696,6 +5696,12 @@ var fetchAlbums = exports.fetchAlbums = function fetchAlbums() {
   });
 };
 
+var fetchAlbum = exports.fetchAlbum = function fetchAlbum(id) {
+  return fetch('http://localhost:3000/albums/' + id).then(function (res) {
+    return res.json();
+  });
+};
+
 var postSong = exports.postSong = function postSong(song) {
   return fetch('http://localhost:3000/songs', {
     method: 'POST',
@@ -13256,7 +13262,7 @@ exports.default = configureStore;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.receiveAlbums = exports.requestAllAlbums = undefined;
+exports.receiveAlbum = exports.requestAlbum = exports.receiveAlbums = exports.requestAllAlbums = undefined;
 
 var _APIUtil = __webpack_require__(45);
 
@@ -13272,6 +13278,21 @@ var receiveAlbums = exports.receiveAlbums = function receiveAlbums(albums) {
   return {
     type: "RECEIVE_ALBUMS",
     payload: albums
+  };
+};
+
+var requestAlbum = exports.requestAlbum = function requestAlbum(id) {
+  return function (dispatch) {
+    return (0, _APIUtil.fetchAlbum)(id).then(function (album) {
+      return dispatch(receiveAlbum(album));
+    });
+  };
+};
+
+var receiveAlbum = exports.receiveAlbum = function receiveAlbum(album) {
+  return {
+    type: "RECEIVE_ALBUM",
+    payload: album
   };
 };
 
@@ -13336,7 +13357,7 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
+exports.default = function (album) {
   return _react2.default.createElement(
     "header",
     { className: "header--album" },
@@ -13344,7 +13365,7 @@ exports.default = function () {
     _react2.default.createElement(
       "h1",
       { className: "h1--album h1--main" },
-      "Album"
+      album.title
     )
   );
 };
@@ -13360,9 +13381,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(15);
+
+var _albums = __webpack_require__(123);
 
 var _AlbumHeader = __webpack_require__(125);
 
@@ -13374,14 +13401,62 @@ var _SongsListContainer2 = _interopRequireDefault(_SongsListContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
-  return _react2.default.createElement(
-    'article',
-    { className: 'article--album' },
-    _react2.default.createElement(_AlbumHeader2.default, null),
-    _react2.default.createElement(_SongsListContainer2.default, null)
-  );
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Album = function (_React$Component) {
+  _inherits(Album, _React$Component);
+
+  function Album() {
+    _classCallCheck(this, Album);
+
+    return _possibleConstructorReturn(this, (Album.__proto__ || Object.getPrototypeOf(Album)).apply(this, arguments));
+  }
+
+  _createClass(Album, [{
+    key: 'render',
+    value: function render() {
+      console.log(this.props);
+      return _react2.default.createElement(
+        'article',
+        { className: 'article--album' },
+        _react2.default.createElement(_AlbumHeader2.default, { artist: this.props.artist }),
+        _react2.default.createElement(_SongsListContainer2.default, { song_ids: this.props.album.song_ids })
+      );
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.requestAlbum(this.props.match.params.id);
+    }
+  }]);
+
+  return Album;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(_ref) {
+  var currentAlbum = _ref.currentAlbum;
+  return {
+    album: currentAlbum
+  };
 };
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestAlbum: function requestAlbum(id) {
+      return dispatch((0, _albums.requestAlbum)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Album);
+
+// refactor to use featured song list
+// and list of albums
+// (each with their own song list)
 
 /***/ }),
 /* 127 */
@@ -13451,7 +13526,7 @@ exports.default = function (_ref) {
           { className: 'li--albums-list li--block-list' },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/album/maad' },
+            { to: '/album/' + album.id },
             album.title
           )
         );
@@ -14474,8 +14549,8 @@ exports.default = function () {
   var action = arguments[1];
 
   switch (action.type) {
-    case "TEST":
-      return "test";
+    case "RECEIVE_ALBUM":
+      return action.payload;
     default:
       return state;
   }

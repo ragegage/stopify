@@ -8,7 +8,7 @@ export default ({ albums }) => (
       {
         albums.map(album => (
           <li className="li--albums-list li--block-list">
-            <Link to="/album/maad">{album.title}</Link>
+            <Link to={`/album/${album.id}`}>{album.title}</Link>
           </li>
         ))
       }

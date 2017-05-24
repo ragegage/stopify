@@ -10,8 +10,8 @@ const currentAlbum = {
 
 export default (state = currentAlbum, action) => {
   switch(action.type) {
-    case "TEST":
-      return "test"
+    case "RECEIVE_ALBUM":
+      return action.payload
     default:
       return state
   }
