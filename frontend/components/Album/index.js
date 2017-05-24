@@ -13,7 +13,7 @@ class Album extends React.Component {
     console.log(this.props)
     return (
       <article className="article--album">
-        <AlbumHeader artist={this.props.artist}/>
+        <AlbumHeader album={this.props.album}/>
         <SongListContainer song_ids={this.props.album.song_ids}/>
       </article>
     )

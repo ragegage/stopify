@@ -3,7 +3,7 @@ const currentAlbum = {
   name: "good kid maad city",
   img_src: "maad.png",
   date: "1/1/2011",
-  song_ids: [1]
+  song_ids: []
   // associated with list of songs - they both get updated at the same time
 }
 
