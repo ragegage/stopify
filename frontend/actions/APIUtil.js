@@ -23,6 +23,11 @@ export const fetchAlbum = (id) => (
     .then(res => res.json())
 )
 
+export const searchAPI = (query) => (
+  fetch(`http://localhost:3000/search/${query}`)
+    .then(res => res.json())
+)
+
 export const postSong = song => (
   fetch('http://localhost:3000/songs', {
     method: 'POST',
