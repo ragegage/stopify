@@ -13775,36 +13775,60 @@ var Search = function Search(_ref) {
     }),
     _react2.default.createElement(
       'ul',
-      null,
-      Object.values(results.artists).map(function (artist) {
-        return _react2.default.createElement(
-          'li',
-          { key: artist.id },
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/artist/' + artist.id },
-            artist.name
-          )
-        );
-      }),
-      Object.values(results.albums).map(function (album) {
-        return _react2.default.createElement(
-          'li',
-          { key: album.id },
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/album/' + album.id },
-            album.title
-          )
-        );
-      }),
-      Object.values(results.songs).map(function (song) {
-        return _react2.default.createElement(
-          'li',
-          { key: song.id, onClick: startSong(song) },
-          song.title
-        );
-      })
+      { className: 'ul--search-results' },
+      _react2.default.createElement(
+        'li',
+        { className: 'li--search-results-group' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'ul--search-results-group' },
+          Object.values(results.songs).map(function (song) {
+            return _react2.default.createElement(
+              'li',
+              { className: 'li--search-result li--song-result', key: song.id, onClick: startSong(song) },
+              song.title
+            );
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'li--search-results-group' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'ul--search-results-group' },
+          Object.values(results.artists).map(function (artist) {
+            return _react2.default.createElement(
+              'li',
+              { className: 'li--search-result li--artist-result', key: artist.id },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/artist/' + artist.id },
+                artist.name
+              )
+            );
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'li--search-results-group' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'ul--search-results-group' },
+          Object.values(results.albums).map(function (album) {
+            return _react2.default.createElement(
+              'li',
+              { className: 'li--search-result li--album-result', key: album.id },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/album/' + album.id },
+                album.title
+              )
+            );
+          })
+        )
+      )
     )
   );
 };
