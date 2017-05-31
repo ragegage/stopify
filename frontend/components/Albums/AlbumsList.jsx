@@ -10,7 +10,11 @@ export default ({ albums }) => (
           <li
             key={album.id}
             className="li--albums-list li--block-list">
-            <Link to={`/album/${album.id}`}>{album.title}</Link>
+            <Link
+              className="a--album-name-in-list"
+              to={`/album/${album.id}`}>
+              {album.title}
+            </Link>
           </li>
         ))
       }

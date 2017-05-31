@@ -12,7 +12,11 @@ export default ({ songs, startSong, addToPlaylist }) => (
             onContextMenu={() => console.log("right click!")}
             className="li--song-list">
             {song.title}
-            <button onClick={addToPlaylist(song)}>Playlist</button>
+            <button
+              className="button--add-to-queue"
+              onClick={addToPlaylist(song)}>
+              Add To Queue
+            </button>
           </li>
         ))
       }

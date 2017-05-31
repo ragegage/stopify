@@ -7,6 +7,7 @@ import fs from 'fs'
 
 import { createSong } from '../actions/songs'
 
+// pull out into utils file
 const walk = function(dir) {
   // walks through a directory synchronously, collecting all the
     // file paths of the files within
@@ -34,7 +35,6 @@ class SideMenu extends React.Component {
     return (
       <aside className="aside--sidebar">
         <ul className="ul--type-list">
-          <li className="li--type">Browse</li>
           <li className="li--type"><Link to="/songs">Songs</Link></li>
           <li className="li--type"><Link to="/albums">Albums</Link></li>
           <li className="li--type"><Link to="/artists">Artists</Link></li>

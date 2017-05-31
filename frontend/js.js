@@ -13615,7 +13615,9 @@ exports.default = function (_ref) {
             className: 'li--albums-list li--block-list' },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/album/' + album.id },
+            {
+              className: 'a--album-name-in-list',
+              to: '/album/' + album.id },
             album.title
           )
         );
@@ -14042,7 +14044,9 @@ exports.default = function (_ref) {
             className: 'li--artists-list li--block-list' },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/artist/' + artist.id },
+            {
+              className: 'a--artist-name-in-list',
+              to: '/artist/' + artist.id },
             artist.name
           )
         );
@@ -14407,8 +14411,10 @@ exports.default = function (_ref) {
           song.title,
           _react2.default.createElement(
             "button",
-            { onClick: addToPlaylist(song) },
-            "Playlist"
+            {
+              className: "button--add-to-queue",
+              onClick: addToPlaylist(song) },
+            "Add To Queue"
           )
         );
       })
@@ -14455,6 +14461,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// pull out into utils file
 var walk = function walk(dir) {
   // walks through a directory synchronously, collecting all the
   // file paths of the files within
@@ -14500,11 +14507,6 @@ var SideMenu = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           { className: 'ul--type-list' },
-          _react2.default.createElement(
-            'li',
-            { className: 'li--type' },
-            'Browse'
-          ),
           _react2.default.createElement(
             'li',
             { className: 'li--type' },

@@ -3,7 +3,7 @@
 /*reset*/
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: sans-serif; /* pick a better font */
   color: white;
   background-color: #000;
 }
@@ -19,7 +19,7 @@ ul {
 }
 
 a {
-  color: white;
+  color: white; /* #aaa and white when active */
   text-decoration: none;
 }
 
@@ -51,14 +51,17 @@ a {
 /*main*/
 .section--content {
   width: calc(100vw - 200px);
+  background-image: linear-gradient(to bottom right, #333, #0a0a0a 600px);
 }
 
 .h1--main {
   font-size: 48px;
+  padding-bottom: 24px;
 }
 
 .h2--main {
   font-size: 24px;
+  padding-bottom: 18px;
 }
 
 /*search*/
@@ -80,26 +83,65 @@ a {
 }
 
 .li--song-list {
-    padding: 16px;
-    border-top: 1px solid grey;
+  padding: 16px;
+  border-top: 1px solid grey;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.li--song-list:hover {
+    background-color: #333;
+}
+
+.button--add-to-queue {
+  padding: 5px 10px;
+  background-color: #0a0a0a;
+  color: #ccc;
+  border-style: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button--add-to-queue:hover {
+  background-color: #333;
 }
 
 /*artists*/
 .ul--block-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .li--block-list {
-    width: 150px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: grey;
-    border-radius: 75px;
-    margin: 15px;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  border-radius: 75px;
+  margin: 15px;
+  margin-bottom: 45px;
+  cursor: pointer;
+}
+.li--block-list:hover {
+    background-color: #555;
+}
+
+.a--artist-name-in-list, .a--album-name-in-list {
+  position: absolute;
+  top: 160px;
+  overflow-wrap: break-word;
+  width: 100%;
+  text-align: center;
+}
+
+/*albums*/
+.li--albums-list {
+  border-radius: 15px;
 }
 
 /*player bar*/
