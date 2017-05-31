@@ -5,7 +5,7 @@ export default ({ dispatch, getState }) => next => action => {
   switch(action.type) {
     case "NEXT_SONG":
       const songId = getState().currentQueue[0]
-      if(song)
+      if(songId)
         dispatch(startSong(getState().songs[songId]))
       break
     case "PREV_SONG":
