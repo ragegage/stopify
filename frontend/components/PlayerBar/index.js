@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ReactPlayer from 'react-player'
 
-import { pauseSong, playSong, updateProgress, updateLength } from '../../actions/songs'
+import { pauseSong, playSong, updateProgress, updateLength, nextSong } from '../../actions/songs'
 
 // import SongsHeader from './SongsHeader'
 
-const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength }) => {
+const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, nextSong }) => {
   return (
   <footer className="footer--player">
     <aside className="aside--player-song-info">
@@ -21,7 +21,11 @@ const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength }) 
           className="button--player-pause button--player-control">
           {song.playing ? "pause" : "play"}
         </button>
-        <button className="button--player-next button--player-control">next</button>
+        <button
+          onClick={nextSong}
+          className="button--player-next button--player-control">
+          next
+        </button>
         <ReactPlayer
           width="0"
           height="0"
@@ -53,6 +57,7 @@ const mapDispatchToProps = (dispatch) => ({
   pauseSong: () => dispatch(pauseSong()),
   playSong: () => dispatch(playSong()),
   updateProgress: ({played}) => dispatch(updateProgress(played)),
+  nextSong: () => dispatch(nextSong()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerBar)

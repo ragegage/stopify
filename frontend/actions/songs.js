@@ -64,3 +64,7 @@ export const addToPlaylist = song => ({
   type: "ADD_SONG_TO_PLAYLIST",
   payload: song
 })
+
+export const nextSong = () => ({
+  type: "NEXT_SONG"
+})
