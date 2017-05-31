@@ -7,7 +7,9 @@ export default ({ artists }) => (
     <ul className="ul--artists-list ul--block-list">
       {
         artists.map(artist => (
-          <li className="li--artists-list li--block-list">
+          <li
+            key={artist.id}
+            className="li--artists-list li--block-list">
             <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
           </li>
         ))

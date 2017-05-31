@@ -15,9 +15,21 @@ const Search = ({ search, query, results, startSong }) => (
       onChange={e => search(e.currentTarget.value)}
       />
     <ul>
-      {Object.values(results.artists).map(artist => <li><Link to={`/artist/${artist.id}`}>{artist.name}</Link></li>)}
-      {Object.values(results.albums).map(album => <li><Link to={`/album/${album.id}`}>{album.title}</Link></li>)}
-      {Object.values(results.songs).map(song => <li onClick={startSong(song)}>{song.title}</li>)}
+      {Object.values(results.artists).map(artist => (
+        <li key={artist.id}>
+          <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
+        </li>
+      ))}
+      {Object.values(results.albums).map(album => (
+        <li key={album.id}>
+          <Link to={`/album/${album.id}`}>{album.title}</Link>
+        </li>
+      ))}
+      {Object.values(results.songs).map(song => (
+        <li key={song.id} onClick={startSong(song)}>
+          {song.title}
+        </li>
+      ))}
     </ul>
   </nav>
 )

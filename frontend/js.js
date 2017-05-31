@@ -13403,8 +13403,7 @@ var search = exports.search = function search(query) {
   return function (dispatch) {
     dispatch(receiveSearchQuery(query));
     return (0, _APIUtil.searchAPI)(query).then(function (results) {
-      console.log(results);
-      dispatch(receiveSearchResults(results));
+      return dispatch(receiveSearchResults(results));
     });
   };
 };
@@ -13503,7 +13502,6 @@ var Album = function (_React$Component) {
   _createClass(Album, [{
     key: 'render',
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         'article',
         { className: 'article--album' },
@@ -13612,7 +13610,9 @@ exports.default = function (_ref) {
       albums.map(function (album) {
         return _react2.default.createElement(
           'li',
-          { className: 'li--albums-list li--block-list' },
+          {
+            key: album.id,
+            className: 'li--albums-list li--block-list' },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/album/' + album.id },
@@ -13777,7 +13777,7 @@ var Search = function Search(_ref) {
       Object.values(results.artists).map(function (artist) {
         return _react2.default.createElement(
           'li',
-          null,
+          { key: artist.id },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/artist/' + artist.id },
@@ -13788,7 +13788,7 @@ var Search = function Search(_ref) {
       Object.values(results.albums).map(function (album) {
         return _react2.default.createElement(
           'li',
-          null,
+          { key: album.id },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/album/' + album.id },
@@ -13799,7 +13799,7 @@ var Search = function Search(_ref) {
       Object.values(results.songs).map(function (song) {
         return _react2.default.createElement(
           'li',
-          { onClick: startSong(song) },
+          { key: song.id, onClick: startSong(song) },
           song.title
         );
       })
@@ -14037,7 +14037,9 @@ exports.default = function (_ref) {
       artists.map(function (artist) {
         return _react2.default.createElement(
           'li',
-          { className: 'li--artists-list li--block-list' },
+          {
+            key: artist.id,
+            className: 'li--artists-list li--block-list' },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/artist/' + artist.id },
@@ -14395,7 +14397,9 @@ exports.default = function (_ref) {
       songs.map(function (song) {
         return _react2.default.createElement(
           "li",
-          { onClick: startSong(song),
+          {
+            key: song.id,
+            onClick: startSong(song),
             onContextMenu: function onContextMenu() {
               return console.log("right click!");
             },

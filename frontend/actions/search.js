@@ -2,10 +2,9 @@ import { searchAPI } from './APIUtil'
 
 export const search = (query) => dispatch => {
   dispatch(receiveSearchQuery(query))
-  return searchAPI(query).then(results => {
-    console.log(results);
+  return searchAPI(query).then(results => (
     dispatch(receiveSearchResults(results))
-  })
+  ))
 }
 
 export const receiveSearchResults = (results) => ({

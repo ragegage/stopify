@@ -10,7 +10,6 @@ import SongListContainer from '../Shared/SongsListContainer'
 
 class Album extends React.Component {
   render() {
-    console.log(this.props)
     return (
       <article className="article--album">
         <AlbumHeader album={this.props.album}/>
