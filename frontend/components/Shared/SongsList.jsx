@@ -7,6 +7,7 @@ export default ({ songs, startSong, addToPlaylist }) => (
       {
         songs.map(song => (
           <li onClick={startSong(song)}
+            onContextMenu={() => console.log("right click!")}
             className="li--song-list">
             {song.title}
             <button onClick={addToPlaylist(song)}>Playlist</button>

@@ -4111,7 +4111,7 @@ var postSong = exports.postSong = function postSong(song) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addToPlaylist = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
+exports.prevSong = exports.nextSong = exports.addToPlaylist = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
 
 var _APIUtil = __webpack_require__(35);
 
@@ -4207,6 +4207,18 @@ var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song) {
   return {
     type: "ADD_SONG_TO_PLAYLIST",
     payload: song
+  };
+};
+
+var nextSong = exports.nextSong = function nextSong() {
+  return {
+    type: "NEXT_SONG"
+  };
+};
+
+var prevSong = exports.prevSong = function prevSong() {
+  return {
+    type: "PREV_SONG"
   };
 };
 
@@ -13360,11 +13372,15 @@ var _reducers = __webpack_require__(155);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
+var _playlist = __webpack_require__(332);
+
+var _playlist2 = _interopRequireDefault(_playlist);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0, _redux.createStore)(_reducers2.default, preloadedState, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+  return (0, _redux.createStore)(_reducers2.default, preloadedState, (0, _redux.applyMiddleware)(_reduxThunk2.default, _playlist2.default));
 };
 
 exports.default = configureStore;
@@ -14239,7 +14255,9 @@ var PlayerBar = function PlayerBar(_ref) {
       pauseSong = _ref.pauseSong,
       playSong = _ref.playSong,
       updateProgress = _ref.updateProgress,
-      updateLength = _ref.updateLength;
+      updateLength = _ref.updateLength,
+      nextSong = _ref.nextSong,
+      prevSong = _ref.prevSong;
 
   return _react2.default.createElement(
     'footer',
@@ -14262,7 +14280,9 @@ var PlayerBar = function PlayerBar(_ref) {
         { className: 'div--player-controls' },
         _react2.default.createElement(
           'button',
-          { className: 'button--player-prev button--player-control' },
+          {
+            onClick: prevSong,
+            className: 'button--player-prev button--player-control' },
           'prev'
         ),
         _react2.default.createElement(
@@ -14274,7 +14294,9 @@ var PlayerBar = function PlayerBar(_ref) {
         ),
         _react2.default.createElement(
           'button',
-          { className: 'button--player-next button--player-control' },
+          {
+            onClick: nextSong,
+            className: 'button--player-next button--player-control' },
           'next'
         ),
         _react2.default.createElement(_reactPlayer2.default, {
@@ -14283,6 +14305,7 @@ var PlayerBar = function PlayerBar(_ref) {
           playing: song.playing,
           volume: song.volume || 0.3,
           onProgress: updateProgress,
+          onEnded: nextSong,
           url: song.url })
       ),
       _react2.default.createElement(
@@ -14330,6 +14353,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     updateProgress: function updateProgress(_ref3) {
       var played = _ref3.played;
       return dispatch((0, _songs.updateProgress)(played));
+    },
+    nextSong: function nextSong() {
+      return dispatch((0, _songs.nextSong)());
+    },
+    prevSong: function prevSong() {
+      return dispatch((0, _songs.prevSong)());
     }
   };
 };
@@ -14374,6 +14403,9 @@ exports.default = function (_ref) {
         return _react2.default.createElement(
           "li",
           { onClick: startSong(song),
+            onContextMenu: function onContextMenu() {
+              return console.log("right click!");
+            },
             className: "li--song-list" },
           song.title,
           _react2.default.createElement(
@@ -14845,7 +14877,9 @@ exports.default = function () {
 
   switch (action.type) {
     case "ADD_SONG_TO_PLAYLIST":
-      return [].concat(_toConsumableArray(state), [action.payload]);
+      return [].concat(_toConsumableArray(state), [action.payload.id]);
+    case "NEXT_SONG":
+      return state.slice(1, state.length);
     default:
       return state;
   }
@@ -36612,6 +36646,43 @@ module.exports = require("os");
 /***/ (function(module, exports) {
 
 module.exports = require("url");
+
+/***/ }),
+/* 332 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _songs = __webpack_require__(36);
+
+exports.default = function (_ref) {
+  var dispatch = _ref.dispatch,
+      getState = _ref.getState;
+  return function (next) {
+    return function (action) {
+      // nextSong => currentQueue.shift -> currentlyPlaying
+      switch (action.type) {
+        case "NEXT_SONG":
+          var songId = getState().currentQueue[0];
+          if (song) dispatch((0, _songs.startSong)(getState().songs[songId]));
+          break;
+        case "PREV_SONG":
+          // const song = getState().reverseQueue[0]
+          // if(song)
+          //   dispatch(startSong(getState().songs[songId]))
+          console.log("previous song not implemented yet");
+          break;
+      }
+
+      return next(action);
+    };
+  };
+};
 
 /***/ })
 /******/ ]);
