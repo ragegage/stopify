@@ -14216,13 +14216,6 @@ exports.default = function () {
   );
 };
 
-// <Route exact path="/" component={Welcome}/>
-// <Route path="/artists" component={Artists}/>
-// <Route path="/songs" component={Songs}/>
-// <Route path="/albums" component={Albums}/>
-// <Route path="/artist" component={Artist}/>
-// <Route path="/album" component={Album}/>
-
 /***/ }),
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -14633,8 +14626,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -14653,50 +14644,37 @@ var _SongsListContainer2 = _interopRequireDefault(_SongsListContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Songs = function (_React$Component) {
-  _inherits(Songs, _React$Component);
-
-  function Songs() {
-    _classCallCheck(this, Songs);
-
-    return _possibleConstructorReturn(this, (Songs.__proto__ || Object.getPrototypeOf(Songs)).apply(this, arguments));
-  }
-
-  _createClass(Songs, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'article',
-        { className: 'article--songs' },
-        _react2.default.createElement(_SongsHeader2.default, null),
-        _react2.default.createElement(_SongsListContainer2.default, null)
-      );
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.requestAllSongs();
-    }
-  }]);
-
-  return Songs;
-}(_react2.default.Component);
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    requestAllSongs: function requestAllSongs() {
-      return dispatch((0, _songs.requestAllSongs)());
-    }
-  };
+exports.default = function () {
+  return _react2.default.createElement(
+    'article',
+    { className: 'article--songs' },
+    _react2.default.createElement(_SongsHeader2.default, null),
+    _react2.default.createElement(_SongsListContainer2.default, null)
+  );
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Songs);
+// deprecated code (when this component requested all the songs)
+//
+// class Songs extends React.Component {
+//   render() {
+//     return (
+//       <article className="article--songs">
+//         <SongsHeader/>
+//         <SongsListContainer/>
+//       </article>
+//     )
+//   }
+//
+//   componentDidMount() {
+//     this.props.requestAllSongs()
+//   }
+// }
+//
+// const mapDispatchToProps = (dispatch) => ({
+//   requestAllSongs: () => dispatch(requestAllSongs())
+// })
+//
+// export default connect(null, mapDispatchToProps)(Songs)
 
 // export default () => (
 //   <article className="article--songs">
@@ -15159,6 +15137,8 @@ var _reactRedux = __webpack_require__(9);
 
 var _reactRouterDom = __webpack_require__(22);
 
+var _songs = __webpack_require__(36);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -15174,6 +15154,10 @@ document.addEventListener("DOMContentLoaded", function () {
       _react2.default.createElement(_App2.default, null)
     )
   ), main);
+
+  // unorthodox, but I think it makes sense
+  // request all songs immediately upon the app loading
+  store.dispatch((0, _songs.requestAllSongs)());
 });
 
 /***/ }),

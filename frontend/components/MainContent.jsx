@@ -22,11 +22,3 @@ export default () => (
     <Route path="/album/:id" component={Album}/>
   </section>
 )
-
-
-// <Route exact path="/" component={Welcome}/>
-// <Route path="/artists" component={Artists}/>
-// <Route path="/songs" component={Songs}/>
-// <Route path="/albums" component={Albums}/>
-// <Route path="/artist" component={Artist}/>
-// <Route path="/album" component={Album}/>
