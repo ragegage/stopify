@@ -14550,11 +14550,6 @@ var SideMenu = function (_React$Component) {
               type: 'file'
             })
           )
-        ),
-        _react2.default.createElement(
-          'button',
-          { className: 'button--new' },
-          'New Playlist'
         )
       );
     }

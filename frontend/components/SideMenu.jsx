@@ -46,7 +46,11 @@ class SideMenu extends React.Component {
               />
           </li>
         </ul>
-        <button className="button--new">New Playlist</button>
+        {/* not implemented yet:
+          <button className="button--new">
+            New Playlist
+          </button>
+        */}
       </aside>
     )
   }
