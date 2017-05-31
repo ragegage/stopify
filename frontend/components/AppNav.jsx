@@ -46,6 +46,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Search)
 
 // Search reducer with the above keys - CHECK
   // (backend API route, controller, &c.)
-// Search menu component
+// Search menu component - CHECK
 // Search page component (for "See All")
   // uses Artists, Albums, & Songs?

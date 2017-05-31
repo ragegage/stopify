@@ -15,10 +15,8 @@ export default (state = search, action) => {
     case "RECEIVE_SEARCH_RESULTS":
       return {...state, results: action.payload}
     case "DISPLAY_SEARCH_RESULTS":
-      console.log('visible');
       return {...state, resultsVisible: true}
     case "HIDE_SEARCH_RESULTS":
-    console.log('invisible');
       return {...state, resultsVisible: false}
     default:
       return state

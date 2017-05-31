@@ -52,6 +52,8 @@ a {
 .section--content {
   width: calc(100vw - 200px);
   background-image: linear-gradient(to bottom right, #333, #0a0a0a 600px);
+  height: calc(100vh - 100px);
+  overflow-y: auto;
 }
 
 .h1--main {
@@ -82,13 +84,12 @@ a {
 .ul--search-results {
   position: absolute;
   background-color: #333;
-  padding: 8px;
   box-sizing: border-box;
   width: 250px;
 }
 
 .li--search-result {
-  padding: 8px 0;
+  padding: 16px 8px;
   cursor: pointer;
 }
 .li--search-result:hover {
@@ -98,6 +99,7 @@ a {
 .li--search-result-header {
   text-transform: uppercase;
   font-size: 14px;
+  padding-top: 4px;
 }
 
 /*artist*/

@@ -13840,7 +13840,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 // Search reducer with the above keys - CHECK
 // (backend API route, controller, &c.)
-// Search menu component
+// Search menu component - CHECK
 // Search page component (for "See All")
 // uses Artists, Albums, & Songs?
 
@@ -14938,10 +14938,8 @@ exports.default = function () {
     case "RECEIVE_SEARCH_RESULTS":
       return _extends({}, state, { results: action.payload });
     case "DISPLAY_SEARCH_RESULTS":
-      console.log('visible');
       return _extends({}, state, { resultsVisible: true });
     case "HIDE_SEARCH_RESULTS":
-      console.log('invisible');
       return _extends({}, state, { resultsVisible: false });
     default:
       return state;
