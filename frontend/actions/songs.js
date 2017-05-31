@@ -68,3 +68,7 @@ export const addToPlaylist = song => ({
 export const nextSong = () => ({
   type: "NEXT_SONG"
 })
+
+export const prevSong = () => ({
+  type: "PREV_SONG"
+})

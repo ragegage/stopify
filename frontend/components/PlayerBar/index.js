@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ReactPlayer from 'react-player'
 
-import { pauseSong, playSong, updateProgress, updateLength, nextSong } from '../../actions/songs'
+import { pauseSong, playSong, updateProgress, updateLength, nextSong, prevSong } from '../../actions/songs'
 
 // import SongsHeader from './SongsHeader'
 
-const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, nextSong }) => {
+const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, nextSong, prevSong }) => {
   return (
   <footer className="footer--player">
     <aside className="aside--player-song-info">
@@ -15,7 +15,11 @@ const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, ne
     </aside>
     <section className="section--player-controls">
       <div className="div--player-controls">
-        <button className="button--player-prev button--player-control">prev</button>
+        <button
+          onClick={prevSong}
+          className="button--player-prev button--player-control">
+          prev
+        </button>
         <button
           onClick={song.playing ? pauseSong : playSong}
           className="button--player-pause button--player-control">
@@ -32,6 +36,7 @@ const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, ne
           playing={song.playing}
           volume={song.volume || 0.3}
           onProgress={updateProgress}
+          onEnded={nextSong}
           url={song.url}/>
       </div>
       <div className="div--player-progress-bar-container">
@@ -58,6 +63,7 @@ const mapDispatchToProps = (dispatch) => ({
   playSong: () => dispatch(playSong()),
   updateProgress: ({played}) => dispatch(updateProgress(played)),
   nextSong: () => dispatch(nextSong()),
+  prevSong: () => dispatch(prevSong()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerBar)
