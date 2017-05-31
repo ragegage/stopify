@@ -22,3 +22,9 @@ in `/backend`:
 
 in `/frontend`:
 + `npm start` (runs `electron .`)
+
+# Once the app is running locally
+
++ Add songs to the app using the `Choose Files` button - you can
+currently only select folders that contain .mp3 files
++ Once you've added songs to the app, clicking on a song will play it
