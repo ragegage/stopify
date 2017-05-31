@@ -1,14 +1,9 @@
-const currentQueue = [{
-  id: 1,
-  title: "Backseat Freestyle",
-  artist: "Kendrick Lamar",
-  length: 257
-}]
+const currentQueue = []
 
 export default (state = currentQueue, action) => {
   switch(action.type) {
-    case "TEST":
-      return "test"
+    case "ADD_SONG_TO_PLAYLIST":
+      return [...state, action.payload]
     default:
       return state
   }

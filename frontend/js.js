@@ -4111,7 +4111,7 @@ var postSong = exports.postSong = function postSong(song) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
+exports.addToPlaylist = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
 
 var _APIUtil = __webpack_require__(35);
 
@@ -4200,6 +4200,13 @@ var updateLength = exports.updateLength = function updateLength(seconds) {
   return {
     type: "UPDATE_LENGTH",
     payload: seconds
+  };
+};
+
+var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song) {
+  return {
+    type: "ADD_SONG_TO_PLAYLIST",
+    payload: song
   };
 };
 
@@ -5777,6 +5784,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     startSong: function startSong(song) {
       return function () {
         return dispatch((0, _songs.startSong)(song));
+      };
+    },
+    addToPlaylist: function addToPlaylist(song) {
+      return function (e) {
+        e.stopPropagation();
+        dispatch((0, _songs.addToPlaylist)(song));
       };
     }
   };
@@ -14344,7 +14357,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (_ref) {
   var songs = _ref.songs,
-      startSong = _ref.startSong;
+      startSong = _ref.startSong,
+      addToPlaylist = _ref.addToPlaylist;
   return _react2.default.createElement(
     "section",
     { className: "section--song-list" },
@@ -14361,7 +14375,12 @@ exports.default = function (_ref) {
           "li",
           { onClick: startSong(song),
             className: "li--song-list" },
-          song.title
+          song.title,
+          _react2.default.createElement(
+            "button",
+            { onClick: addToPlaylist(song) },
+            "Playlist"
+          )
         );
       })
     )
@@ -14815,20 +14834,18 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var currentQueue = [{
-  id: 1,
-  title: "Backseat Freestyle",
-  artist: "Kendrick Lamar",
-  length: 257
-}];
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var currentQueue = [];
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : currentQueue;
   var action = arguments[1];
 
   switch (action.type) {
-    case "TEST":
-      return "test";
+    case "ADD_SONG_TO_PLAYLIST":
+      return [].concat(_toConsumableArray(state), [action.payload]);
     default:
       return state;
   }

@@ -59,3 +59,8 @@ export const updateLength = seconds => ({
   type: "UPDATE_LENGTH",
   payload: seconds
 })
+
+export const addToPlaylist = song => ({
+  type: "ADD_SONG_TO_PLAYLIST",
+  payload: song
+})
