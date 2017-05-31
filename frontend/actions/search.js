@@ -16,3 +16,11 @@ export const receiveSearchQuery = (query) => ({
   type: "RECEIVE_SEARCH_QUERY",
   payload: query
 })
+
+export const displaySearchResults = () => ({
+  type: "DISPLAY_SEARCH_RESULTS"
+})
+
+export const hideSearchResults = () => ({
+  type: "HIDE_SEARCH_RESULTS"
+})

@@ -70,10 +70,34 @@ a {
   padding: 4px 16px;
   border: 1px solid grey;
   border-radius: 16px;
+  box-sizing: border-box;
+  width: 250px;
 }
 
 .nav--search {
   padding: 8px 0;
+  position: relative;
+}
+
+.ul--search-results {
+  position: absolute;
+  background-color: #333;
+  padding: 8px;
+  box-sizing: border-box;
+  width: 250px;
+}
+
+.li--search-result {
+  padding: 8px 0;
+  cursor: pointer;
+}
+.li--search-result:hover {
+  background-color: #555;
+}
+
+.li--search-result-header {
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
 /*artist*/

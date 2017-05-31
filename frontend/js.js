@@ -13395,7 +13395,7 @@ exports.default = configureStore;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.receiveSearchQuery = exports.receiveSearchResults = exports.search = undefined;
+exports.hideSearchResults = exports.displaySearchResults = exports.receiveSearchQuery = exports.receiveSearchResults = exports.search = undefined;
 
 var _APIUtil = __webpack_require__(35);
 
@@ -13419,6 +13419,18 @@ var receiveSearchQuery = exports.receiveSearchQuery = function receiveSearchQuer
   return {
     type: "RECEIVE_SEARCH_QUERY",
     payload: query
+  };
+};
+
+var displaySearchResults = exports.displaySearchResults = function displaySearchResults() {
+  return {
+    type: "DISPLAY_SEARCH_RESULTS"
+  };
+};
+
+var hideSearchResults = exports.hideSearchResults = function hideSearchResults() {
+  return {
+    type: "HIDE_SEARCH_RESULTS"
   };
 };
 
@@ -13749,6 +13761,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(9);
 
+var _SearchResults = __webpack_require__(333);
+
+var _SearchResults2 = _interopRequireDefault(_SearchResults);
+
 var _reactRouterDom = __webpack_require__(22);
 
 var _search2 = __webpack_require__(126);
@@ -13761,7 +13777,10 @@ var Search = function Search(_ref) {
   var search = _ref.search,
       query = _ref.query,
       results = _ref.results,
-      startSong = _ref.startSong;
+      startSong = _ref.startSong,
+      showResults = _ref.showResults,
+      hideResultsOnDelay = _ref.hideResultsOnDelay,
+      resultsVisible = _ref.resultsVisible;
   return _react2.default.createElement(
     'nav',
     { className: 'nav--search' },
@@ -13771,65 +13790,11 @@ var Search = function Search(_ref) {
       value: query,
       onChange: function onChange(e) {
         return search(e.currentTarget.value);
-      }
+      },
+      onFocus: showResults,
+      onBlur: hideResultsOnDelay
     }),
-    _react2.default.createElement(
-      'ul',
-      { className: 'ul--search-results' },
-      _react2.default.createElement(
-        'li',
-        { className: 'li--search-results-group' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'ul--search-results-group' },
-          Object.values(results.songs).map(function (song) {
-            return _react2.default.createElement(
-              'li',
-              { className: 'li--search-result li--song-result', key: song.id, onClick: startSong(song) },
-              song.title
-            );
-          })
-        )
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'li--search-results-group' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'ul--search-results-group' },
-          Object.values(results.artists).map(function (artist) {
-            return _react2.default.createElement(
-              'li',
-              { className: 'li--search-result li--artist-result', key: artist.id },
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/artist/' + artist.id },
-                artist.name
-              )
-            );
-          })
-        )
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'li--search-results-group' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'ul--search-results-group' },
-          Object.values(results.albums).map(function (album) {
-            return _react2.default.createElement(
-              'li',
-              { className: 'li--search-result li--album-result', key: album.id },
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/album/' + album.id },
-                album.title
-              )
-            );
-          })
-        )
-      )
-    )
+    resultsVisible ? _react2.default.createElement(_SearchResults2.default, { results: results, startSong: startSong }) : ""
   );
 };
 
@@ -13838,7 +13803,8 @@ var mapStateToProps = function mapStateToProps(_ref2) {
       search = _ref2$search === undefined ? {} : _ref2$search;
   return {
     query: search.query,
-    results: search.results
+    results: search.results,
+    resultsVisible: search.resultsVisible
   };
 };
 
@@ -13851,6 +13817,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return function () {
         return dispatch((0, _songs.startSong)(song));
       };
+    },
+    showResults: function showResults() {
+      return dispatch((0, _search2.displaySearchResults)());
+    },
+    hideResultsOnDelay: function hideResultsOnDelay() {
+      return setTimeout(function () {
+        return dispatch((0, _search2.hideSearchResults)());
+      }, 500);
     }
   };
 };
@@ -14950,7 +14924,8 @@ var search = {
     artists: {},
     albums: {},
     songs: {}
-  }
+  },
+  resultsVisible: false
 };
 
 exports.default = function () {
@@ -14962,6 +14937,12 @@ exports.default = function () {
       return _extends({}, state, { query: action.payload });
     case "RECEIVE_SEARCH_RESULTS":
       return _extends({}, state, { results: action.payload });
+    case "DISPLAY_SEARCH_RESULTS":
+      console.log('visible');
+      return _extends({}, state, { resultsVisible: true });
+    case "HIDE_SEARCH_RESULTS":
+      console.log('invisible');
+      return _extends({}, state, { resultsVisible: false });
     default:
       return state;
   }
@@ -36691,6 +36672,102 @@ exports.default = function (_ref) {
       return next(action);
     };
   };
+};
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (_ref) {
+  var results = _ref.results,
+      startSong = _ref.startSong;
+  return _react2.default.createElement(
+    'ul',
+    { className: 'ul--search-results' },
+    _react2.default.createElement(
+      'li',
+      { className: 'li--search-results-group' },
+      _react2.default.createElement(
+        'ul',
+        { className: 'ul--search-results-group' },
+        _react2.default.createElement(
+          'li',
+          { className: 'li--search-result-header' },
+          'Songs'
+        ),
+        Object.values(results.songs).map(function (song) {
+          return _react2.default.createElement(
+            'li',
+            { className: 'li--search-result li--song-result', key: song.id, onClick: startSong(song) },
+            song.title
+          );
+        })
+      )
+    ),
+    _react2.default.createElement(
+      'li',
+      { className: 'li--search-results-group' },
+      _react2.default.createElement(
+        'ul',
+        { className: 'ul--search-results-group' },
+        _react2.default.createElement(
+          'li',
+          { className: 'li--search-result-header' },
+          'Artists'
+        ),
+        Object.values(results.artists).map(function (artist) {
+          return _react2.default.createElement(
+            'li',
+            { className: 'li--search-result li--artist-result', key: artist.id },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/artist/' + artist.id },
+              artist.name
+            )
+          );
+        })
+      )
+    ),
+    _react2.default.createElement(
+      'li',
+      { className: 'li--search-results-group' },
+      _react2.default.createElement(
+        'ul',
+        { className: 'ul--search-results-group' },
+        _react2.default.createElement(
+          'li',
+          { className: 'li--search-result-header' },
+          'Albums'
+        ),
+        Object.values(results.albums).map(function (album) {
+          return _react2.default.createElement(
+            'li',
+            { className: 'li--search-result li--album-result', key: album.id },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/album/' + album.id },
+              album.title
+            )
+          );
+        })
+      )
+    )
+  );
 };
 
 /***/ })

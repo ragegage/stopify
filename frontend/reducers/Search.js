@@ -4,7 +4,8 @@ const search = {
     artists: {},
     albums: {},
     songs: {}
-  }
+  },
+  resultsVisible: false
 }
 
 export default (state = search, action) => {
@@ -13,6 +14,12 @@ export default (state = search, action) => {
       return {...state, query: action.payload}
     case "RECEIVE_SEARCH_RESULTS":
       return {...state, results: action.payload}
+    case "DISPLAY_SEARCH_RESULTS":
+      console.log('visible');
+      return {...state, resultsVisible: true}
+    case "HIDE_SEARCH_RESULTS":
+    console.log('invisible');
+      return {...state, resultsVisible: false}
     default:
       return state
   }
