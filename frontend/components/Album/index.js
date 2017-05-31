@@ -22,6 +22,11 @@ class Album extends React.Component {
   componentDidMount() {
     this.props.requestAlbum(this.props.match.params.id)
   }
+
+  componentWillReceiveProps(newProps) {
+    if(newProps.match.params.id !== this.props.match.params.id)
+      this.props.requestAlbum(newProps.match.params.id)
+  }
 }
 
 const mapStateToProps = ({ currentAlbum }) => ({

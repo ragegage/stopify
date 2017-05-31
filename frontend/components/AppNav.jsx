@@ -1,9 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { search } from '../actions/search'
+import { Link } from 'react-router-dom'
 
-const Search = ({ search, query, results }) => (
+import { search } from '../actions/search'
+import { startSong } from '../actions/songs'
+
+const Search = ({ search, query, results, startSong }) => (
   <nav className="nav--search">
     <input type="text"
       placeholder="Search"
@@ -11,6 +14,11 @@ const Search = ({ search, query, results }) => (
       value={query}
       onChange={e => search(e.currentTarget.value)}
       />
+    <ul>
+      {Object.values(results.artists).map(artist => <li><Link to={`/artist/${artist.id}`}>{artist.name}</Link></li>)}
+      {Object.values(results.albums).map(album => <li><Link to={`/album/${album.id}`}>{album.title}</Link></li>)}
+      {Object.values(results.songs).map(song => <li onClick={startSong(song)}>{song.title}</li>)}
+    </ul>
   </nav>
 )
 
@@ -20,7 +28,8 @@ const mapStateToProps = ({ search = {} }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  search: (query) => dispatch(search(query))
+  search: (query) => dispatch(search(query)),
+  startSong: song => () => dispatch(startSong(song))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)
