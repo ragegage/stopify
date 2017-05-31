@@ -120,7 +120,7 @@ a {
   height: 150px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   background-color: #333;
   border-radius: 75px;
   margin: 15px;
@@ -133,10 +133,11 @@ a {
 
 .a--artist-name-in-list, .a--album-name-in-list {
   position: absolute;
-  top: 160px;
+  top: 0px;
   overflow-wrap: break-word;
   width: 100%;
   text-align: center;
+  padding-top: 160px;
 }
 
 /*albums*/

@@ -36659,7 +36659,7 @@ exports.default = function (_ref) {
       switch (action.type) {
         case "NEXT_SONG":
           var songId = getState().currentQueue[0];
-          if (songId) dispatch((0, _songs.startSong)(getState().songs[songId]));
+          if (songId) dispatch((0, _songs.startSong)(getState().songs.all[songId]));
           break;
         case "PREV_SONG":
           // const song = getState().reverseQueue[0]
