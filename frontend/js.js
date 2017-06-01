@@ -14545,6 +14545,8 @@ var _fs = __webpack_require__(123);
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _util = __webpack_require__(334);
+
 var _songs = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -14554,32 +14556,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// pull out into utils file
-var walk = function walk(dir) {
-  // walks through a directory synchronously, collecting all the
-  // file paths of the files within
-  var results = [];
-  var list = _fs2.default.readdirSync(dir);
-  list.forEach(function (file) {
-    file = dir + '/' + file;
-    var stat = _fs2.default.statSync(file);
-    if (stat && stat.isDirectory()) results = results.concat(walk(file));else results.push(file);
-  });
-  return results;
-};
-
-var createSongs = function createSongs(createSong) {
-  return function (e) {
-    // this file input returns only the folder that the user selects,
-    // not any of the files it contains
-    var files = walk(e.target.files[0].path);
-    debugger;
-    files.forEach(function (file) {
-      return createSong(file);
-    });
-  };
-};
 
 var SideMenu = function (_React$Component) {
   _inherits(SideMenu, _React$Component);
@@ -14640,7 +14616,7 @@ var SideMenu = function (_React$Component) {
               ref: function ref(i) {
                 return _this2._fileInput = i;
               },
-              onChange: createSongs(this.props.createSong),
+              onChange: (0, _util.createSongs)(this.props.createSong),
               type: 'file'
             })
           )
@@ -14789,75 +14765,131 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(19);
 
+var _reactRedux = __webpack_require__(9);
+
+var _util = __webpack_require__(334);
+
+var _songs = __webpack_require__(18);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // needs to be better styled
 // should have a "new to Stopify? click here to add songs" button
 
-exports.default = function () {
-  return _react2.default.createElement(
-    'article',
-    { className: 'article--welcome' },
-    _react2.default.createElement(
-      'h1',
-      { className: 'h1--main h1--welcome' },
-      'Stopify: Your open-source Music Player'
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'div--welcome-buttons-container' },
-      _react2.default.createElement(
-        'div',
-        { className: 'div--welcome-button-container' },
+var Welcome = function (_React$Component) {
+  _inherits(Welcome, _React$Component);
+
+  function Welcome() {
+    _classCallCheck(this, Welcome);
+
+    return _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).apply(this, arguments));
+  }
+
+  _createClass(Welcome, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'article',
+        { className: 'article--welcome' },
         _react2.default.createElement(
-          'h2',
-          { className: 'h2--main h2--welcome' },
-          'New to Stopify?'
+          'h1',
+          { className: 'h1--main h1--welcome' },
+          'Stopify: Your open-source Music Player'
         ),
         _react2.default.createElement(
-          'button',
-          { className: 'button--welcome' },
-          'Import Songs'
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'div--welcome-button-container' },
-        _react2.default.createElement(
-          'h2',
-          { className: 'h2--main h2--welcome' },
-          'Back again?'
+          'div',
+          { className: 'div--welcome-buttons-container' },
+          _react2.default.createElement(
+            'div',
+            { className: 'div--welcome-button-container' },
+            _react2.default.createElement(
+              'h2',
+              { className: 'h2--main h2--welcome' },
+              'New to Stopify?'
+            ),
+            _react2.default.createElement(
+              'button',
+              { className: 'button--welcome' },
+              'Import Songs',
+              _react2.default.createElement('input', {
+                className: 'input--welcome-file',
+                ref: function ref(i) {
+                  return _this2._fileInput = i;
+                },
+                onChange: (0, _util.createSongs)(this.props.createSong),
+                type: 'file'
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'div--welcome-button-container' },
+            _react2.default.createElement(
+              'h2',
+              { className: 'h2--main h2--welcome' },
+              'Back again?'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/songs', className: 'a--welcome' },
+              'View Your Songs'
+            )
+          )
         ),
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/songs', className: 'a--welcome' },
-          'View Your Songs'
+          'p',
+          { className: 'p--welcome' },
+          'We created Stopify to democratize music library management.'
+        ),
+        _react2.default.createElement(
+          'p',
+          { className: 'p--welcome' },
+          'No more having to use iTunes or Spotify or other proprietary software to manage your music.'
+        ),
+        _react2.default.createElement(
+          'p',
+          { className: 'p--welcome' },
+          'Now you can manage your own music using an open-source, customizable music player.'
         )
-      )
-    ),
-    _react2.default.createElement(
-      'p',
-      { className: 'p--welcome' },
-      'We created Stopify to democratize music library management.'
-    ),
-    _react2.default.createElement(
-      'p',
-      { className: 'p--welcome' },
-      'No more having to use iTunes or Spotify or other proprietary software to manage your music.'
-    ),
-    _react2.default.createElement(
-      'p',
-      { className: 'p--welcome' },
-      'Now you can manage your own music using an open-source, customizable music player.'
-    )
-  );
+      );
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this._fileInput.directory = true;
+      this._fileInput.webkitdirectory = true;
+      this._fileInput.multiple = true;
+    }
+  }]);
+
+  return Welcome;
+}(_react2.default.Component);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createSong: function createSong(path) {
+      return dispatch((0, _songs.createSong)(path));
+    }
+  };
 };
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Welcome);
 
 /***/ }),
 /* 148 */
@@ -36814,6 +36846,41 @@ module.exports = require("os");
 /***/ (function(module, exports) {
 
 module.exports = require("url");
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var walk = function walk(dir) {
+  // walks through a directory synchronously, collecting all the
+  // file paths of the files within
+  var results = [];
+  var list = fs.readdirSync(dir);
+  list.forEach(function (file) {
+    file = dir + '/' + file;
+    var stat = fs.statSync(file);
+    if (stat && stat.isDirectory()) results = results.concat(walk(file));else results.push(file);
+  });
+  return results;
+};
+
+var createSongs = exports.createSongs = function createSongs(createSong) {
+  return function (e) {
+    // this file input returns only the folder that the user selects,
+    // not any of the files it contains
+    var files = walk(e.target.files[0].path);
+    debugger;
+    files.forEach(function (file) {
+      return createSong(file);
+    });
+  };
+};
 
 /***/ })
 /******/ ]);

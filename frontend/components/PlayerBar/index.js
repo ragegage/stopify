@@ -40,6 +40,7 @@ const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, ne
           url={song.url}/>
       </div>
       <div className="div--player-progress-bar-container">
+        {/* set to display: none until fully implemented */}
         <p className="p--player-current-time">{parseInt(song.progress)}</p>
         <div
           style={{width: `${song.progress * 200}px`}}
@@ -48,6 +49,7 @@ const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, ne
       </div>
     </section>
     <aside className="aside--player-other-controls">
+      {/* set to opacity: 0 until fully implemented */}
       <button className="button-player-add-to-queue"></button>
       <div className="div-player-volume-bar"></div>
     </aside>
