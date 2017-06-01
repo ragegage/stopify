@@ -28,6 +28,40 @@ a {
   display: flex;
 }
 
+/*welcome*/
+.h1--welcome {
+  padding: 20px;
+}
+.p--welcome {
+  padding: 20px;
+}
+
+.button--welcome, .a--welcome {
+  padding: 10px 40px;
+  border-style: none;
+  background-color: #E90076;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+}
+.button--welcome:hover, .a--welcome:hover {
+  background-color: #e8318e;
+}
+
+.div--welcome-buttons-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 0;
+  background-color: #444;
+}
+
+.div--welcome-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /*sidebar*/
 .aside--sidebar {
   width: 200px;
