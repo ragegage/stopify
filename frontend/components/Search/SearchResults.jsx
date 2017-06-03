@@ -6,7 +6,7 @@ export default ({ results, startSong }) => (
   <ul className="ul--search-results">
     <li className="li--search-results-group">
       <ul className="ul--search-results-group">
-        <li className="li--search-result-header">Songs</li>
+        {Object.values(results.songs).length > 0 ? <li className="li--search-result-header">Songs</li> : ''}
         {Object.values(results.songs).map(song => (
           <li className="li--search-result li--song-result" key={song.id} onClick={startSong(song)}>
             {song.title}

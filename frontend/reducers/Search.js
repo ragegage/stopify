@@ -1,9 +1,9 @@
 const search = {
   query: '',
   results: {
-    artists: {},
-    albums: {},
-    songs: {}
+    artists: [],
+    albums: [],
+    songs: []
   },
   resultsVisible: false
 }
