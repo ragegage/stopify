@@ -6,7 +6,7 @@ import { pauseSong, playSong, updateProgress, updateLength, nextSong, prevSong }
 
 // import SongsHeader from './SongsHeader'
 
-const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, nextSong, prevSong }) => {
+const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, updateLength, nextSong, prevSong }) => {
   return (
   <footer className="footer--player">
     <aside className="aside--player-song-info">
@@ -49,15 +49,28 @@ const PlayerBar = ({ song, pauseSong, playSong, updateProgress, updateLength, ne
       </div>
     </section>
     <aside className="aside--player-other-controls">
-      {/* set to opacity: 0 until fully implemented */}
-      <button className="button-player-add-to-queue"></button>
-      <div className="div-player-volume-bar"></div>
+      <button
+        className="button--player-add-to-queue">
+        Current Queue
+        <ul className="ul--current-queue">
+          {
+            currentQueue.map(queuedSong => (
+              <li className="li--current-queue">
+                {queuedSong.artist} - {queuedSong.title}
+              </li>
+            ))
+          }
+        </ul>
+      </button>
+      {/* set to display: none until fully implemented */}
+      <div className="div--player-volume-bar"></div>
     </aside>
   </footer>
 )}
 
-const mapStateToProps = ({ currentlyPlaying }) => ({
-  song: currentlyPlaying
+const mapStateToProps = ({ currentlyPlaying, currentQueue, songs }) => ({
+  song: currentlyPlaying,
+  currentQueue: currentQueue.map(songId => songs.all[songId])
 })
 
 const mapDispatchToProps = (dispatch) => ({

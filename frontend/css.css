@@ -259,7 +259,6 @@ a {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  opacity: 0;
 }
 
 .button--player-control {
@@ -299,14 +298,31 @@ a {
 }
 
 /*volume and queue controls*/
-.button-player-add-to-queue {
+.button--player-add-to-queue {
   width: 30px;
   height: 30px;
+  position: relative;
 }
 
-.div-player-volume-bar {
+.ul--current-queue {
+  display: none;
+  position: absolute;
+  bottom: 65px;
+  right: 0px;
+  flex-direction: column;
+  background-color: #555;
+  color: #ccc;
+  width: 200px;
+  font-size: 14px;
+}
+.button--player-add-to-queue:hover .ul--current-queue {
+  display: flex;
+}
+
+.div--player-volume-bar {
   width: 100px;
   height: 5px;
   background-color: grey;
   border-radius: 5px;
+  display: none;
 }
