@@ -4222,6 +4222,24 @@ var postSong = exports.postSong = function postSong(song) {
   });
 };
 
+var fetchPlaylists = exports.fetchPlaylists = function fetchPlaylists() {
+  return fetch('http://localhost:3000/playlists').then(function (res) {
+    return res.json();
+  });
+};
+
+var postPlaylist = exports.postPlaylist = function postPlaylist(playlistName) {
+  return fetch('http://localhost:3000/playlists', {
+    method: 'POST',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(playlistName)
+  }).then(function (res) {
+    return res.json();
+  });
+};
+
 /***/ }),
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {

@@ -7,7 +7,7 @@ export const requestAllSongs = () => dispatch => (
 )
 
 export const createSong = path => dispatch => {
-  console.log(`processing ${path}`);
+  console.log(`processing ${path}`)
   jsmediatags.read(path, { // gets metadata from mp3 file
     onSuccess: ({ tags }) => {
       postSong({
@@ -22,9 +22,9 @@ export const createSong = path => dispatch => {
       }).then(song => dispatch(receiveSong(song)))
     },
     onError: (error) => {
-      console.log(error);
+      console.log(error)
     }
-  });
+  })
 }
 
 export const receiveSongs = songs => ({

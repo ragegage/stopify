@@ -38,3 +38,19 @@ export const postSong = song => (
   })
     .then(res => res.json())
 )
+
+export const fetchPlaylists = () => (
+  fetch('http://localhost:3000/playlists')
+    .then(res => res.json())
+)
+
+export const postPlaylist = playlistName => (
+  fetch('http://localhost:3000/playlists', {
+    method: 'POST',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(playlistName)
+  })
+    .then(res => res.json())
+)
