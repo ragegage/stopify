@@ -16,7 +16,7 @@ export default ({ results, startSong }) => (
     </li>
     <li className="li--search-results-group">
       <ul className="ul--search-results-group">
-        <li className="li--search-result-header">Artists</li>
+        {Object.values(results.artists).length > 0 ? <li className="li--search-result-header">Artists</li> : ''}
         {Object.values(results.artists).map(artist => (
           <li className="li--search-result li--artist-result" key={artist.id}>
             <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
@@ -26,7 +26,7 @@ export default ({ results, startSong }) => (
     </li>
     <li className="li--search-results-group">
       <ul className="ul--search-results-group">
-        <li className="li--search-result-header">Albums</li>
+        {Object.values(results.albums).length > 0 ? <li className="li--search-result-header">Albums</li> : ''}
         {Object.values(results.albums).map(album => (
           <li className="li--search-result li--album-result" key={album.id}>
             <Link to={`/album/${album.id}`}>{album.title}</Link>

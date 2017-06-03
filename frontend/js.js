@@ -14295,7 +14295,8 @@ var PlayerBar = function PlayerBar(_ref) {
       updateProgress = _ref.updateProgress,
       updateLength = _ref.updateLength,
       nextSong = _ref.nextSong,
-      prevSong = _ref.prevSong;
+      prevSong = _ref.prevSong,
+      startSong = _ref.startSong;
 
   return _react2.default.createElement(
     'footer',
@@ -14378,7 +14379,7 @@ var PlayerBar = function PlayerBar(_ref) {
           currentQueue.map(function (queuedSong) {
             return _react2.default.createElement(
               'li',
-              { className: 'li--current-queue' },
+              { className: 'li--current-queue', onClick: startSong(queuedSong) },
               queuedSong.artist,
               ' - ',
               queuedSong.title
@@ -14420,6 +14421,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     prevSong: function prevSong() {
       return dispatch((0, _songs.prevSong)());
+    },
+    startSong: function startSong(song) {
+      return function () {
+        return dispatch((0, _songs.startSong)(song));
+      };
     }
   };
 };
@@ -14479,11 +14485,11 @@ exports.default = function (_ref) {
       _react2.default.createElement(
         'ul',
         { className: 'ul--search-results-group' },
-        _react2.default.createElement(
+        Object.values(results.artists).length > 0 ? _react2.default.createElement(
           'li',
           { className: 'li--search-result-header' },
           'Artists'
-        ),
+        ) : '',
         Object.values(results.artists).map(function (artist) {
           return _react2.default.createElement(
             'li',
@@ -14503,11 +14509,11 @@ exports.default = function (_ref) {
       _react2.default.createElement(
         'ul',
         { className: 'ul--search-results-group' },
-        _react2.default.createElement(
+        Object.values(results.albums).length > 0 ? _react2.default.createElement(
           'li',
           { className: 'li--search-result-header' },
           'Albums'
-        ),
+        ) : '',
         Object.values(results.albums).map(function (album) {
           return _react2.default.createElement(
             'li',
