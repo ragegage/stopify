@@ -8,6 +8,8 @@ import CurrentAlbum from './CurrentAlbum'
 import CurrentlyPlaying from './CurrentlyPlaying'
 import CurrentQueue from './CurrentQueue'
 import Search from './Search'
+import Playlists from './Playlists'
+import CurrentPlaylist from './CurrentPlaylist'
 
 const RootReducer = combineReducers({
   songs: Songs,
@@ -18,7 +20,8 @@ const RootReducer = combineReducers({
   currentlyPlaying: CurrentlyPlaying,
   currentQueue: CurrentQueue,
   search: Search,
-  search: Search,
+  playlists: Playlists,
+  currentPlaylist: CurrentPlaylist,
 })
 
 export default RootReducer

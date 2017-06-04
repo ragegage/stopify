@@ -16,7 +16,7 @@ class SideMenu extends React.Component {
           <li className="li--type"><Link to="/songs">Songs</Link></li>
           <li className="li--type"><Link to="/albums">Albums</Link></li>
           <li className="li--type"><Link to="/artists">Artists</Link></li>
-          <li className="li--type">Playlists</li>
+          <li className="li--type"><Link to="/playlists">Playlists</Link></li>
           <li><input
                 ref={i => this._fileInput = i}
                 onChange={createSongs(this.props.createSong)}
@@ -24,11 +24,6 @@ class SideMenu extends React.Component {
               />
           </li>
         </ul>
-        {/* not implemented yet:
-          <button className="button--new">
-            New Playlist
-          </button>
-        */}
       </aside>
     )
   }
