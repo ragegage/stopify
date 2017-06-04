@@ -7,6 +7,7 @@ import fs from 'fs'
 
 import { createSongs } from '../util'
 import { createSong } from '../actions/songs'
+import { createPlaylist } from '../actions/playlists'
 
 class SideMenu extends React.Component {
   render() {
@@ -17,6 +18,15 @@ class SideMenu extends React.Component {
           <li className="li--type"><Link to="/albums">Albums</Link></li>
           <li className="li--type"><Link to="/artists">Artists</Link></li>
           <li className="li--type"><Link to="/playlists">Playlists</Link></li>
+          <li className="li--type">
+            <form onSubmit={e => {
+                e.preventDefault()
+                this.props.createPlaylist(e.target[0].value)
+              }}>
+              <input type="text" placeholder="New Playlist"/>
+              <input type="submit"/>
+            </form>
+          </li>
           <li><input
                 ref={i => this._fileInput = i}
                 onChange={createSongs(this.props.createSong)}
@@ -39,6 +49,7 @@ const mapStateToProps = ({ currentlyPlaying }) => ({})
 
 const mapDispatchToProps = (dispatch) => ({
   createSong: path => dispatch(createSong(path)),
+  createPlaylist: name => dispatch(createPlaylist(name))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideMenu)

@@ -3539,14 +3539,20 @@ var fetchPlaylists = exports.fetchPlaylists = function fetchPlaylists() {
   });
 };
 
-var postPlaylist = exports.postPlaylist = function postPlaylist(playlistName) {
+var postPlaylist = exports.postPlaylist = function postPlaylist(playlist) {
   return fetch('http://localhost:3000/playlists', {
     method: 'POST',
     headers: {
       "Content-type": "application/json"
     },
-    body: JSON.stringify(playlistName)
+    body: JSON.stringify(playlist)
   }).then(function (res) {
+    return res.json();
+  });
+};
+
+var fetchPlaylist = exports.fetchPlaylist = function fetchPlaylist(id) {
+  return fetch('http://localhost:3000/playlists/' + id).then(function (res) {
     return res.json();
   });
 };
@@ -13448,7 +13454,7 @@ exports.default = configureStore;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.receivePlaylist = exports.receivePlaylists = exports.createPlaylist = exports.requestAllPlaylists = undefined;
+exports.requestPlaylist = exports.receivePlaylist = exports.receivePlaylists = exports.createPlaylist = exports.requestAllPlaylists = undefined;
 
 var _APIUtil = __webpack_require__(29);
 
@@ -13462,6 +13468,7 @@ var requestAllPlaylists = exports.requestAllPlaylists = function requestAllPlayl
 
 var createPlaylist = exports.createPlaylist = function createPlaylist(playlistName) {
   return function (dispatch) {
+    console.log(playlistName);
     (0, _APIUtil.postPlaylist)({
       playlist: {
         name: playlistName
@@ -13483,6 +13490,14 @@ var receivePlaylist = exports.receivePlaylist = function receivePlaylist(playlis
   return {
     type: "RECEIVE_PLAYLIST",
     payload: playlist
+  };
+};
+
+var requestPlaylist = exports.requestPlaylist = function requestPlaylist(id) {
+  return function (dispatch) {
+    return (0, _APIUtil.fetchPlaylist)(id).then(function (playlist) {
+      return dispatch(receivePlaylist(playlist));
+    });
   };
 };
 
@@ -14801,6 +14816,8 @@ var _util = __webpack_require__(79);
 
 var _songs = __webpack_require__(17);
 
+var _playlists = __webpack_require__(127);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14867,6 +14884,19 @@ var SideMenu = function (_React$Component) {
           ),
           _react2.default.createElement(
             'li',
+            { className: 'li--type' },
+            _react2.default.createElement(
+              'form',
+              { onSubmit: function onSubmit(e) {
+                  e.preventDefault();
+                  _this2.props.createPlaylist(e.target[0].value);
+                } },
+              _react2.default.createElement('input', { type: 'text', placeholder: 'New Playlist' }),
+              _react2.default.createElement('input', { type: 'submit' })
+            )
+          ),
+          _react2.default.createElement(
+            'li',
             null,
             _react2.default.createElement('input', {
               ref: function ref(i) {
@@ -14900,6 +14930,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createSong: function createSong(path) {
       return dispatch((0, _songs.createSong)(path));
+    },
+    createPlaylist: function createPlaylist(name) {
+      return dispatch((0, _playlists.createPlaylist)(name));
     }
   };
 };

@@ -1,4 +1,4 @@
-import { fetchPlaylists, postPlaylist } from './APIUtil'
+import { fetchPlaylists, postPlaylist, fetchPlaylist } from './APIUtil'
 
 export const requestAllPlaylists = () => dispatch => (
   fetchPlaylists().then(
@@ -7,6 +7,7 @@ export const requestAllPlaylists = () => dispatch => (
 )
 
 export const createPlaylist = playlistName => dispatch => {
+  console.log(playlistName);
   postPlaylist({
     playlist: {
       name: playlistName
@@ -23,3 +24,7 @@ export const receivePlaylist = playlist => ({
   type: "RECEIVE_PLAYLIST",
   payload: playlist
 })
+
+export const requestPlaylist = (id) => dispatch => (
+  fetchPlaylist(id).then(playlist => dispatch(receivePlaylist(playlist)))
+)

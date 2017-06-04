@@ -1,4 +1,4 @@
-class Playlist < ApplicationRecord
+class PlaylistSong < ApplicationRecord
   validates :playlist, :song, presence: true
 
   belongs_to :playlist
