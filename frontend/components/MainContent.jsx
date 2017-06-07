@@ -11,6 +11,7 @@ import Artist from './Artist'
 import Album from './Album'
 import Playlists from './Playlists'
 import Playlist from './Playlist'
+import Search from './Search'
 
 export default () => (
   <section className="section--content">
@@ -24,5 +25,6 @@ export default () => (
     <Route path="/album/:id" component={Album}/>
     <Route path="/playlists" component={Playlists}/>
     <Route path="/playlist/:id" component={Playlist}/>
+    <Route path="/search/" component={Search}/>
   </section>
 )

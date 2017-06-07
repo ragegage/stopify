@@ -1,6 +1,6 @@
-import { searchAPI } from './APIUtil'
+import { searchAPI, fullSearchAPI } from './APIUtil'
 
-export const search = (query) => dispatch => {
+export const search = query => dispatch => {
   dispatch(receiveSearchQuery(query))
   if(query.length > 0)
     return searchAPI(query).then(results => (
@@ -15,7 +15,6 @@ export const search = (query) => dispatch => {
 }
 
 export const receiveSearchResults = (results) => {
-  console.log(results);
   return ({
   type: "RECEIVE_SEARCH_RESULTS",
   payload: results
@@ -32,4 +31,15 @@ export const displaySearchResults = () => ({
 
 export const hideSearchResults = () => ({
   type: "HIDE_SEARCH_RESULTS"
+})
+
+export const requestFullSearchResults = query => dispatch => {
+  return fullSearchAPI(query).then(results => (
+    dispatch(receiveFullSearchResults(results))
+  ))
+}
+
+export const receiveFullSearchResults = (results) => ({
+  type: "RECEIVE_FULL_SEARCH_RESULTS",
+  payload: results
 })

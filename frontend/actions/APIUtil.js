@@ -28,6 +28,11 @@ export const searchAPI = (query) => (
     .then(res => res.json())
 )
 
+export const fullSearchAPI = (query) => (
+  fetch(`http://localhost:3000/search/${query}?full=true`)
+    .then(res => res.json())
+)
+
 export const postSong = song => (
   fetch('http://localhost:3000/songs', {
     method: 'POST',

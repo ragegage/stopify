@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import FileInput from 'react-file-input'
 import { connect } from 'react-redux'
 
-import fs from 'fs'
-
 import { createSongs } from '../util'
 import { createSong } from '../actions/songs'
 import { createPlaylist } from '../actions/playlists'

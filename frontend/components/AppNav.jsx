@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import SearchResults from './Search/SearchResults'
+import SearchResults from './SearchResults'
 
 import { Link } from 'react-router-dom'
 

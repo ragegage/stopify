@@ -2,8 +2,21 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 
+const sumOf = (results) => (
+  Object.values(results.songs).length +
+    Object.values(results.albums).length +
+    Object.values(results.songs).length
+)
+
 export default ({ results, startSong }) => (
   <ul className="ul--search-results">
+    <li className="li--search-results-group">
+      {sumOf(results) > 0 ?
+        <Link
+          className="a--search-result"
+          to={`/search`}
+          >'See All Results...'</Link> : 'No results match :('}
+    </li>
     <li className="li--search-results-group">
       <ul className="ul--search-results-group">
         {Object.values(results.songs).length > 0 ? <li className="li--search-result-header">Songs</li> : ''}
@@ -19,7 +32,12 @@ export default ({ results, startSong }) => (
         {Object.values(results.artists).length > 0 ? <li className="li--search-result-header">Artists</li> : ''}
         {Object.values(results.artists).map(artist => (
           <li className="li--search-result li--artist-result" key={artist.id}>
-            <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
+            <Link
+              className="a--search-result"
+              to={`/artist/${artist.id}`}
+              >
+              {artist.name}
+            </Link>
           </li>
         ))}
       </ul>
@@ -29,7 +47,12 @@ export default ({ results, startSong }) => (
         {Object.values(results.albums).length > 0 ? <li className="li--search-result-header">Albums</li> : ''}
         {Object.values(results.albums).map(album => (
           <li className="li--search-result li--album-result" key={album.id}>
-            <Link to={`/album/${album.id}`}>{album.title}</Link>
+            <Link
+              className="a--search-result"
+              to={`/album/${album.id}`}
+              >
+              {album.title}
+            </Link>
           </li>
         ))}
       </ul>

@@ -22,7 +22,15 @@ export const createSong = path => dispatch => {
       }).then(song => dispatch(receiveSong(song)))
     },
     onError: (error) => {
+      // doesn't seem to work :/
       console.log(error)
+      if(error.info.path) {
+        console.log('retrying in 3-10s!')
+        setTimeout(() => dispatch(
+          createSong(error.info.path)),
+          Math.floor(Math.random() * 7000) + 3000
+        )
+      }
     }
   })
 }

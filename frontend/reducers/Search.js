@@ -18,6 +18,8 @@ export default (state = search, action) => {
       return {...state, resultsVisible: true}
     case "HIDE_SEARCH_RESULTS":
       return {...state, resultsVisible: false}
+    case "RECEIVE_FULL_SEARCH_RESULTS":
+      console.log(action)
     default:
       return state
   }
