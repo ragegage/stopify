@@ -5,6 +5,11 @@ const search = {
     albums: [],
     songs: []
   },
+  fullResults: {
+    artists: [],
+    albums: [],
+    songs: []
+  },
   resultsVisible: false
 }
 
@@ -19,7 +24,7 @@ export default (state = search, action) => {
     case "HIDE_SEARCH_RESULTS":
       return {...state, resultsVisible: false}
     case "RECEIVE_FULL_SEARCH_RESULTS":
-      console.log(action)
+      return {...state, fullResults: action.payload}
     default:
       return state
   }

@@ -1,37 +1,45 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { Link } from 'react-router-dom'
+
 import { requestFullSearchResults } from '../../actions/search'
+import { startSong } from '../../actions/songs'
+
 
 class Search extends React.Component {
   render() {
     return (
-      <article class="article--search">
-        <header class="header--search">
-          <img src="" class="img--search"/>
-          <h1 class="h1--search h1--main">
+      <article className="article--search">
+        <header className="header--search">
+          <img src="" className="img--search"/>
+          <h1 className="h1--search h1--main">
             Search Results
           </h1>
         </header>
-        <section class="section--search-results">
-          <ul className="ul--search-results">
-            <li className="li--search-results-group">
-              <ul className="ul--search-results-group">
-                {Object.values(this.props.results.songs).length > 0 ? <li className="li--search-result-header">Songs</li> : ''}
+        <section className="section--full-search-results">
+          <ul className="ul--full-search-results">
+            <li className="li--full-search-results-group">
+              <ul className="ul--full-search-results-group">
+                {Object.values(this.props.results.songs).length > 0 ? <li className="li--full-search-result-header">Songs</li> : ''}
                 {Object.values(this.props.results.songs).map(song => (
-                  <li className="li--search-result li--song-result" key={song.id} onClick={startSong(song)}>
+                  <li
+                    className="li--full-search-result li--full-song-result"
+                    key={song.id}
+                    onClick={this.props.startSong(song)}>
                     {song.title}
                   </li>
                 ))}
               </ul>
             </li>
-            <li className="li--search-results-group">
-              <ul className="ul--search-results-group">
-                {Object.values(this.props.results.artists).length > 0 ? <li className="li--search-result-header">Artists</li> : ''}
+            <li className="li--full-search-results-group">
+              <ul className="ul--full-search-results-group">
+                {Object.values(this.props.results.artists).length > 0 ? <li className="li--full-search-result-header">Artists</li> : ''}
                 {Object.values(this.props.results.artists).map(artist => (
-                  <li className="li--search-result li--artist-result" key={artist.id}>
+                  <li className="li--full-search-result li--full-artist-result"
+                    key={artist.id}>
                     <Link
-                      className="a--search-result"
+                      className="a--full-search-result"
                       to={`/artist/${artist.id}`}
                       >
                       {artist.name}
@@ -40,13 +48,13 @@ class Search extends React.Component {
                 ))}
               </ul>
             </li>
-            <li className="li--search-results-group">
-              <ul className="ul--search-results-group">
-                {Object.values(this.props.results.albums).length > 0 ? <li className="li--search-result-header">Albums</li> : ''}
+            <li className="li--full-search-results-group">
+              <ul className="ul--full-search-results-group">
+                {Object.values(this.props.results.albums).length > 0 ? <li className="li--full-search-result-header">Albums</li> : ''}
                 {Object.values(this.props.results.albums).map(album => (
-                  <li className="li--search-result li--album-result" key={album.id}>
+                  <li className="li--full-search-result li--full-album-result" key={album.id}>
                     <Link
-                      className="a--search-result"
+                      className="a--full-search-result"
                       to={`/album/${album.id}`}
                       >
                       {album.title}
@@ -73,11 +81,12 @@ class Search extends React.Component {
 
 const mapStateToProps = ({ search }) => ({
   query: search.query,
-  results: search.results
+  results: search.fullResults
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  requestFullSearchResults: (query) => dispatch(requestFullSearchResults(query))
+  requestFullSearchResults: (query) => dispatch(requestFullSearchResults(query)),
+  startSong: song => () => dispatch(startSong(song))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

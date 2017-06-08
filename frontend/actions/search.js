@@ -34,9 +34,17 @@ export const hideSearchResults = () => ({
 })
 
 export const requestFullSearchResults = query => dispatch => {
-  return fullSearchAPI(query).then(results => (
-    dispatch(receiveFullSearchResults(results))
-  ))
+  if(query.length > 0)
+    return fullSearchAPI(query).then(results => (
+      dispatch(receiveFullSearchResults(results))
+    ))
+  else
+    return dispatch(receiveFullSearchResults({
+      artists: [],
+      albums: [],
+      songs: []
+    }))
+
 }
 
 export const receiveFullSearchResults = (results) => ({

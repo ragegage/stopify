@@ -13576,9 +13576,13 @@ var hideSearchResults = exports.hideSearchResults = function hideSearchResults()
 
 var requestFullSearchResults = exports.requestFullSearchResults = function requestFullSearchResults(query) {
   return function (dispatch) {
-    return (0, _APIUtil.fullSearchAPI)(query).then(function (results) {
+    if (query.length > 0) return (0, _APIUtil.fullSearchAPI)(query).then(function (results) {
       return dispatch(receiveFullSearchResults(results));
-    });
+    });else return dispatch(receiveFullSearchResults({
+      artists: [],
+      albums: [],
+      songs: []
+    }));
   };
 };
 
@@ -15591,6 +15595,11 @@ var search = {
     albums: [],
     songs: []
   },
+  fullResults: {
+    artists: [],
+    albums: [],
+    songs: []
+  },
   resultsVisible: false
 };
 
@@ -15608,7 +15617,7 @@ exports.default = function () {
     case "HIDE_SEARCH_RESULTS":
       return _extends({}, state, { resultsVisible: false });
     case "RECEIVE_FULL_SEARCH_RESULTS":
-      console.log(action);
+      return _extends({}, state, { fullResults: action.payload });
     default:
       return state;
   }
@@ -38147,7 +38156,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(7);
 
+var _reactRouterDom = __webpack_require__(16);
+
 var _search = __webpack_require__(128);
+
+var _songs = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38169,40 +38182,45 @@ var Search = function (_React$Component) {
   _createClass(Search, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'article',
-        { 'class': 'article--search' },
+        { className: 'article--search' },
         _react2.default.createElement(
           'header',
-          { 'class': 'header--search' },
-          _react2.default.createElement('img', { src: '', 'class': 'img--search' }),
+          { className: 'header--search' },
+          _react2.default.createElement('img', { src: '', className: 'img--search' }),
           _react2.default.createElement(
             'h1',
-            { 'class': 'h1--search h1--main' },
+            { className: 'h1--search h1--main' },
             'Search Results'
           )
         ),
         _react2.default.createElement(
           'section',
-          { 'class': 'section--search-results' },
+          { className: 'section--full-search-results' },
           _react2.default.createElement(
             'ul',
-            { className: 'ul--search-results' },
+            { className: 'ul--full-search-results' },
             _react2.default.createElement(
               'li',
-              { className: 'li--search-results-group' },
+              { className: 'li--full-search-results-group' },
               _react2.default.createElement(
                 'ul',
-                { className: 'ul--search-results-group' },
+                { className: 'ul--full-search-results-group' },
                 Object.values(this.props.results.songs).length > 0 ? _react2.default.createElement(
                   'li',
-                  { className: 'li--search-result-header' },
+                  { className: 'li--full-search-result-header' },
                   'Songs'
                 ) : '',
                 Object.values(this.props.results.songs).map(function (song) {
                   return _react2.default.createElement(
                     'li',
-                    { className: 'li--search-result li--song-result', key: song.id, onClick: startSong(song) },
+                    {
+                      className: 'li--full-search-result li--full-song-result',
+                      key: song.id,
+                      onClick: _this2.props.startSong(song) },
                     song.title
                   );
                 })
@@ -38210,23 +38228,24 @@ var Search = function (_React$Component) {
             ),
             _react2.default.createElement(
               'li',
-              { className: 'li--search-results-group' },
+              { className: 'li--full-search-results-group' },
               _react2.default.createElement(
                 'ul',
-                { className: 'ul--search-results-group' },
+                { className: 'ul--full-search-results-group' },
                 Object.values(this.props.results.artists).length > 0 ? _react2.default.createElement(
                   'li',
-                  { className: 'li--search-result-header' },
+                  { className: 'li--full-search-result-header' },
                   'Artists'
                 ) : '',
                 Object.values(this.props.results.artists).map(function (artist) {
                   return _react2.default.createElement(
                     'li',
-                    { className: 'li--search-result li--artist-result', key: artist.id },
+                    { className: 'li--full-search-result li--full-artist-result',
+                      key: artist.id },
                     _react2.default.createElement(
-                      Link,
+                      _reactRouterDom.Link,
                       {
-                        className: 'a--search-result',
+                        className: 'a--full-search-result',
                         to: '/artist/' + artist.id
                       },
                       artist.name
@@ -38237,23 +38256,23 @@ var Search = function (_React$Component) {
             ),
             _react2.default.createElement(
               'li',
-              { className: 'li--search-results-group' },
+              { className: 'li--full-search-results-group' },
               _react2.default.createElement(
                 'ul',
-                { className: 'ul--search-results-group' },
+                { className: 'ul--full-search-results-group' },
                 Object.values(this.props.results.albums).length > 0 ? _react2.default.createElement(
                   'li',
-                  { className: 'li--search-result-header' },
+                  { className: 'li--full-search-result-header' },
                   'Albums'
                 ) : '',
                 Object.values(this.props.results.albums).map(function (album) {
                   return _react2.default.createElement(
                     'li',
-                    { className: 'li--search-result li--album-result', key: album.id },
+                    { className: 'li--full-search-result li--full-album-result', key: album.id },
                     _react2.default.createElement(
-                      Link,
+                      _reactRouterDom.Link,
                       {
-                        className: 'a--search-result',
+                        className: 'a--full-search-result',
                         to: '/album/' + album.id
                       },
                       album.title
@@ -38285,7 +38304,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
   var search = _ref.search;
   return {
     query: search.query,
-    results: search.results
+    results: search.fullResults
   };
 };
 
@@ -38293,6 +38312,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     requestFullSearchResults: function requestFullSearchResults(query) {
       return dispatch((0, _search.requestFullSearchResults)(query));
+    },
+    startSong: function startSong(song) {
+      return function () {
+        return dispatch((0, _songs.startSong)(song));
+      };
     }
   };
 };

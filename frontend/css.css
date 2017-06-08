@@ -156,6 +156,24 @@ a {
   width: 100%;
 }
 
+/*full search page*/
+.li--full-search-result-header {
+    background-color: #333;
+    padding: 8px 0;
+}
+
+.li--full-song-result, .a--full-search-result {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+.li--full-search-result:hover {
+  background-color: #222;
+}
+
+.li--full-artist-result, .li--full-album-result {
+  display: flex;
+}
+
 /*artist*/
 .p--monthly-listens {
   font-size: 12px;
