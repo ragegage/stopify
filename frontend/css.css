@@ -158,16 +158,24 @@ a {
 
 /*full search page*/
 .li--full-search-result-header {
-    background-color: #333;
-    padding: 8px 0;
+  background-color: #333;
+  padding: 8px 0;
 }
 
 .li--full-song-result, .a--full-search-result {
-    padding: 8px 16px;
-    cursor: pointer;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .li--full-search-result:hover {
   background-color: #222;
+}
+
+.a--full-search-result {
+  width: 100%;
+  /*box-sizing: border-box;*/
 }
 
 .li--full-artist-result, .li--full-album-result {

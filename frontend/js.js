@@ -38221,7 +38221,14 @@ var Search = function (_React$Component) {
                       className: 'li--full-search-result li--full-song-result',
                       key: song.id,
                       onClick: _this2.props.startSong(song) },
-                    song.title
+                    song.title,
+                    _react2.default.createElement(
+                      'button',
+                      {
+                        className: 'button--add-to-queue',
+                        onClick: _this2.props.addToPlaylist(song) },
+                      'Add To Queue'
+                    )
                   );
                 })
               )
@@ -38316,6 +38323,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     startSong: function startSong(song) {
       return function () {
         return dispatch((0, _songs.startSong)(song));
+      };
+    },
+    addToPlaylist: function addToPlaylist(song) {
+      return function (e) {
+        e.stopPropagation();
+        dispatch((0, _songs.addToPlaylist)(song));
       };
     }
   };

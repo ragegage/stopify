@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { requestFullSearchResults } from '../../actions/search'
-import { startSong } from '../../actions/songs'
+import { startSong, addToPlaylist } from '../../actions/songs'
 
 
 class Search extends React.Component {
@@ -28,6 +28,11 @@ class Search extends React.Component {
                     key={song.id}
                     onClick={this.props.startSong(song)}>
                     {song.title}
+                    <button
+                      className="button--add-to-queue"
+                      onClick={this.props.addToPlaylist(song)}>
+                      Add To Queue
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -86,7 +91,11 @@ const mapStateToProps = ({ search }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   requestFullSearchResults: (query) => dispatch(requestFullSearchResults(query)),
-  startSong: song => () => dispatch(startSong(song))
+  startSong: song => () => dispatch(startSong(song)),
+  addToPlaylist: song => (e) => {
+    e.stopPropagation()
+    dispatch(addToPlaylist(song))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)
