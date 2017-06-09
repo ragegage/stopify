@@ -237,7 +237,7 @@ a {
     background-color: #555;
 }
 
-.a--artist-name-in-list, .a--album-name-in-list {
+.a--artist-name-in-list, .a--album-name-in-list, .a--playlist-name-in-list {
   position: absolute;
   top: 0px;
   overflow-wrap: break-word;

@@ -10,6 +10,7 @@ import PlaylistsListContainer from './PlaylistsListContainer'
 
 class Playlists extends React.Component {
   render() {
+    console.log('rendering playlists');
     return (
       <article className="article--playlists">
         <PlaylistsHeader/>
