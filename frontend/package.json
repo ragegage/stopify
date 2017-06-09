@@ -27,6 +27,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-file-input": "^0.2.5",
+    "react-modal": "^1.7.11",
     "react-player": "^0.18.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",

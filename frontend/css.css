@@ -200,7 +200,7 @@ a {
     background-color: #333;
 }
 
-.button--add-to-queue {
+.button--add-to-queue, .button--more-options {
   padding: 5px 10px;
   background-color: #0a0a0a;
   color: #ccc;
@@ -209,8 +209,34 @@ a {
   border-radius: 5px;
   cursor: pointer;
 }
-.button--add-to-queue:hover {
+.button--add-to-queue:hover, .button--more-options:hover {
   background-color: #333;
+}
+.button--more-options {
+  padding: 5px 7px;
+  border-radius: 25px;
+  position: relative;
+}
+
+/*add-to-playlist modal*/
+.background--modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  z-index: 5;
+  opacity: 0;
+}
+.foreground--modal {
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+    width: 100px;
+    background-color: #000;
+    border: 1px solid #333;
+    z-index: 6;
 }
 
 /*artists*/

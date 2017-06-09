@@ -1,4 +1,5 @@
 import React from 'react'
+import MoreOptionsButton from './MoreOptionsButton'
 
 export default ({ songs, startSong, addToPlaylist }) => (
   <section className="section--song-list">
@@ -12,11 +13,14 @@ export default ({ songs, startSong, addToPlaylist }) => (
             onContextMenu={() => console.log("right click!")}
             className="li--song-list">
             {song.title}
-            <button
-              className="button--add-to-queue"
-              onClick={addToPlaylist(song)}>
-              Add To Queue
-            </button>
+            <buttongroup>
+              <button
+                className="button--add-to-queue"
+                onClick={addToPlaylist(song)}>
+                Add To Queue
+              </button>
+              <MoreOptionsButton song={song}/>
+            </buttongroup>
           </li>
         ))
       }

@@ -14,6 +14,14 @@ class Playlist extends React.Component {
       <article className="article--playlist">
         <PlaylistHeader playlist={this.props.playlist}/>
         <SongsListContainer song_ids={this.props.playlist.featured_song_ids}/>
+        <h2>Suggested songs for this playlist</h2>
+        <p>Based on this playlist's songs, I'd recommend the following songs:</p>
+        <ul>
+          <li>song title <button>Add to playlist</button></li>
+          <li>song title <button>Add to playlist</button></li>
+          <li>song title <button>Add to playlist</button></li>
+          <li>song title <button>Add to playlist</button></li>
+        </ul>
       </article>
     )
   }
