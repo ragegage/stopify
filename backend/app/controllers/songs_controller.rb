@@ -1,6 +1,6 @@
 class SongsController < ApplicationController
   def index
-    @songs = Song.all.includes(:album, :artist)
+    @songs = Song.all.includes(:album, :artist).order("RANDOM()")
   end
 
   def create
