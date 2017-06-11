@@ -1,6 +1,8 @@
 class PlaylistSongsController < ApplicationController
   def create
+    debugger
     @playlist_song = PlaylistSong.new(playlist_song_params)
+    @playlist_song.playlist_id = params[:playlist_id]
 
     if @playlist_song.save
       render json: @playlist_song

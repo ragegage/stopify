@@ -1,4 +1,4 @@
-import { fetchSongs, postSong } from './APIUtil'
+import { fetchSongs, postSong, postPlaylistSong } from './APIUtil'
 
 import jsmediatags from 'jsmediatags'
 
@@ -68,10 +68,19 @@ export const updateLength = seconds => ({
   payload: seconds
 })
 
-export const addToPlaylist = song => ({
-  type: "ADD_SONG_TO_PLAYLIST",
+export const addToQueue = song => ({
+  type: "ADD_SONG_TO_QUEUE",
   payload: song
 })
+
+export const addToPlaylist = (song, playlist) => dispatch => (
+  postPlaylistSong(song, playlist)
+    .then(res => console.log(res))
+)
+// ({
+//   type: "ADD_SONG_TO_PLAYLIST",
+//   payload: {song, playlist}
+// })
 
 export const nextSong = () => ({
   type: "NEXT_SONG"

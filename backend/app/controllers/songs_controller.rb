@@ -1,6 +1,7 @@
 class SongsController < ApplicationController
   def index
-    @songs = Song.all.includes(:album, :artist).order("RANDOM()")
+    @songs = Song.all.includes(:album, :artist).order("RANDOM()").limit(50)
+    # should limit to top 100 with infinite scroll or something :/
   end
 
   def create

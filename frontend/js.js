@@ -1664,7 +1664,7 @@ module.exports = ReactCurrentOwner;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.prevSong = exports.nextSong = exports.addToPlaylist = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
+exports.prevSong = exports.nextSong = exports.addToPlaylist = exports.addToQueue = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
 
 var _APIUtil = __webpack_require__(30);
 
@@ -1763,12 +1763,24 @@ var updateLength = exports.updateLength = function updateLength(seconds) {
   };
 };
 
-var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song) {
+var addToQueue = exports.addToQueue = function addToQueue(song) {
   return {
-    type: "ADD_SONG_TO_PLAYLIST",
+    type: "ADD_SONG_TO_QUEUE",
     payload: song
   };
 };
+
+var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song, playlist) {
+  return function (dispatch) {
+    return (0, _APIUtil.postPlaylistSong)(song, playlist).then(function (res) {
+      return console.log(res);
+    });
+  };
+};
+// ({
+//   type: "ADD_SONG_TO_PLAYLIST",
+//   payload: {song, playlist}
+// })
 
 var nextSong = exports.nextSong = function nextSong() {
   return {
@@ -3595,6 +3607,19 @@ var fetchPlaylist = exports.fetchPlaylist = function fetchPlaylist(id) {
   });
 };
 
+var postPlaylistSong = exports.postPlaylistSong = function postPlaylistSong(song, playlist) {
+  console.log(JSON.stringify(song));
+  return fetch('http://localhost:3000/playlists/' + playlist.id + '/playlist_songs', {
+    method: 'POST',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({ playlist_song: { song_id: song.id } })
+  }).then(function (res) {
+    return res.json();
+  });
+};
+
 /***/ }),
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -4327,10 +4352,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         return dispatch((0, _songs.startSong)(song));
       };
     },
-    addToPlaylist: function addToPlaylist(song) {
+    addToQueue: function addToQueue(song) {
       return function (e) {
         e.stopPropagation();
-        dispatch((0, _songs.addToPlaylist)(song));
+        dispatch((0, _songs.addToQueue)(song));
       };
     }
   };
@@ -15301,6 +15326,10 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(6);
+
+var _songs = __webpack_require__(17);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -15324,7 +15353,7 @@ var MoreOptionsButton = function (_React$Component) {
   }
 
   _createClass(MoreOptionsButton, [{
-    key: "openModal",
+    key: 'openModal',
     value: function openModal() {
       var _this2 = this;
 
@@ -15334,7 +15363,7 @@ var MoreOptionsButton = function (_React$Component) {
       };
     }
   }, {
-    key: "closeModal",
+    key: 'closeModal',
     value: function closeModal() {
       var _this3 = this;
 
@@ -15344,54 +15373,51 @@ var MoreOptionsButton = function (_React$Component) {
       };
     }
   }, {
-    key: "modalBackground",
+    key: 'modalBackground',
     value: function modalBackground() {
-      if (this.state.modalIsOpen) return _react2.default.createElement("background", {
-        className: "background--modal",
+      if (this.state.modalIsOpen) return _react2.default.createElement('background', {
+        className: 'background--modal',
         onClick: this.closeModal() });
     }
   }, {
-    key: "modalForeground",
+    key: 'modalForeground',
     value: function modalForeground() {
+      var _this4 = this;
+
       if (this.state.modalIsOpen) return _react2.default.createElement(
-        "foreground",
+        'foreground',
         {
-          className: "foreground--modal" },
+          className: 'foreground--modal' },
         _react2.default.createElement(
-          "ul",
+          'ul',
           null,
           _react2.default.createElement(
-            "li",
+            'li',
             null,
-            "Add to Playlist"
+            'Add to Playlist'
           ),
-          _react2.default.createElement(
-            "li",
-            null,
-            "playlist1"
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            "playlist2"
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            "playlist3"
-          )
+          this.props.playlists.map(function (playlist) {
+            return _react2.default.createElement(
+              'li',
+              {
+                onClick: _this4.props.addToPlaylist(_this4.props.song, playlist)
+              },
+              playlist.name
+            );
+          })
         )
       );
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
+      console.log(this.props.playlists);
       return _react2.default.createElement(
-        "button",
+        'button',
         {
           onClick: this.openModal(),
-          className: "button--more-options" },
-        "...ola",
+          className: 'button--more-options' },
+        '...ola',
         this.modalBackground(),
         this.modalForeground()
       );
@@ -15401,7 +15427,27 @@ var MoreOptionsButton = function (_React$Component) {
   return MoreOptionsButton;
 }(_react2.default.Component);
 
-exports.default = MoreOptionsButton;
+var mapStateToProps = function mapStateToProps(_ref) {
+  var playlists = _ref.playlists;
+  return {
+    playlists: playlists.byId.map(function (id) {
+      return playlists.all[id];
+    })
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    addToPlaylist: function addToPlaylist(song, playlist) {
+      return function (e) {
+        e.stopPropagation();
+        dispatch((0, _songs.addToPlaylist)(song, playlist));
+      };
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(MoreOptionsButton);
 
 // pop-up menu with "Add to Playlist" option and list of Playlists
 
@@ -15434,7 +15480,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (_ref) {
   var songs = _ref.songs,
       startSong = _ref.startSong,
-      addToPlaylist = _ref.addToPlaylist;
+      addToQueue = _ref.addToQueue;
   return _react2.default.createElement(
     'section',
     { className: 'section--song-list' },
@@ -15464,7 +15510,7 @@ exports.default = function (_ref) {
               'button',
               {
                 className: 'button--add-to-queue',
-                onClick: addToPlaylist(song) },
+                onClick: addToQueue(song) },
               'Add To Queue'
             ),
             _react2.default.createElement(_MoreOptionsButton2.default, { song: song })
@@ -16033,8 +16079,8 @@ exports.default = function () {
   var action = arguments[1];
 
   switch (action.type) {
-    case "ADD_SONG_TO_PLAYLIST":
-      return [].concat(_toConsumableArray(state), [action.payload.id]);
+    case "ADD_SONG_TO_QUEUE":
+      return [].concat(_toConsumableArray(state), [action.payload.song.id]);
     case "NEXT_SONG":
       return state.slice(1, state.length);
     default:

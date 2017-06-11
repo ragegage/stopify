@@ -1,4 +1,7 @@
 import React from 'react'
+import {connect} from 'react-redux'
+
+import { addToPlaylist } from '../../actions/songs'
 
 class MoreOptionsButton extends React.Component {
   constructor(props) {
@@ -36,14 +39,22 @@ class MoreOptionsButton extends React.Component {
         className="foreground--modal">
           <ul>
             <li>Add to Playlist</li>
-            <li>playlist1</li>
-            <li>playlist2</li>
-            <li>playlist3</li>
+            {
+              this.props.playlists.map(playlist => (
+                <li
+                  onClick={this.props.addToPlaylist(
+                    this.props.song,
+                    playlist
+                  )}
+                  >{playlist.name}</li>
+              ))
+            }
           </ul>
         </foreground>
   }
 
   render() {
+    console.log(this.props.playlists);
     return (
       <button
         onClick={this.openModal()}
@@ -56,7 +67,18 @@ class MoreOptionsButton extends React.Component {
   }
 }
 
-export default MoreOptionsButton
+const mapStateToProps = ({ playlists }) => ({
+  playlists: playlists.byId.map(id => playlists.all[id])
+})
+
+const mapDispatchToProps = dispatch => ({
+  addToPlaylist: (song, playlist) => (e) => {
+    e.stopPropagation()
+    dispatch(addToPlaylist(song, playlist))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoreOptionsButton)
 
 // pop-up menu with "Add to Playlist" option and list of Playlists
 

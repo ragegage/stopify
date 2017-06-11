@@ -1,7 +1,7 @@
 import React from 'react'
 import MoreOptionsButton from './MoreOptionsButton'
 
-export default ({ songs, startSong, addToPlaylist }) => (
+export default ({ songs, startSong, addToQueue }) => (
   <section className="section--song-list">
     <h2 className="h2--song-list h2--main">Popular</h2>
     <ul className="ul--song-list">
@@ -16,7 +16,7 @@ export default ({ songs, startSong, addToPlaylist }) => (
             <buttongroup>
               <button
                 className="button--add-to-queue"
-                onClick={addToPlaylist(song)}>
+                onClick={addToQueue(song)}>
                 Add To Queue
               </button>
               <MoreOptionsButton song={song}/>

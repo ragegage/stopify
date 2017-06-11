@@ -64,3 +64,16 @@ export const fetchPlaylist = (id) => (
   fetch(`http://localhost:3000/playlists/${id}`)
     .then(res => res.json())
 )
+
+export const postPlaylistSong = (song, playlist) => {
+  console.log(JSON.stringify(song));
+  return (
+  fetch(`http://localhost:3000/playlists/${playlist.id}/playlist_songs`, {
+    method: 'POST',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({playlist_song: {song_id: song.id}})
+  })
+    .then(res => res.json())
+)}
