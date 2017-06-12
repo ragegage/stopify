@@ -77,10 +77,6 @@ export const addToPlaylist = (song, playlist) => dispatch => (
   postPlaylistSong(song, playlist)
     .then(res => console.log(res))
 )
-// ({
-//   type: "ADD_SONG_TO_PLAYLIST",
-//   payload: {song, playlist}
-// })
 
 export const nextSong = () => ({
   type: "NEXT_SONG"

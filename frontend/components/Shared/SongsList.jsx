@@ -1,7 +1,8 @@
 import React from 'react'
 import MoreOptionsButton from './MoreOptionsButton'
 
-export default ({ songs, startSong, addToQueue }) => (
+export default ({ songs, startSong, addToQueue }) => {
+  return (
   <section className="section--song-list">
     <h2 className="h2--song-list h2--main">Popular</h2>
     <ul className="ul--song-list">
@@ -26,4 +27,4 @@ export default ({ songs, startSong, addToQueue }) => (
       }
     </ul>
   </section>
-)
+)}

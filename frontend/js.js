@@ -1777,10 +1777,6 @@ var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song, playlis
     });
   };
 };
-// ({
-//   type: "ADD_SONG_TO_PLAYLIST",
-//   payload: {song, playlist}
-// })
 
 var nextSong = exports.nextSong = function nextSong() {
   return {
@@ -5895,6 +5891,8 @@ exports.requestPlaylist = exports.receivePlaylist = exports.receivePlaylists = e
 
 var _APIUtil = __webpack_require__(30);
 
+var _songs = __webpack_require__(17);
+
 var requestAllPlaylists = exports.requestAllPlaylists = function requestAllPlaylists() {
   return function (dispatch) {
     return (0, _APIUtil.fetchPlaylists)().then(function (playlists) {
@@ -5932,8 +5930,9 @@ var receivePlaylist = exports.receivePlaylist = function receivePlaylist(playlis
 
 var requestPlaylist = exports.requestPlaylist = function requestPlaylist(id) {
   return function (dispatch) {
-    return (0, _APIUtil.fetchPlaylist)(id).then(function (playlist) {
-      return dispatch(receivePlaylist(playlist));
+    return (0, _APIUtil.fetchPlaylist)(id).then(function (res) {
+      dispatch(receivePlaylist(res.playlist));
+      dispatch((0, _songs.receiveSongs)(res.songs));
     });
   };
 };
@@ -14906,8 +14905,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStateToProps = function mapStateToProps(_ref) {
   var playlists = _ref.playlists;
-
-  console.log(playlists);
   return {
     playlists: (0, _Selector.byId)(playlists)
   };
@@ -14964,7 +14961,6 @@ var Playlists = function (_React$Component) {
   _createClass(Playlists, [{
     key: 'render',
     value: function render() {
-      console.log('rendering playlists');
       return _react2.default.createElement(
         'article',
         { className: 'article--playlists' },
@@ -15411,7 +15407,6 @@ var MoreOptionsButton = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.playlists);
       return _react2.default.createElement(
         'button',
         {
@@ -15481,6 +15476,7 @@ exports.default = function (_ref) {
   var songs = _ref.songs,
       startSong = _ref.startSong,
       addToQueue = _ref.addToQueue;
+
   return _react2.default.createElement(
     'section',
     { className: 'section--song-list' },
@@ -16216,6 +16212,9 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var songs = {
   all: {},
   byId: []
@@ -16227,7 +16226,11 @@ exports.default = function () {
 
   switch (action.type) {
     case "RECEIVE_SONGS":
-      return action.payload;
+      return {
+        all: _extends({}, state.all, action.payload.all),
+        byId: Array.from(new Set(state.byId.concat(action.payload.byId)))
+      };
+    // return action.payload
     case "RECEIVE_SONG":
       var ns = { all: {}, byId: [] };
       state.byId.forEach(function (id) {

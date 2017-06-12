@@ -6,7 +6,11 @@ const songs = {
 export default (state = songs, action) => {
   switch(action.type) {
     case "RECEIVE_SONGS":
-      return action.payload
+      return {
+        all: {...state.all, ...action.payload.all},
+        byId: Array.from(new Set(state.byId.concat(action.payload.byId)))
+      }
+      // return action.payload
     case "RECEIVE_SONG":
       let ns = {all: {}, byId: []}
       state.byId.forEach(id => {

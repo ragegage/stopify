@@ -1,4 +1,5 @@
 import { fetchPlaylists, postPlaylist, fetchPlaylist } from './APIUtil'
+import { receiveSongs } from './songs'
 
 export const requestAllPlaylists = () => dispatch => (
   fetchPlaylists().then(
@@ -26,5 +27,8 @@ export const receivePlaylist = playlist => ({
 })
 
 export const requestPlaylist = (id) => dispatch => (
-  fetchPlaylist(id).then(playlist => dispatch(receivePlaylist(playlist)))
+  fetchPlaylist(id).then(res => {
+    dispatch(receivePlaylist(res.playlist))
+    dispatch(receiveSongs(res.songs))
+  })
 )

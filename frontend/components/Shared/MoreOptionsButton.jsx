@@ -54,7 +54,6 @@ class MoreOptionsButton extends React.Component {
   }
 
   render() {
-    console.log(this.props.playlists);
     return (
       <button
         onClick={this.openModal()}
