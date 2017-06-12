@@ -16076,7 +16076,7 @@ exports.default = function () {
 
   switch (action.type) {
     case "ADD_SONG_TO_QUEUE":
-      return [].concat(_toConsumableArray(state), [action.payload.song.id]);
+      return [].concat(_toConsumableArray(state), [action.payload.id]);
     case "NEXT_SONG":
       return state.slice(1, state.length);
     default:
