@@ -33,6 +33,14 @@ class MoreOptionsButton extends React.Component {
         </background>
   }
 
+  handleAddToPlaylist(playlist) {
+    this.props.addToPlaylist(
+      this.props.song,
+      playlist
+    )
+    this.closeModal()
+  }
+
   modalForeground() {
     if(this.state.modalIsOpen)
       return <foreground
@@ -42,10 +50,9 @@ class MoreOptionsButton extends React.Component {
             {
               this.props.playlists.map(playlist => (
                 <li
-                  onClick={this.props.addToPlaylist(
-                    this.props.song,
+                  onClick={this.handleAddToPlaylist(
                     playlist
-                  )}
+                  ).bind(this)}
                   >{playlist.name}</li>
               ))
             }

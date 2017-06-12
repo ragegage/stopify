@@ -15376,6 +15376,12 @@ var MoreOptionsButton = function (_React$Component) {
         onClick: this.closeModal() });
     }
   }, {
+    key: 'handleAddToPlaylist',
+    value: function handleAddToPlaylist(playlist) {
+      this.props.addToPlaylist(this.props.song, playlist);
+      this.closeModal();
+    }
+  }, {
     key: 'modalForeground',
     value: function modalForeground() {
       var _this4 = this;
@@ -15396,7 +15402,7 @@ var MoreOptionsButton = function (_React$Component) {
             return _react2.default.createElement(
               'li',
               {
-                onClick: _this4.props.addToPlaylist(_this4.props.song, playlist)
+                onClick: _this4.handleAddToPlaylist(playlist).bind(_this4)
               },
               playlist.name
             );
