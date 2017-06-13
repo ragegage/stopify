@@ -12,13 +12,25 @@ export default (state = songs, action) => {
       }
       // return action.payload
     case "RECEIVE_SONG":
-      let ns = {all: {}, byId: []}
-      state.byId.forEach(id => {
-        ns.all[id] = Object.assign({}, state.all[id])
+      return {
+        all: {
+          ...state.all,
+          [action.payload.id]: action.payload
+        },
+        byId: [...state.byId, action.payload.id]
+      }
+    case "RECEIVE_SEARCH_RESULTS":
+      let ns = {
+        all: {
+          ...state.all
+        },
+        byId: [...state.byId]
+      }
+      console.log(action);
+      action.payload.songs.forEach(song => {
+        ns.byId.push(song.id)
+        ns.all[song.id] = song
       })
-      ns.byId = state.byId.map(id => id)
-      ns.byId.push(action.payload.id)
-      ns.all[action.payload.id] = action.payload
       return ns
     default:
       return state

@@ -16251,6 +16251,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var songs = {
   all: {},
   byId: []
@@ -16268,15 +16272,20 @@ exports.default = function () {
       };
     // return action.payload
     case "RECEIVE_SONG":
-      var ns = { all: {}, byId: [] };
-      state.byId.forEach(function (id) {
-        ns.all[id] = Object.assign({}, state.all[id]);
+      return {
+        all: _extends({}, state.all, _defineProperty({}, action.payload.id, action.payload)),
+        byId: [].concat(_toConsumableArray(state.byId), [action.payload.id])
+      };
+    case "RECEIVE_SEARCH_RESULTS":
+      var ns = {
+        all: _extends({}, state.all),
+        byId: [].concat(_toConsumableArray(state.byId))
+      };
+      console.log(action);
+      action.payload.songs.forEach(function (song) {
+        ns.byId.push(song.id);
+        ns.all[song.id] = song;
       });
-      ns.byId = state.byId.map(function (id) {
-        return id;
-      });
-      ns.byId.push(action.payload.id);
-      ns.all[action.payload.id] = action.payload;
       return ns;
     default:
       return state;
