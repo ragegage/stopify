@@ -218,6 +218,18 @@ a {
   position: relative;
 }
 
+/*playlists*/
+.button--play-playlist {
+  padding: 10px 20px;
+  border-radius: 30px;
+  background-color: #E90076;
+  border: none;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
 /*add-to-playlist modal*/
 .background--modal {
   position: fixed;

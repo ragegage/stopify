@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { requestPlaylist } from '../../actions/playlists'
+import { requestPlaylist, playPlaylist } from '../../actions/playlists'
 
 import PlaylistHeader from './PlaylistHeader'
 import SongsListContainer from '../Shared/SongsListContainer'
@@ -12,7 +12,9 @@ class Playlist extends React.Component {
   render() {
     return (
       <article className="article--playlist">
-        <PlaylistHeader playlist={this.props.playlist}/>
+        <PlaylistHeader
+          playlist={this.props.playlist}
+          playPlaylist={this.props.playPlaylist}/>
         <SongsListContainer song_ids={this.props.playlist.featured_song_ids}/>
         <h2>Suggested songs for this playlist</h2>
         <p>Based on this playlist's songs, I'd recommend the following songs:</p>
@@ -41,7 +43,8 @@ const mapStateToProps = ({ currentPlaylist }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  requestPlaylist: (id) => dispatch(requestPlaylist(id))
+  requestPlaylist: (id) => dispatch(requestPlaylist(id)),
+  playPlaylist: (playlist) => () => dispatch(playPlaylist(playlist))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playlist)
