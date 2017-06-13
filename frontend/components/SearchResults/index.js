@@ -19,12 +19,17 @@ export default ({ results, startSong }) => (
     </li>
     <li className="li--search-results-group">
       <ul className="ul--search-results-group">
-        {Object.values(results.songs).length > 0 ? <li className="li--search-result-header">Songs</li> : ''}
-        {Object.values(results.songs).map(song => (
-          <li className="li--search-result li--song-result" key={song.id} onClick={startSong(song)}>
-            {song.title}
-          </li>
-        ))}
+        {
+          Object.values(results.songs).length > 0 ?
+            <li className="li--search-result-header">Songs</li> : ''
+        }
+        {
+          Object.values(results.songs).map(song => (
+            <li className="li--search-result li--song-result" key={song.id} onClick={startSong(song)}>
+              {song.title}
+            </li>
+          ))
+      }
       </ul>
     </li>
     <li className="li--search-results-group">

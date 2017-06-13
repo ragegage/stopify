@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { requestFullSearchResults } from '../../actions/search'
-import { startSong, addToPlaylist } from '../../actions/songs'
+import { startSong, addToQueue } from '../../actions/songs'
 
 
 class Search extends React.Component {
@@ -21,20 +21,28 @@ class Search extends React.Component {
           <ul className="ul--full-search-results">
             <li className="li--full-search-results-group">
               <ul className="ul--full-search-results-group">
-                {Object.values(this.props.results.songs).length > 0 ? <li className="li--full-search-result-header">Songs</li> : ''}
-                {Object.values(this.props.results.songs).map(song => (
-                  <li
-                    className="li--full-search-result li--full-song-result"
-                    key={song.id}
-                    onClick={this.props.startSong(song)}>
-                    {song.title}
-                    <button
-                      className="button--add-to-queue"
-                      onClick={this.props.addToPlaylist(song)}>
-                      Add To Queue
-                    </button>
-                  </li>
-                ))}
+                {
+                  Object.values(this.props.results.songs).length > 0 ?
+                    <li
+                      className="li--full-search-result-header">
+                      Songs
+                    </li> : ''
+                }
+                {
+                  Object.values(this.props.results.songs).map(song => (
+                    <li
+                      className="li--full-search-result li--full-song-result"
+                      key={song.id}
+                      onClick={this.props.startSong(song)}>
+                      {song.title}
+                      <button
+                        className="button--add-to-queue"
+                        onClick={this.props.addToQueue(song)}>
+                        Add To Queue
+                      </button>
+                    </li>
+                  ))
+                }
               </ul>
             </li>
             <li className="li--full-search-results-group">
@@ -92,9 +100,9 @@ const mapStateToProps = ({ search }) => ({
 const mapDispatchToProps = (dispatch) => ({
   requestFullSearchResults: (query) => dispatch(requestFullSearchResults(query)),
   startSong: song => () => dispatch(startSong(song)),
-  addToPlaylist: song => (e) => {
+  addToQueue: song => (e) => {
     e.stopPropagation()
-    dispatch(addToPlaylist(song))
+    dispatch(addToQueue(song))
   }
 })
 

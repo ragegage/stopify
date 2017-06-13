@@ -8846,6 +8846,8 @@ exports.receiveAlbum = exports.requestAlbum = exports.receiveAlbums = exports.re
 
 var _APIUtil = __webpack_require__(29);
 
+var _songs = __webpack_require__(13);
+
 var requestAllAlbums = exports.requestAllAlbums = function requestAllAlbums() {
   return function (dispatch) {
     return (0, _APIUtil.fetchAlbums)().then(function (albums) {
@@ -8863,8 +8865,9 @@ var receiveAlbums = exports.receiveAlbums = function receiveAlbums(albums) {
 
 var requestAlbum = exports.requestAlbum = function requestAlbum(id) {
   return function (dispatch) {
-    return (0, _APIUtil.fetchAlbum)(id).then(function (album) {
-      return dispatch(receiveAlbum(album));
+    return (0, _APIUtil.fetchAlbum)(id).then(function (res) {
+      dispatch(receiveAlbum(res.album));
+      dispatch((0, _songs.receiveSongs)(res.songs));
     });
   };
 };
@@ -8890,6 +8893,8 @@ exports.receiveArtist = exports.requestArtist = exports.receiveArtists = exports
 
 var _APIUtil = __webpack_require__(29);
 
+var _songs = __webpack_require__(13);
+
 var requestAllArtists = exports.requestAllArtists = function requestAllArtists() {
   return function (dispatch) {
     return (0, _APIUtil.fetchArtists)().then(function (artists) {
@@ -8907,8 +8912,9 @@ var receiveArtists = exports.receiveArtists = function receiveArtists(artists) {
 
 var requestArtist = exports.requestArtist = function requestArtist(id) {
   return function (dispatch) {
-    return (0, _APIUtil.fetchArtist)(id).then(function (artist) {
-      return dispatch(receiveArtist(artist));
+    return (0, _APIUtil.fetchArtist)(id).then(function (res) {
+      dispatch(receiveArtist(res.artist));
+      dispatch((0, _songs.receiveSongs)(res.songs));
     });
   };
 };
@@ -15088,7 +15094,8 @@ var Search = function (_React$Component) {
                 { className: 'ul--full-search-results-group' },
                 Object.values(this.props.results.songs).length > 0 ? _react2.default.createElement(
                   'li',
-                  { className: 'li--full-search-result-header' },
+                  {
+                    className: 'li--full-search-result-header' },
                   'Songs'
                 ) : '',
                 Object.values(this.props.results.songs).map(function (song) {
@@ -15103,7 +15110,7 @@ var Search = function (_React$Component) {
                       'button',
                       {
                         className: 'button--add-to-queue',
-                        onClick: _this2.props.addToPlaylist(song) },
+                        onClick: _this2.props.addToQueue(song) },
                       'Add To Queue'
                     )
                   );
@@ -15202,10 +15209,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         return dispatch((0, _songs.startSong)(song));
       };
     },
-    addToPlaylist: function addToPlaylist(song) {
+    addToQueue: function addToQueue(song) {
       return function (e) {
         e.stopPropagation();
-        dispatch((0, _songs.addToPlaylist)(song));
+        dispatch((0, _songs.addToQueue)(song));
       };
     }
   };
