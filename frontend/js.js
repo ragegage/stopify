@@ -14102,11 +14102,6 @@ exports.default = function (_ref) {
       "h1",
       { className: "h1--artist h1--main" },
       artist.name
-    ),
-    _react2.default.createElement(
-      "p",
-      { className: "p--monthly-listens" },
-      "2,684,768 Monthly Listens"
     )
   );
 };
@@ -15635,24 +15630,38 @@ var SideMenu = function (_React$Component) {
             { className: 'li--type' },
             _react2.default.createElement(
               'form',
-              { onSubmit: function onSubmit(e) {
+              {
+                className: 'form--new-playlist',
+                onSubmit: function onSubmit(e) {
                   e.preventDefault();
                   _this2.props.createPlaylist(e.target[0].value);
                 } },
-              _react2.default.createElement('input', { type: 'text', placeholder: 'New Playlist' }),
-              _react2.default.createElement('input', { type: 'submit' })
+              _react2.default.createElement('input', {
+                type: 'text',
+                placeholder: 'New Playlist',
+                className: 'input--text-new-playlist' }),
+              _react2.default.createElement('input', {
+                type: 'submit',
+                value: 'Create Playlist',
+                className: 'input--submit-new-playlist' })
             )
           ),
           _react2.default.createElement(
             'li',
-            null,
-            _react2.default.createElement('input', {
-              ref: function ref(i) {
-                return _this2._fileInput = i;
-              },
-              onChange: (0, _util.createSongs)(this.props.createSong),
-              type: 'file'
-            })
+            { className: 'li--type' },
+            _react2.default.createElement(
+              'label',
+              { className: 'label--file-input' },
+              'Add Files',
+              _react2.default.createElement('input', {
+                className: 'input--file-input',
+                ref: function ref(i) {
+                  return _this2._fileInput = i;
+                },
+                onChange: (0, _util.createSongs)(this.props.createSong),
+                type: 'file'
+              })
+            )
           )
         )
       );

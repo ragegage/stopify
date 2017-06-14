@@ -17,19 +17,32 @@ class SideMenu extends React.Component {
           <li className="li--type"><Link to="/artists">Artists</Link></li>
           <li className="li--type"><Link to="/playlists">Playlists</Link></li>
           <li className="li--type">
-            <form onSubmit={e => {
+            <form
+              className="form--new-playlist"
+              onSubmit={e => {
                 e.preventDefault()
                 this.props.createPlaylist(e.target[0].value)
               }}>
-              <input type="text" placeholder="New Playlist"/>
-              <input type="submit"/>
+              <input
+                type="text"
+                placeholder="New Playlist"
+                className="input--text-new-playlist" />
+              <input
+                type="submit"
+                value="Create Playlist"
+                className="input--submit-new-playlist" />
             </form>
           </li>
-          <li><input
+          <li className="li--type">
+            <label className="label--file-input">
+              Add Files
+              <input
+                className="input--file-input"
                 ref={i => this._fileInput = i}
                 onChange={createSongs(this.props.createSong)}
                 type="file"
               />
+            </label>
           </li>
         </ul>
       </aside>
