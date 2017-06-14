@@ -101,6 +101,10 @@ a {
   overflow-y: auto;
 }
 
+.header--main-content {
+  margin-top: 40px;
+}
+
 .h1--main {
   font-size: 48px;
   padding-bottom: 24px;
@@ -123,7 +127,10 @@ a {
 
 .nav--search {
   padding: 8px 0;
-  position: relative;
+  position: fixed;
+  width: 100%;
+  background-color: #000;
+  z-index: 99;
 }
 
 .ul--search-results {
@@ -337,6 +344,23 @@ a {
 .button--player-control {
   width: 45px;
   height: 45px;
+  border: none;
+  background-size: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+
+.button--player-play {
+  background-image: url(./images/play.png);
+}
+
+.button--player-pause {
+  background-image: url(./images/pause.png);
+}
+
+.button--player-next {
+  background-image: url(./images/next.png);
 }
 
 .div--player-progress-bar-container {
@@ -375,6 +399,12 @@ a {
   width: 30px;
   height: 30px;
   position: relative;
+  background-image: url(./images/queue.png);
+  border: none;
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff;
 }
 
 .ul--current-queue {

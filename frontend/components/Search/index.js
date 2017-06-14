@@ -11,8 +11,8 @@ class Search extends React.Component {
   render() {
     return (
       <article className="article--search">
-        <header className="header--search">
-          <img src="" className="img--search"/>
+        <header className="header--search header--main-content">
+          <img src="" className="img--search img--main-content"/>
           <h1 className="h1--search h1--main">
             Search Results
           </h1>

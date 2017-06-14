@@ -1,8 +1,8 @@
 import React from 'react'
 
 export default ({ playlist, playPlaylist }) => (
-  <header className="header--playlist">
-    <img src="" className="img--playlist"/>
+  <header className="header--playlist header--main-content">
+    <img src="" className="img--playlist img--main-content"/>
     <h1 className="h1--playlist h1--main">{playlist.name}</h1>
     <button
       onClick={playPlaylist(playlist)}

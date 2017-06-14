@@ -15,20 +15,24 @@ const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, up
     </aside>
     <section className="section--player-controls">
       <div className="div--player-controls">
-        <button
+        {/****
+          removed until this feature is enabled
+          <button
           onClick={prevSong}
           className="button--player-prev button--player-control">
           prev
         </button>
+        */}
         <button
           onClick={song.playing ? pauseSong : playSong}
-          className="button--player-pause button--player-control">
-          {song.playing ? "pause" : "play"}
+          className={
+            `button--player-${song.playing ? "pause" : "play"}
+            button--player-control`
+          }>
         </button>
         <button
           onClick={nextSong}
           className="button--player-next button--player-control">
-          next
         </button>
         <ReactPlayer
           width="0"
@@ -51,7 +55,6 @@ const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, up
     <aside className="aside--player-other-controls">
       <button
         className="button--player-add-to-queue">
-        Current Queue
         <ul className="ul--current-queue">
           {
             currentQueue.map(queuedSong => (
