@@ -15445,7 +15445,7 @@ var MoreOptionsButton = function (_React$Component) {
         {
           onClick: this.openModal(),
           className: 'button--more-options' },
-        '...ola',
+        '...',
         this.modalBackground(),
         this.modalForeground()
       );

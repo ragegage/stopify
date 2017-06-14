@@ -65,7 +65,7 @@ class MoreOptionsButton extends React.Component {
       <button
         onClick={this.openModal()}
         className="button--more-options">
-        ...ola
+        ...
         {this.modalBackground()}
         {this.modalForeground()}
       </button>
