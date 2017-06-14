@@ -1,28 +1,21 @@
-const currentlyPlaying = {}
+const currentlyPlaying = {
+  volume: .5
+}
 
 export default (state = currentlyPlaying, action) => {
-  let ns
   switch(action.type) {
     case "START_SONG":
-      ns = Object.assign({}, action.payload)
-      ns.playing = true
-      return ns
+      return {...action.payload, playing: true, volume: state.volume}
     case "PAUSE_SONG":
-      ns = Object.assign({}, state)
-      ns.playing = false
-      return ns
+      return {...state, playing: false}
     case "PLAY_SONG":
-      ns = Object.assign({}, state)
-      ns.playing = true
-      return ns
+      return {...state, playing: true}
     case "UPDATE_PROGRESS":
-      ns = Object.assign({}, state)
-      ns.progress = action.payload
-      return ns
+      return {...state, progress: action.payload}
     case "UPDATE_LENGTH":
-      ns = Object.assign({}, state)
-      ns.length = action.payload
-      return ns
+      return {...state, length: action.payload}
+    case "UPDATE_VOLUME":
+      return {...state, volume: action.payload}
     default:
       return state
   }

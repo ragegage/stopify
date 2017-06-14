@@ -68,6 +68,11 @@ export const updateLength = seconds => ({
   payload: seconds
 })
 
+export const updateVolume = volume => ({
+  type: "UPDATE_VOLUME",
+  payload: volume
+})
+
 export const addToQueue = song => ({
   type: "ADD_SONG_TO_QUEUE",
   payload: song

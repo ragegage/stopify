@@ -2,11 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ReactPlayer from 'react-player'
 
-import { pauseSong, playSong, updateProgress, updateLength, nextSong, prevSong, startSong } from '../../actions/songs'
+import { pauseSong, playSong, updateProgress, updateLength, updateVolume, nextSong, prevSong, startSong } from '../../actions/songs'
+
+import VolumeBar from './VolumeBar'
 
 // import SongsHeader from './SongsHeader'
 
-const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, updateLength, nextSong, prevSong, startSong }) => {
+const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, updateLength, updateVolume, nextSong, prevSong, startSong }) => {
   return (
   <footer className="footer--player">
     <aside className="aside--player-song-info">
@@ -38,7 +40,7 @@ const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, up
           width="0"
           height="0"
           playing={song.playing}
-          volume={song.volume || 0.3}
+          volume={song.volume}
           onProgress={updateProgress}
           onEnded={nextSong}
           url={song.url}/>
@@ -65,8 +67,7 @@ const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, up
           }
         </ul>
       </button>
-      {/* set to display: none until fully implemented */}
-      <div className="div--player-volume-bar"></div>
+      <VolumeBar volume={song.volume} updateVolume={updateVolume} />
     </aside>
   </footer>
 )}
@@ -80,6 +81,7 @@ const mapDispatchToProps = (dispatch) => ({
   pauseSong: () => dispatch(pauseSong()),
   playSong: () => dispatch(playSong()),
   updateProgress: ({played}) => dispatch(updateProgress(played)),
+  updateVolume: (volume) => dispatch(updateVolume(volume)),
   nextSong: () => dispatch(nextSong()),
   prevSong: () => dispatch(prevSong()),
   startSong: (song) => () => dispatch(startSong(song)),
