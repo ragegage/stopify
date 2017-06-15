@@ -16285,7 +16285,6 @@ exports.default = function () {
         all: _extends({}, state.all),
         byId: [].concat(_toConsumableArray(state.byId))
       };
-      console.log(action);
       action.payload.songs.forEach(function (song) {
         ns.byId.push(song.id);
         ns.all[song.id] = song;
@@ -38799,6 +38798,20 @@ var VolumeBar = function (_Component) {
       };
     }
   }, {
+    key: 'handleDrag',
+    value: function handleDrag(loc, leftSide, rightSide) {
+      if (loc) {
+        var vol = (loc - leftSide) / rightSide;
+        if (vol < 0) {
+          vol = 0;
+        }
+        if (vol > 1) vol = 1;
+        this.setState({
+          volume: vol
+        });
+      }
+    }
+  }, {
     key: 'handleChangeComplete',
     value: function handleChangeComplete() {
       var _this3 = this;
@@ -38810,12 +38823,30 @@ var VolumeBar = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this4 = this;
+
       var volume = this.state.volume;
 
-      return _react2.default.createElement('input', { value: volume,
-        type: 'number', step: '0.01', min: '0', max: '10',
-        onChange: this.handleChange()
-      });
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'div--volume-bar-bg' },
+          _react2.default.createElement('div', {
+            draggable: 'true',
+            onDrag: function onDrag(e) {
+              return _this4.handleDrag(e.clientX, e.target.parentElement.offsetLeft, e.target.parentElement.clientWidth);
+            },
+            onDragEnd: this.handleChangeComplete(),
+            className: 'div--volume-bar-handle',
+            style: { left: 'calc(' + volume * 100 + '% - 7.5px)' }
+          }),
+          _react2.default.createElement('div', {
+            style: { width: volume * 100 + '%' },
+            className: 'div--volume-bar-fg' })
+        )
+      );
     }
   }]);
 

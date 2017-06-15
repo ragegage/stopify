@@ -26,7 +26,6 @@ export default (state = songs, action) => {
         },
         byId: [...state.byId]
       }
-      console.log(action);
       action.payload.songs.forEach(song => {
         ns.byId.push(song.id)
         ns.all[song.id] = song

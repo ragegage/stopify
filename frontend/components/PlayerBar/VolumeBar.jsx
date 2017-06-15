@@ -18,6 +18,20 @@ class VolumeBar extends Component {
     )
   }
 
+  handleDrag(loc, leftSide, rightSide) {
+    if(loc) {
+      let vol = (loc - leftSide) / rightSide
+      if (vol < 0) {
+        vol = 0
+      }
+      if (vol > 1)
+        vol = 1
+      this.setState({
+        volume: vol
+      })
+    }
+  }
+
   handleChangeComplete() {
     return () => this.props.updateVolume(this.state.volume)
   }
@@ -25,10 +39,23 @@ class VolumeBar extends Component {
   render() {
     const { volume } = this.state
     return (
-      <input value={volume}
-        type="number" step="0.01" min="0" max="10"
-        onChange={this.handleChange()}
-      />
+      <div>
+      <div className="div--volume-bar-bg">
+        <div
+          draggable="true"
+          onDrag={e => this.handleDrag(e.clientX,
+                         e.target.parentElement.offsetLeft,
+                         e.target.parentElement.clientWidth)
+          }
+          onDragEnd={this.handleChangeComplete()}
+          className="div--volume-bar-handle"
+          style={{left: `calc(${volume * 100}% - 7.5px)`}}
+          ></div>
+        <div
+          style={{width: `${volume * 100}%`}}
+          className="div--volume-bar-fg"></div>
+      </div>
+      </div>
     )
   }
 }
