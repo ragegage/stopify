@@ -60,7 +60,10 @@ const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, up
         <ul className="ul--current-queue">
           {
             currentQueue.map(queuedSong => (
-              <li className="li--current-queue" onClick={startSong(queuedSong)}>
+              <li
+                key={queuedSong.id}
+                className="li--current-queue"
+                onClick={startSong(queuedSong)}>
                 {queuedSong.artist} - {queuedSong.title}
               </li>
             ))

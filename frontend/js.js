@@ -14576,7 +14576,10 @@ var PlayerBar = function PlayerBar(_ref) {
           currentQueue.map(function (queuedSong) {
             return _react2.default.createElement(
               'li',
-              { className: 'li--current-queue', onClick: startSong(queuedSong) },
+              {
+                key: queuedSong.id,
+                className: 'li--current-queue',
+                onClick: startSong(queuedSong) },
               queuedSong.artist,
               ' - ',
               queuedSong.title
