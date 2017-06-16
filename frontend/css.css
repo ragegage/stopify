@@ -293,11 +293,13 @@ a {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  background-color: #333;
+  background-color: #ddd;
   border-radius: 75px;
   margin: 15px;
   margin-bottom: 45px;
   cursor: pointer;
+  background-image: url(./images/logo.png);
+  background-size: contain;
 }
 .li--block-list:hover {
     background-color: #555;
