@@ -50,9 +50,8 @@ class MoreOptionsButton extends React.Component {
             {
               this.props.playlists.map(playlist => (
                 <li
-                  onClick={this.handleAddToPlaylist(
-                    playlist
-                  ).bind(this)}
+                  onClick={this.handleAddToPlaylist
+                             .bind(this, playlist)}
                   >{playlist.name}</li>
               ))
             }
