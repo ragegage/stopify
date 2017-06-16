@@ -16286,13 +16286,16 @@ exports.default = function () {
     case "RECEIVE_SEARCH_RESULTS":
       var ns = {
         all: _extends({}, state.all),
-        byId: [].concat(_toConsumableArray(state.byId))
+        byId: new Set(state.byId)
       };
       action.payload.songs.forEach(function (song) {
-        ns.byId.push(song.id);
+        ns.byId.add(song.id);
         ns.all[song.id] = song;
       });
-      return ns;
+      return {
+        all: ns.all,
+        byId: [].concat(_toConsumableArray(ns.byId))
+      };
     default:
       return state;
   }

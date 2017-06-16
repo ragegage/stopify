@@ -24,13 +24,16 @@ export default (state = songs, action) => {
         all: {
           ...state.all
         },
-        byId: [...state.byId]
+        byId: new Set(state.byId)
       }
       action.payload.songs.forEach(song => {
-        ns.byId.push(song.id)
+        ns.byId.add(song.id)
         ns.all[song.id] = song
       })
-      return ns
+      return {
+        all: ns.all,
+        byId: [...ns.byId]
+      }
     default:
       return state
   }
