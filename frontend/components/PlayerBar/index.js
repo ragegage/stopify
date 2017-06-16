@@ -59,7 +59,7 @@ const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, up
         className="button--player-add-to-queue">
         <ul className="ul--current-queue">
           {
-            currentQueue.map(queuedSong => (
+            currentQueue.reverse().map(queuedSong => (
               <li
                 key={queuedSong.id}
                 className="li--current-queue"

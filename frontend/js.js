@@ -14573,7 +14573,7 @@ var PlayerBar = function PlayerBar(_ref) {
         _react2.default.createElement(
           'ul',
           { className: 'ul--current-queue' },
-          currentQueue.map(function (queuedSong) {
+          currentQueue.reverse().map(function (queuedSong) {
             return _react2.default.createElement(
               'li',
               {

@@ -370,6 +370,7 @@ a {
   background-position: center;
   background-repeat: no-repeat;
   background-color: #fff;
+  cursor: pointer;
 }
 
 .button--player-play {
@@ -441,6 +442,14 @@ a {
 }
 .button--player-add-to-queue:hover .ul--current-queue {
   display: flex;
+}
+
+.li--current-queue {
+    padding: 4px 8px;
+    cursor: pointer;
+}
+.li--current-queue:hover {
+    background-color: #333;
 }
 
 .div--volume-bar-bg {
