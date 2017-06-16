@@ -723,9 +723,12 @@ var receiveSong = exports.receiveSong = function receiveSong(song) {
 };
 
 var startSong = exports.startSong = function startSong(song) {
-  return {
-    type: "START_SONG",
-    payload: song
+  return function (dispatch) {
+    (0, _APIUtil.postPlay)(song);
+    dispatch({
+      type: "START_SONG",
+      payload: song
+    });
   };
 };
 
@@ -3586,13 +3589,24 @@ var fetchPlaylist = exports.fetchPlaylist = function fetchPlaylist(id) {
 };
 
 var postPlaylistSong = exports.postPlaylistSong = function postPlaylistSong(song, playlist) {
-  console.log(JSON.stringify(song));
   return fetch('http://localhost:3000/playlists/' + playlist.id + '/playlist_songs', {
     method: 'POST',
     headers: {
       "Content-type": "application/json"
     },
     body: JSON.stringify({ playlist_song: { song_id: song.id } })
+  }).then(function (res) {
+    return res.json();
+  });
+};
+
+var postPlay = exports.postPlay = function postPlay(song) {
+  return fetch('http://localhost:3000/plays/', {
+    method: 'POST',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({ play: { song_id: song.id } })
   }).then(function (res) {
     return res.json();
   });
@@ -16277,7 +16291,6 @@ exports.default = function () {
         all: _extends({}, state.all, action.payload.all),
         byId: Array.from(new Set(state.byId.concat(action.payload.byId)))
       };
-    // return action.payload
     case "RECEIVE_SONG":
       return {
         all: _extends({}, state.all, _defineProperty({}, action.payload.id, action.payload)),

@@ -1,4 +1,4 @@
-import { fetchSongs, postSong, postPlaylistSong } from './APIUtil'
+import { fetchSongs, postSong, postPlaylistSong, postPlay } from './APIUtil'
 
 import jsmediatags from 'jsmediatags'
 
@@ -45,10 +45,13 @@ export const receiveSong = song => ({
   payload: song
 })
 
-export const startSong = song => ({
-  type: "START_SONG",
-  payload: song
-})
+export const startSong = song => dispatch => {
+  postPlay(song)
+  dispatch({
+    type: "START_SONG",
+    payload: song
+  })
+}
 
 export const pauseSong = () => ({
   type: "PAUSE_SONG"

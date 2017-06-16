@@ -10,7 +10,6 @@ export default (state = songs, action) => {
         all: {...state.all, ...action.payload.all},
         byId: Array.from(new Set(state.byId.concat(action.payload.byId)))
       }
-      // return action.payload
     case "RECEIVE_SONG":
       return {
         all: {
