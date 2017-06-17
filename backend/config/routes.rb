@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :albums, only: [:index, :show], defaults: { format: 'json' }
   resources :search, only: [:show], defaults: { format: 'json' }
   resources :playlists, only: [:index, :create, :show], defaults: { format: 'json' } do
-    resources :playlist_songs, only: [:create], defaults: { format: 'json' }
+    resources :playlist_songs, only: [:create, :destroy], defaults: { format: 'json' }
   end
   resources :plays, only: [:create], defaults: { format: 'json' }
 
