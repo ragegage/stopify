@@ -5,8 +5,7 @@ import ReactPlayer from 'react-player'
 import { pauseSong, playSong, updateProgress, updateLength, updateVolume, nextSong, prevSong, startSong } from '../../actions/songs'
 
 import VolumeBar from './VolumeBar'
-
-// import SongsHeader from './SongsHeader'
+import Time from '../Shared/Time'
 
 const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, updateLength, updateVolume, nextSong, prevSong, startSong }) => {
   return (
@@ -43,15 +42,25 @@ const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, up
           volume={song.volume}
           onProgress={updateProgress}
           onEnded={nextSong}
+          onDuration={length => updateLength(length)}
           url={song.url}/>
       </div>
       <div className="div--player-progress-bar-container">
-        {/* set to display: none until fully implemented */}
-        <p className="p--player-current-time">{parseInt(song.progress)}</p>
-        <div
-          style={{width: `${song.progress * 200}px`}}
-          className="div--player-progress-bar"></div>
-        <p className="p--player-total-time">{song.length}</p>
+        <p className="p--player-current-time">
+          <Time seconds={song.length * song.progress} />
+        </p>
+        {/*
+see ReactPlayer documentation for seeking:
+https://github.com/CookPete/react-player/blob/master/src/demo/App.js
+          */}
+        <div className="div--player-progress-bar-bg">
+          <div
+            style={{width: `${song.progress * 100}%`}}
+            className="div--player-progress-bar-fg"></div>
+        </div>
+        <p className="p--player-total-time">
+          <Time seconds={song.length} />
+        </p>
       </div>
     </section>
     <aside className="aside--player-other-controls">
@@ -84,6 +93,7 @@ const mapDispatchToProps = (dispatch) => ({
   pauseSong: () => dispatch(pauseSong()),
   playSong: () => dispatch(playSong()),
   updateProgress: ({played}) => dispatch(updateProgress(played)),
+  updateLength: (length) => dispatch(updateLength(length)),
   updateVolume: (volume) => dispatch(updateVolume(volume)),
   nextSong: () => dispatch(nextSong()),
   prevSong: () => dispatch(prevSong()),

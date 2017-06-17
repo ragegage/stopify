@@ -14830,23 +14830,19 @@ var VolumeBar = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'div--volume-bar-bg' },
-          _react2.default.createElement('div', {
-            draggable: 'true',
-            onDrag: function onDrag(e) {
-              return _this4.handleDrag(e.clientX, e.target.parentElement.offsetLeft, e.target.parentElement.clientWidth);
-            },
-            onDragEnd: this.handleChangeComplete(),
-            className: 'div--volume-bar-handle',
-            style: { left: 'calc(' + volume * 100 + '% - 7.5px)' }
-          }),
-          _react2.default.createElement('div', {
-            style: { width: volume * 100 + '%' },
-            className: 'div--volume-bar-fg' })
-        )
+        { className: 'div--volume-bar-bg' },
+        _react2.default.createElement('div', {
+          draggable: 'true',
+          onDrag: function onDrag(e) {
+            return _this4.handleDrag(e.clientX, e.target.parentElement.offsetLeft, e.target.parentElement.clientWidth);
+          },
+          onDragEnd: this.handleChangeComplete(),
+          className: 'div--volume-bar-handle',
+          style: { left: 'calc(' + volume * 100 + '% - 7.5px)' }
+        }),
+        _react2.default.createElement('div', {
+          style: { width: volume * 100 + '%' },
+          className: 'div--volume-bar-fg' })
       );
     }
   }]);
@@ -14883,9 +14879,11 @@ var _VolumeBar = __webpack_require__(145);
 
 var _VolumeBar2 = _interopRequireDefault(_VolumeBar);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Time = __webpack_require__(362);
 
-// import SongsHeader from './SongsHeader'
+var _Time2 = _interopRequireDefault(_Time);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var PlayerBar = function PlayerBar(_ref) {
   var song = _ref.song,
@@ -14931,6 +14929,9 @@ var PlayerBar = function PlayerBar(_ref) {
           volume: song.volume,
           onProgress: updateProgress,
           onEnded: nextSong,
+          onDuration: function onDuration(length) {
+            return updateLength(length);
+          },
           url: song.url })
       ),
       _react2.default.createElement(
@@ -14939,15 +14940,19 @@ var PlayerBar = function PlayerBar(_ref) {
         _react2.default.createElement(
           'p',
           { className: 'p--player-current-time' },
-          parseInt(song.progress)
+          _react2.default.createElement(_Time2.default, { seconds: song.length * song.progress })
         ),
-        _react2.default.createElement('div', {
-          style: { width: song.progress * 200 + 'px' },
-          className: 'div--player-progress-bar' }),
+        _react2.default.createElement(
+          'div',
+          { className: 'div--player-progress-bar-bg' },
+          _react2.default.createElement('div', {
+            style: { width: song.progress * 100 + '%' },
+            className: 'div--player-progress-bar-fg' })
+        ),
         _react2.default.createElement(
           'p',
           { className: 'p--player-total-time' },
-          song.length
+          _react2.default.createElement(_Time2.default, { seconds: song.length })
         )
       )
     ),
@@ -15003,6 +15008,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     updateProgress: function updateProgress(_ref3) {
       var played = _ref3.played;
       return dispatch((0, _songs.updateProgress)(played));
+    },
+    updateLength: function updateLength(length) {
+      return dispatch((0, _songs.updateLength)(length));
     },
     updateVolume: function updateVolume(volume) {
       return dispatch((0, _songs.updateVolume)(volume));
@@ -40848,6 +40856,41 @@ module.exports = require("url");
 /***/ (function(module, exports) {
 
 module.exports = require("util");
+
+/***/ }),
+/* 362 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (_ref) {
+  var seconds = _ref.seconds;
+
+  seconds = parseInt(seconds);
+  if (!seconds && seconds !== seconds) //NaN
+    return _react2.default.createElement('span', null);
+  var s = seconds % 60;
+  if (s < 10) s = '0' + s;
+  var m = Math.floor(seconds / 60);
+  return _react2.default.createElement(
+    'span',
+    null,
+    m,
+    ':',
+    s
+  );
+};
 
 /***/ })
 /******/ ]);

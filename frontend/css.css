@@ -392,7 +392,6 @@ a {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  display: none;
 }
 
 .div--player-controls {
@@ -401,11 +400,21 @@ a {
 }
 
 /*player progress bar*/
-.div--player-progress-bar {
-  height: 5px;
+.div--player-progress-bar-bg {
+  height: 4px;
   width: 200px;
   background-color: grey;
-  border-radius: 5px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.div--player-progress-bar-fg {
+  height: 6px;
+  background-color: pink;
+  border-radius: 6px;
+  left: 0;
+  top: -1px;
+  position: absolute;
 }
 
 .p--player-current-time {

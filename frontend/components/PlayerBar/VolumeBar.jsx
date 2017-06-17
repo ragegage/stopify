@@ -39,7 +39,6 @@ class VolumeBar extends Component {
   render() {
     const { volume } = this.state
     return (
-      <div>
       <div className="div--volume-bar-bg">
         <div
           draggable="true"
@@ -50,11 +49,12 @@ class VolumeBar extends Component {
           onDragEnd={this.handleChangeComplete()}
           className="div--volume-bar-handle"
           style={{left: `calc(${volume * 100}% - 7.5px)`}}
-          ></div>
+          >
+        </div>
         <div
           style={{width: `${volume * 100}%`}}
-          className="div--volume-bar-fg"></div>
-      </div>
+          className="div--volume-bar-fg">
+        </div>
       </div>
     )
   }
