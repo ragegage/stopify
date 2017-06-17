@@ -410,7 +410,7 @@ a {
 
 .div--player-progress-bar-fg {
   height: 6px;
-  background-color: pink;
+  background-color: #E90076;
   border-radius: 6px;
   left: 0;
   top: -1px;
@@ -477,7 +477,7 @@ a {
     height: 6px;
     position: absolute;
     top: -1px;
-    background: pink;
+    background: #E90076;
     border-radius: 3px;
 }
 
@@ -485,7 +485,7 @@ a {
     position: absolute;
     width: 15px;
     height: 15px;
-    background: pink;
+    background: #E90076;
     top: -5.5px;
     border-radius: 15px;
     cursor: pointer;

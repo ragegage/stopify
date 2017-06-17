@@ -77,6 +77,18 @@ export const postPlaylistSong = (song, playlist) => {
     .then(res => res.json())
 )}
 
+export const deletePlaylistSong = (song, playlist) => {
+  return (
+  fetch(`http://localhost:3000/playlists/${playlist.id}/playlist_songs/${playlist.id}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({playlist_id: playlist.id, song_id: song.id})
+  })
+    .then(res => res.json())
+)}
+
 export const postPlay = song => {
   return (
   fetch(`http://localhost:3000/plays/`, {

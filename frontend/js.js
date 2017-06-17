@@ -656,7 +656,7 @@ if (process.env.NODE_ENV !== 'production') {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.prevSong = exports.nextSong = exports.addToPlaylist = exports.addToQueue = exports.updateVolume = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
+exports.prevSong = exports.nextSong = exports.removeSongFromPlaylist = exports.removeFromPlaylist = exports.addToPlaylist = exports.addToQueue = exports.updateVolume = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
 
 var _APIUtil = __webpack_require__(29);
 
@@ -777,6 +777,21 @@ var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song, playlis
     return (0, _APIUtil.postPlaylistSong)(song, playlist).then(function (res) {
       return console.log(res);
     });
+  };
+};
+
+var removeFromPlaylist = exports.removeFromPlaylist = function removeFromPlaylist(song, playlist) {
+  return function (dispatch) {
+    return (0, _APIUtil.deletePlaylistSong)(song, playlist).then(function (res) {
+      return removeSongFromPlaylist(res);
+    });
+  };
+};
+
+var removeSongFromPlaylist = exports.removeSongFromPlaylist = function removeSongFromPlaylist(payload) {
+  return {
+    type: "NEXT_SONG",
+    payload: payload
   };
 };
 
@@ -3661,6 +3676,18 @@ var postPlaylistSong = exports.postPlaylistSong = function postPlaylistSong(song
       "Content-type": "application/json"
     },
     body: JSON.stringify({ playlist_song: { song_id: song.id } })
+  }).then(function (res) {
+    return res.json();
+  });
+};
+
+var deletePlaylistSong = exports.deletePlaylistSong = function deletePlaylistSong(song, playlist) {
+  return fetch('http://localhost:3000/playlists/' + playlist.id + '/playlist_songs/' + playlist.id, {
+    method: 'DELETE',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({ playlist_id: playlist.id, song_id: song.id })
   }).then(function (res) {
     return res.json();
   });
