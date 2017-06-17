@@ -16673,6 +16673,7 @@ exports.default = function () {
         all: _extends({}, state.all, _defineProperty({}, action.payload.id, action.payload)),
         byId: [].concat(_toConsumableArray(state.byId), [action.payload.id])
       };
+    case "RECEIVE_FULL_SEARCH_RESULTS":
     case "RECEIVE_SEARCH_RESULTS":
       var ns = {
         all: _extends({}, state.all),

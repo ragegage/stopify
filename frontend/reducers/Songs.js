@@ -18,6 +18,7 @@ export default (state = songs, action) => {
         },
         byId: [...state.byId, action.payload.id]
       }
+    case "RECEIVE_FULL_SEARCH_RESULTS":
     case "RECEIVE_SEARCH_RESULTS":
       let ns = {
         all: {
