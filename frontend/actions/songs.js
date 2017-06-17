@@ -86,13 +86,13 @@ export const addToPlaylist = (song, playlist) => dispatch => (
     .then(res => console.log(res))
 )
 
-export const removeFromPlaylist = (song, playlist) => dispatch => (
-  deletePlaylistSong(song, playlist)
-    .then(res => removeSongFromPlaylist(res))
+export const removeFromPlaylist = (songId, playlistId) => dispatch => (
+  deletePlaylistSong(songId, playlistId)
+    .then(res => dispatch(removeSongFromPlaylist(res)))
 )
 
 export const removeSongFromPlaylist = (payload) => ({
-  type: "NEXT_SONG",
+  type: "REMOVE_SONG_FROM_PLAYLIST",
   payload
 })
 

@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { Route } from 'react-router-dom'
 
-import { addToPlaylist } from '../../actions/songs'
+import { addToPlaylist, removeFromPlaylist } from '../../actions/songs'
 
 class MoreOptionsButton extends React.Component {
   constructor(props) {
@@ -41,6 +42,14 @@ class MoreOptionsButton extends React.Component {
     this.closeModal()
   }
 
+  handleRemoveFromPlaylist(playlistId) {
+    this.props.removeFromPlaylist(
+      this.props.song.id,
+      playlistId
+    )
+    this.closeModal()
+  }
+
   modalForeground() {
     if(this.state.modalIsOpen)
       return <foreground
@@ -55,6 +64,13 @@ class MoreOptionsButton extends React.Component {
                   >{playlist.name}</li>
               ))
             }
+            <Route path="/playlist/:id" render={(props) => (
+              <li
+                onClick={this.handleRemoveFromPlaylist
+                           .bind(this, props.match.params.id)}
+                >Remove from this playlist</li>
+            )}
+            />
           </ul>
         </foreground>
   }
@@ -77,10 +93,12 @@ const mapStateToProps = ({ playlists }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addToPlaylist: (song, playlist) => (e) => {
-    e.stopPropagation()
+  addToPlaylist: (song, playlist) => (
     dispatch(addToPlaylist(song, playlist))
-  }
+  ),
+  removeFromPlaylist: (songId, playlistId) => (
+    dispatch(removeFromPlaylist(songId, playlistId))
+  )
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoreOptionsButton)

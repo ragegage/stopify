@@ -780,17 +780,17 @@ var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song, playlis
   };
 };
 
-var removeFromPlaylist = exports.removeFromPlaylist = function removeFromPlaylist(song, playlist) {
+var removeFromPlaylist = exports.removeFromPlaylist = function removeFromPlaylist(songId, playlistId) {
   return function (dispatch) {
-    return (0, _APIUtil.deletePlaylistSong)(song, playlist).then(function (res) {
-      return removeSongFromPlaylist(res);
+    return (0, _APIUtil.deletePlaylistSong)(songId, playlistId).then(function (res) {
+      return dispatch(removeSongFromPlaylist(res));
     });
   };
 };
 
 var removeSongFromPlaylist = exports.removeSongFromPlaylist = function removeSongFromPlaylist(payload) {
   return {
-    type: "NEXT_SONG",
+    type: "REMOVE_SONG_FROM_PLAYLIST",
     payload: payload
   };
 };
@@ -3681,13 +3681,13 @@ var postPlaylistSong = exports.postPlaylistSong = function postPlaylistSong(song
   });
 };
 
-var deletePlaylistSong = exports.deletePlaylistSong = function deletePlaylistSong(song, playlist) {
-  return fetch('http://localhost:3000/playlists/' + playlist.id + '/playlist_songs/' + playlist.id, {
+var deletePlaylistSong = exports.deletePlaylistSong = function deletePlaylistSong(song_id, playlist_id) {
+  return fetch('http://localhost:3000/playlists/' + playlist_id + '/playlist_songs/' + playlist_id, {
     method: 'DELETE',
     headers: {
       "Content-type": "application/json"
     },
-    body: JSON.stringify({ playlist_id: playlist.id, song_id: song.id })
+    body: JSON.stringify({ playlist_id: playlist_id, song_id: song_id })
   }).then(function (res) {
     return res.json();
   });
@@ -15778,6 +15778,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
+var _reactRouterDom = __webpack_require__(14);
+
 var _songs = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -15836,6 +15838,12 @@ var MoreOptionsButton = function (_React$Component) {
       this.closeModal();
     }
   }, {
+    key: 'handleRemoveFromPlaylist',
+    value: function handleRemoveFromPlaylist(playlistId) {
+      this.props.removeFromPlaylist(this.props.song.id, playlistId);
+      this.closeModal();
+    }
+  }, {
     key: 'modalForeground',
     value: function modalForeground() {
       var _this4 = this;
@@ -15860,6 +15868,16 @@ var MoreOptionsButton = function (_React$Component) {
               },
               playlist.name
             );
+          }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/playlist/:id', render: function render(props) {
+              return _react2.default.createElement(
+                'li',
+                {
+                  onClick: _this4.handleRemoveFromPlaylist.bind(_this4, props.match.params.id)
+                },
+                'Remove from this playlist'
+              );
+            }
           })
         )
       );
@@ -15894,10 +15912,10 @@ var mapStateToProps = function mapStateToProps(_ref) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     addToPlaylist: function addToPlaylist(song, playlist) {
-      return function (e) {
-        e.stopPropagation();
-        dispatch((0, _songs.addToPlaylist)(song, playlist));
-      };
+      return dispatch((0, _songs.addToPlaylist)(song, playlist));
+    },
+    removeFromPlaylist: function removeFromPlaylist(songId, playlistId) {
+      return dispatch((0, _songs.removeFromPlaylist)(songId, playlistId));
     }
   };
 };
@@ -16508,6 +16526,9 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var currentPlaylist = {
   id: 1,
   name: "Demo Playlist",
@@ -16521,6 +16542,12 @@ exports.default = function () {
   switch (action.type) {
     case "RECEIVE_PLAYLIST":
       return action.payload;
+    case "REMOVE_SONG_FROM_PLAYLIST":
+      return _extends({}, state, {
+        featured_song_ids: state.featured_song_ids.filter(function (id) {
+          return id !== action.payload.song_id;
+        })
+      });
     default:
       return state;
   }
