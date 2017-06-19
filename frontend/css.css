@@ -6,6 +6,8 @@ body {
   font-family: sans-serif; /* pick a better font */
   color: white;
   background-color: #000;
+  cursor: default;
+  user-select: none;
 }
 
 h1, h2, p {
@@ -58,6 +60,7 @@ a {
   width: 100%;
   height: 100%;
   opacity: 0;
+  cursor: pointer;
 }
 
 .div--welcome-buttons-container {
@@ -264,6 +267,17 @@ a {
   padding: 5px 7px;
   border-radius: 25px;
   position: relative;
+}
+
+.li--add-to-playlist-header {
+  font-size: 13px;
+}
+.li--add-to-playlist {
+  font-size: 13px;
+  cursor: pointer;
+}
+.li--add-to-playlist:hover {
+  background-color: #444;
 }
 
 /*playlists*/

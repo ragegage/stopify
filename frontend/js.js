@@ -15857,13 +15857,14 @@ var MoreOptionsButton = function (_React$Component) {
           null,
           _react2.default.createElement(
             'li',
-            null,
+            { className: 'li--add-to-playlist-header' },
             'Add to Playlist'
           ),
           this.props.playlists.map(function (playlist) {
             return _react2.default.createElement(
               'li',
               {
+                className: 'li--add-to-playlist',
                 onClick: _this4.handleAddToPlaylist.bind(_this4, playlist)
               },
               playlist.name
@@ -16329,9 +16330,13 @@ var Welcome = function (_React$Component) {
         'article',
         { className: 'article--welcome' },
         _react2.default.createElement(
-          'h1',
-          { className: 'h1--main h1--welcome' },
-          'Stopify: Your open-source Music Player'
+          'header',
+          { className: 'header--welcome header--main-content' },
+          _react2.default.createElement(
+            'h1',
+            { className: 'h1--main h1--welcome' },
+            'Stopify: Your open-source Music Player'
+          )
         ),
         _react2.default.createElement(
           'div',

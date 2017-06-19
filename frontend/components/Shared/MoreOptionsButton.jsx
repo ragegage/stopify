@@ -55,10 +55,11 @@ class MoreOptionsButton extends React.Component {
       return <foreground
         className="foreground--modal">
           <ul>
-            <li>Add to Playlist</li>
+            <li className="li--add-to-playlist-header">Add to Playlist</li>
             {
               this.props.playlists.map(playlist => (
                 <li
+                  className="li--add-to-playlist"
                   onClick={this.handleAddToPlaylist
                              .bind(this, playlist)}
                   >{playlist.name}</li>

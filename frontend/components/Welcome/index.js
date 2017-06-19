@@ -12,8 +12,9 @@ class Welcome extends React.Component {
   render() {
     return (
       <article className="article--welcome">
-        <h1 className="h1--main h1--welcome">Stopify: Your open-source Music Player</h1>
-
+        <header className="header--welcome header--main-content">
+          <h1 className="h1--main h1--welcome">Stopify: Your open-source Music Player</h1>
+        </header>
         <div className="div--welcome-buttons-container">
           <div className="div--welcome-button-container">
             <h2 className="h2--main h2--welcome">New to Stopify?</h2>
