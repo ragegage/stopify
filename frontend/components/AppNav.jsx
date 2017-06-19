@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 import SearchResults from './SearchResults'
 
@@ -8,8 +9,11 @@ import { Link } from 'react-router-dom'
 import { search, displaySearchResults, hideSearchResults } from '../actions/search'
 import { startSong } from '../actions/songs'
 
-const Search = ({ search, query, results, startSong, showResults, hideResultsOnDelay, resultsVisible }) => (
+const Search = ({ search, query, results, startSong, showResults, hideResultsOnDelay, resultsVisible, history }) => (
   <nav className="nav--search">
+    <button onClick={history.goBack}>
+      &lt;
+    </button>
     <input type="text"
       placeholder="Search"
       className="input--search"
@@ -35,7 +39,7 @@ const mapDispatchToProps = (dispatch) => ({
   hideResultsOnDelay: () => setTimeout(() => dispatch(hideSearchResults()), 500)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search))
 
 // on search (livereload on keypress)
   // pop-down menu of matching terms
