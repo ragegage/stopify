@@ -228,6 +228,26 @@ a {
     background-color: #333;
 }
 
+.infogroup--song-info {
+  display: flex;
+}
+
+.div--song-list-title {
+    width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 8px;
+}
+
+.div--song-list-artist {
+    width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 8px;
+}
+
 .button--add-to-queue, .button--more-options {
   padding: 5px 10px;
   background-color: #0a0a0a;

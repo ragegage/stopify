@@ -15972,7 +15972,20 @@ exports.default = function (_ref) {
               return console.log("right click!");
             },
             className: 'li--song-list' },
-          song.title,
+          _react2.default.createElement(
+            'infogroup',
+            { className: 'infogroup--song-info' },
+            _react2.default.createElement(
+              'div',
+              { className: 'div--song-list-title' },
+              song.title
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'div--song-list-artist' },
+              song.artist
+            )
+          ),
           _react2.default.createElement(
             'buttongroup',
             null,

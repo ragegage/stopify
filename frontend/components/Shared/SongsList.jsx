@@ -12,7 +12,10 @@ export default ({ songs, startSong, addToQueue }) => {
             onClick={startSong(song)}
             onContextMenu={() => console.log("right click!")}
             className="li--song-list">
-            {song.title}
+            <infogroup className="infogroup--song-info">
+              <div className="div--song-list-title">{song.title}</div>
+              <div className="div--song-list-artist">{song.artist}</div>
+            </infogroup>
             <buttongroup>
               <button
                 className="button--add-to-queue"
