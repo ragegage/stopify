@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 
 import { requestAllSongs } from './actions/songs'
+import { requestAllPlaylists } from './actions/playlists'
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const main = document.getElementById("main")
@@ -21,4 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // unorthodox, but I think it makes sense
   // request all songs immediately upon the app loading
   store.dispatch(requestAllSongs())
+  // request all playlists immediately upon the app loading
+  store.dispatch(requestAllPlaylists())
 })

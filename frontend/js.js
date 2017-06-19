@@ -15271,7 +15271,8 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
+exports.default = function (_ref) {
+  var createPlaylist = _ref.createPlaylist;
   return _react2.default.createElement(
     "header",
     { className: "header--playlists header--main-content" },
@@ -15280,6 +15281,23 @@ exports.default = function () {
       "h1",
       { className: "h1--playlists h1--main" },
       "Playlists"
+    ),
+    _react2.default.createElement(
+      "form",
+      {
+        className: "form--new-playlist",
+        onSubmit: function onSubmit(e) {
+          e.preventDefault();
+          createPlaylist(e.target[0].value);
+        } },
+      _react2.default.createElement("input", {
+        type: "text",
+        placeholder: "New Playlist",
+        className: "input--text-new-playlist" }),
+      _react2.default.createElement("input", {
+        type: "submit",
+        value: "Create Playlist",
+        className: "input--submit-new-playlist" })
     )
   );
 };
@@ -15421,11 +15439,6 @@ var Playlists = function (_React$Component) {
         _react2.default.createElement(_PlaylistsListContainer2.default, null)
       );
     }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.requestAllPlaylists();
-    }
   }]);
 
   return Playlists;
@@ -15433,8 +15446,8 @@ var Playlists = function (_React$Component) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    requestAllPlaylists: function requestAllPlaylists() {
-      return dispatch((0, _playlists.requestAllPlaylists)());
+    createPlaylist: function createPlaylist(name) {
+      return dispatch((0, _playlists.createPlaylist)(name));
     }
   };
 };
@@ -16034,8 +16047,6 @@ var _util = __webpack_require__(81);
 
 var _songs = __webpack_require__(9);
 
-var _playlists = __webpack_require__(48);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16104,27 +16115,6 @@ var SideMenu = function (_React$Component) {
             'li',
             { className: 'li--type' },
             _react2.default.createElement(
-              'form',
-              {
-                className: 'form--new-playlist',
-                onSubmit: function onSubmit(e) {
-                  e.preventDefault();
-                  _this2.props.createPlaylist(e.target[0].value);
-                } },
-              _react2.default.createElement('input', {
-                type: 'text',
-                placeholder: 'New Playlist',
-                className: 'input--text-new-playlist' }),
-              _react2.default.createElement('input', {
-                type: 'submit',
-                value: 'Create Playlist',
-                className: 'input--submit-new-playlist' })
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: 'li--type' },
-            _react2.default.createElement(
               'label',
               { className: 'label--file-input' },
               'Add Files',
@@ -16162,9 +16152,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createSong: function createSong(path) {
       return dispatch((0, _songs.createSong)(path));
-    },
-    createPlaylist: function createPlaylist(name) {
-      return dispatch((0, _playlists.createPlaylist)(name));
     }
   };
 };
@@ -16939,6 +16926,8 @@ var _reactRouterDom = __webpack_require__(14);
 
 var _songs = __webpack_require__(9);
 
+var _playlists = __webpack_require__(48);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -16957,7 +16946,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // unorthodox, but I think it makes sense
   // request all songs immediately upon the app loading
-  );store.dispatch((0, _songs.requestAllSongs)());
+  );store.dispatch((0, _songs.requestAllSongs)()
+  // request all playlists immediately upon the app loading
+  );store.dispatch((0, _playlists.requestAllPlaylists)());
 });
 
 /***/ }),

@@ -1,12 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { requestAllPlaylists } from '../../actions/playlists'
+import { createPlaylist } from '../../actions/playlists'
 
 import PlaylistsHeader from './PlaylistsHeader'
 import PlaylistsListContainer from './PlaylistsListContainer'
-
-
 
 class Playlists extends React.Component {
   render() {
@@ -17,14 +15,10 @@ class Playlists extends React.Component {
       </article>
     )
   }
-
-  componentDidMount() {
-    this.props.requestAllPlaylists()
-  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  requestAllPlaylists: () => dispatch(requestAllPlaylists())
+  createPlaylist: name => dispatch(createPlaylist(name))
 })
 
 export default connect(null, mapDispatchToProps)(Playlists)
