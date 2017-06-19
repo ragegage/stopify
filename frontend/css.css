@@ -87,6 +87,10 @@ a {
   font-size: 14px;
 }
 
+.a--playlist-effect {
+  text-shadow: 0px 0px 16px white, 0px 0px 16px white, 0px 0px 16px white;
+}
+
 .form--new-playlist {
   width: 100px;
   display: flex;
@@ -267,6 +271,10 @@ a {
   padding: 5px 7px;
   border-radius: 25px;
   position: relative;
+}
+
+.button--queue-effect {
+  box-shadow: 0px 0px 40px white;
 }
 
 .li--add-to-playlist-header {

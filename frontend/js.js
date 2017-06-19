@@ -656,7 +656,7 @@ if (process.env.NODE_ENV !== 'production') {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.prevSong = exports.nextSong = exports.removeSongFromPlaylist = exports.removeFromPlaylist = exports.addToPlaylist = exports.addToQueue = exports.updateVolume = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
+exports.prevSong = exports.nextSong = exports.removeSongFromPlaylist = exports.removeFromPlaylist = exports.playlistEffectOver = exports.addToPlaylist = exports.queueEffectOver = exports.addToQueue = exports.updateVolume = exports.updateLength = exports.updateProgress = exports.playSong = exports.pauseSong = exports.startSong = exports.receiveSong = exports.receiveSongs = exports.createSong = exports.requestAllSongs = undefined;
 
 var _APIUtil = __webpack_require__(29);
 
@@ -766,17 +766,39 @@ var updateVolume = exports.updateVolume = function updateVolume(volume) {
 };
 
 var addToQueue = exports.addToQueue = function addToQueue(song) {
+  return function (dispatch) {
+    setTimeout(function () {
+      return dispatch(queueEffectOver());
+    }, 500);
+    dispatch({
+      type: "ADD_SONG_TO_QUEUE",
+      payload: song
+    });
+  };
+};
+
+var queueEffectOver = exports.queueEffectOver = function queueEffectOver() {
   return {
-    type: "ADD_SONG_TO_QUEUE",
-    payload: song
+    type: "QUEUE_EFFECT_OVER"
   };
 };
 
 var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song, playlist) {
   return function (dispatch) {
     return (0, _APIUtil.postPlaylistSong)(song, playlist).then(function (res) {
-      return console.log(res);
+      setTimeout(function () {
+        return dispatch(playlistEffectOver());
+      }, 500);
+      dispatch({
+        type: "SONG_ADDED_TO_PLAYLIST"
+      });
     });
+  };
+};
+
+var playlistEffectOver = exports.playlistEffectOver = function playlistEffectOver() {
+  return {
+    type: "PLAYLIST_EFFECT_OVER"
   };
 };
 
@@ -14931,7 +14953,8 @@ var PlayerBar = function PlayerBar(_ref) {
       updateVolume = _ref.updateVolume,
       nextSong = _ref.nextSong,
       prevSong = _ref.prevSong,
-      startSong = _ref.startSong;
+      startSong = _ref.startSong,
+      currentQueueEffect = _ref.currentQueueEffect;
 
   return _react2.default.createElement(
     'footer',
@@ -14998,7 +15021,7 @@ var PlayerBar = function PlayerBar(_ref) {
       _react2.default.createElement(
         'button',
         {
-          className: 'button--player-add-to-queue' },
+          className: 'button--player-add-to-queue\n          ' + (currentQueueEffect ? 'button--queue-effect' : '') },
         _react2.default.createElement(
           'ul',
           { className: 'ul--current-queue' },
@@ -15024,12 +15047,14 @@ var PlayerBar = function PlayerBar(_ref) {
 var mapStateToProps = function mapStateToProps(_ref2) {
   var currentlyPlaying = _ref2.currentlyPlaying,
       currentQueue = _ref2.currentQueue,
-      songs = _ref2.songs;
+      songs = _ref2.songs,
+      effects = _ref2.effects;
   return {
     song: currentlyPlaying,
     currentQueue: currentQueue.map(function (songId) {
       return songs.all[songId];
-    })
+    }),
+    currentQueueEffect: effects.currentQueue
   };
 };
 
@@ -16116,7 +16141,9 @@ var SideMenu = function (_React$Component) {
             { className: 'li--type' },
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/playlists' },
+              {
+                className: this.props.playlistEffect ? 'a--playlist-effect' : '',
+                to: '/playlists' },
               'Playlists'
             )
           ),
@@ -16153,8 +16180,11 @@ var SideMenu = function (_React$Component) {
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(_ref) {
-  var currentlyPlaying = _ref.currentlyPlaying;
-  return {};
+  var currentlyPlaying = _ref.currentlyPlaying,
+      effects = _ref.effects;
+  return {
+    playlistEffect: effects.playlist
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -16821,6 +16851,10 @@ var _CurrentPlaylist = __webpack_require__(165);
 
 var _CurrentPlaylist2 = _interopRequireDefault(_CurrentPlaylist);
 
+var _VisualEffects = __webpack_require__(363);
+
+var _VisualEffects2 = _interopRequireDefault(_VisualEffects);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RootReducer = (0, _redux.combineReducers)({
@@ -16833,7 +16867,8 @@ var RootReducer = (0, _redux.combineReducers)({
   currentQueue: _CurrentQueue2.default,
   search: _Search2.default,
   playlists: _Playlists2.default,
-  currentPlaylist: _CurrentPlaylist2.default
+  currentPlaylist: _CurrentPlaylist2.default,
+  effects: _VisualEffects2.default
 });
 
 exports.default = RootReducer;
@@ -40962,6 +40997,37 @@ exports.default = function (_ref) {
     ':',
     s
   );
+};
+
+/***/ }),
+/* 363 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case "ADD_SONG_TO_QUEUE":
+      return _extends({}, state, { currentQueue: true });
+    case "QUEUE_EFFECT_OVER":
+      return _extends({}, state, { currentQueue: false });
+    case "SONG_ADDED_TO_PLAYLIST":
+      return _extends({}, state, { playlist: true });
+    case "PLAYLIST_EFFECT_OVER":
+      return _extends({}, state, { playlist: false });
+    default:
+      return state;
+  }
 };
 
 /***/ })

@@ -10,6 +10,7 @@ import CurrentQueue from './CurrentQueue'
 import Search from './Search'
 import Playlists from './Playlists'
 import CurrentPlaylist from './CurrentPlaylist'
+import VisualEffects from './VisualEffects'
 
 const RootReducer = combineReducers({
   songs: Songs,
@@ -22,6 +23,7 @@ const RootReducer = combineReducers({
   search: Search,
   playlists: Playlists,
   currentPlaylist: CurrentPlaylist,
+  effects: VisualEffects,
 })
 
 export default RootReducer

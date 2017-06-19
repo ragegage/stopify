@@ -14,7 +14,15 @@ class SideMenu extends React.Component {
           <li className="li--type"><Link to="/songs">Songs</Link></li>
           <li className="li--type"><Link to="/albums">Albums</Link></li>
           <li className="li--type"><Link to="/artists">Artists</Link></li>
-          <li className="li--type"><Link to="/playlists">Playlists</Link></li>
+          <li className="li--type">
+            <Link
+              className={
+                this.props.playlistEffect ? 'a--playlist-effect' : ''
+              }
+              to="/playlists">
+              Playlists
+            </Link>
+          </li>
           <li className="li--type">
             <label className="label--file-input">
               Add Files
@@ -38,7 +46,9 @@ class SideMenu extends React.Component {
   }
 }
 
-const mapStateToProps = ({ currentlyPlaying }) => ({})
+const mapStateToProps = ({ currentlyPlaying, effects }) => ({
+  playlistEffect: effects.playlist
+})
 
 const mapDispatchToProps = (dispatch) => ({
   createSong: path => dispatch(createSong(path))

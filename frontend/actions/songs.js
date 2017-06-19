@@ -76,15 +76,31 @@ export const updateVolume = volume => ({
   payload: volume
 })
 
-export const addToQueue = song => ({
-  type: "ADD_SONG_TO_QUEUE",
-  payload: song
+export const addToQueue = song => dispatch => {
+  setTimeout(() => dispatch(queueEffectOver()), 500)
+  dispatch({
+    type: "ADD_SONG_TO_QUEUE",
+    payload: song
+  })
+}
+
+export const queueEffectOver = () => ({
+  type: "QUEUE_EFFECT_OVER"
 })
 
 export const addToPlaylist = (song, playlist) => dispatch => (
   postPlaylistSong(song, playlist)
-    .then(res => console.log(res))
+    .then(res => {
+      setTimeout(() => dispatch(playlistEffectOver()), 500)
+      dispatch({
+        type: "SONG_ADDED_TO_PLAYLIST"
+      })
+    })
 )
+
+export const playlistEffectOver = () => ({
+  type: "PLAYLIST_EFFECT_OVER"
+})
 
 export const removeFromPlaylist = (songId, playlistId) => dispatch => (
   deletePlaylistSong(songId, playlistId)

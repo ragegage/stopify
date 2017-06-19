@@ -7,7 +7,7 @@ import { pauseSong, playSong, updateProgress, updateLength, updateVolume, nextSo
 import VolumeBar from './VolumeBar'
 import Time from '../Shared/Time'
 
-const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, updateLength, updateVolume, nextSong, prevSong, startSong }) => {
+const PlayerBar = ({ song, currentQueue, pauseSong, playSong, updateProgress, updateLength, updateVolume, nextSong, prevSong, startSong, currentQueueEffect }) => {
   return (
   <footer className="footer--player">
     <aside className="aside--player-song-info">
@@ -65,7 +65,10 @@ https://github.com/CookPete/react-player/blob/master/src/demo/App.js
     </section>
     <aside className="aside--player-other-controls">
       <button
-        className="button--player-add-to-queue">
+        className={
+          `button--player-add-to-queue
+          ${currentQueueEffect ? 'button--queue-effect' : ''}`
+        }>
         <ul className="ul--current-queue">
           {
             currentQueue.reverse().map(queuedSong => (
@@ -84,9 +87,10 @@ https://github.com/CookPete/react-player/blob/master/src/demo/App.js
   </footer>
 )}
 
-const mapStateToProps = ({ currentlyPlaying, currentQueue, songs }) => ({
+const mapStateToProps = ({ currentlyPlaying, currentQueue, songs, effects }) => ({
   song: currentlyPlaying,
-  currentQueue: currentQueue.map(songId => songs.all[songId])
+  currentQueue: currentQueue.map(songId => songs.all[songId]),
+  currentQueueEffect: effects.currentQueue
 })
 
 const mapDispatchToProps = (dispatch) => ({
