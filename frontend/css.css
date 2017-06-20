@@ -533,3 +533,48 @@ a {
     cursor: pointer;
     z-index: 3;
 }
+
+/*media query for small player*/
+@media all and (max-height: 400px) and (max-width: 400px) {
+
+.section--content, .aside--sidebar {
+  display: none;
+}
+
+.footer--player {
+  top: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+}
+
+.aside--player-song-info {
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.img--player-img {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+.button--player-add-to-queue {
+  position: static;
+}
+
+.ul--current-queue {
+  display: block;
+  top: 120px;
+  left: 0px;
+  width: 100vw;
+  overflow-y: auto;
+  height: calc(100vh - 120px);
+}
+
+.aside--player-other-controls {
+  min-height: 36px;
+}
+
+}
