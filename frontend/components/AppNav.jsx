@@ -11,7 +11,8 @@ import { startSong } from '../actions/songs'
 
 const Search = ({ search, query, results, startSong, showResults, hideResultsOnDelay, resultsVisible, history }) => (
   <nav className="nav--search">
-    <button onClick={history.goBack}>
+    <button className="button--back"
+      onClick={history.goBack}>
       &lt;
     </button>
     <input type="text"

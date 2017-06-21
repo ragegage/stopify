@@ -144,6 +144,16 @@ a {
 }
 
 /*search*/
+.button--back {
+  display: inline-flex;
+  border-radius: 8px;
+  border: none;
+  background-color: black;
+  color: pink;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 .input--search {
   border: none;
   padding: 4px 16px;

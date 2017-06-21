@@ -14351,7 +14351,8 @@ var Search = function Search(_ref) {
     { className: 'nav--search' },
     _react2.default.createElement(
       'button',
-      { onClick: history.goBack },
+      { className: 'button--back',
+        onClick: history.goBack },
       '<'
     ),
     _react2.default.createElement('input', { type: 'text',
