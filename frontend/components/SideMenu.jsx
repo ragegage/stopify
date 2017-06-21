@@ -1,7 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import FileInput from 'react-file-input'
 import { connect } from 'react-redux'
+
+// import { ipcRenderer } from 'electron'
+// let ipc = require('electron').ipcRenderer
+// import ipc from 'ipc-renderer'
+// console.log(ipc);
+// import Electron from 'electron'
 
 import { createSongs } from '../util'
 import { createSong } from '../actions/songs'
@@ -34,6 +39,13 @@ class SideMenu extends React.Component {
               />
             </label>
           </li>
+          <li className="li--type">
+            <button
+              onClick={() => {
+                window.resizeTo(400, 400); 
+              }}
+              >small player mode</button>
+          </li>
         </ul>
       </aside>
     )
@@ -55,10 +67,3 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideMenu)
-
-
-// <li className="li--type"><FileInput name="Local Files"
-//                             accept=".mp3,.m4a"
-//                             placeholder="Add Local Files"
-//                             className="inputClass"
-//                             onChange={e => createSong(e.target.files[0])}/></li>

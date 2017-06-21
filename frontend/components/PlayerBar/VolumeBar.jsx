@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Slider from 'react-rangeslider'
-
 
 class VolumeBar extends Component {
   constructor(props) {
