@@ -41,16 +41,3 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search))
-
-// on search (livereload on keypress)
-  // pop-down menu of matching terms
-    // artists
-    // albums
-    // songs
-    // "See All"
-
-// Search reducer with the above keys - CHECK
-  // (backend API route, controller, &c.)
-// Search menu component - CHECK
-// Search page component (for "See All")
-  // uses Artists, Albums, & Songs?

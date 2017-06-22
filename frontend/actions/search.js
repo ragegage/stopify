@@ -7,11 +7,7 @@ export const search = query => dispatch => {
       dispatch(receiveSearchResults(results))
     ))
   else
-    return dispatch(receiveSearchResults({
-      artists: [],
-      albums: [],
-      songs: []
-    }))
+    return dispatch(hideSearchResults())
 }
 
 export const receiveSearchResults = (results) => {
