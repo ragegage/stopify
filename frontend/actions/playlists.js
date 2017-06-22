@@ -1,5 +1,6 @@
 import { fetchPlaylists, postPlaylist, fetchPlaylist } from './APIUtil'
 import { receiveSongs, nextSong } from './songs'
+import { shuffle } from '../util'
 
 export const requestAllPlaylists = () => dispatch => (
   fetchPlaylists().then(
@@ -41,4 +42,14 @@ export const playPlaylist = playlist => dispatch => {
 export const setPlaylistAsCurrentQueue = playlist => ({
   type: "PLAY_PLAYLIST",
   payload: playlist.featured_song_ids
+})
+
+export const shufflePlaylist = playlist => dispatch => {
+  dispatch(shufflePlaylistAsCurrentQueue(playlist))
+  dispatch(nextSong())
+}
+
+export const shufflePlaylistAsCurrentQueue = playlist => ({
+  type: "PLAY_PLAYLIST",
+  payload: shuffle(playlist.featured_song_ids.slice())
 })

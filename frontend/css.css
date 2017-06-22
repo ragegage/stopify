@@ -306,7 +306,7 @@ a {
 }
 
 /*playlists*/
-.button--play-playlist {
+.button--play-playlist, .button--shuffle-playlist {
   padding: 10px 20px;
   border-radius: 30px;
   background-color: #E90076;

@@ -6012,11 +6012,13 @@ module.exports = require("fs");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setPlaylistAsCurrentQueue = exports.playPlaylist = exports.requestPlaylist = exports.receivePlaylist = exports.receivePlaylists = exports.createPlaylist = exports.requestAllPlaylists = undefined;
+exports.shufflePlaylistAsCurrentQueue = exports.shufflePlaylist = exports.setPlaylistAsCurrentQueue = exports.playPlaylist = exports.requestPlaylist = exports.receivePlaylist = exports.receivePlaylists = exports.createPlaylist = exports.requestAllPlaylists = undefined;
 
 var _APIUtil = __webpack_require__(29);
 
 var _songs = __webpack_require__(9);
+
+var _util = __webpack_require__(81);
 
 var requestAllPlaylists = exports.requestAllPlaylists = function requestAllPlaylists() {
   return function (dispatch) {
@@ -6073,6 +6075,20 @@ var setPlaylistAsCurrentQueue = exports.setPlaylistAsCurrentQueue = function set
   return {
     type: "PLAY_PLAYLIST",
     payload: playlist.featured_song_ids
+  };
+};
+
+var shufflePlaylist = exports.shufflePlaylist = function shufflePlaylist(playlist) {
+  return function (dispatch) {
+    dispatch(shufflePlaylistAsCurrentQueue(playlist));
+    dispatch((0, _songs.nextSong)());
+  };
+};
+
+var shufflePlaylistAsCurrentQueue = exports.shufflePlaylistAsCurrentQueue = function shufflePlaylistAsCurrentQueue(playlist) {
+  return {
+    type: "PLAY_PLAYLIST",
+    payload: (0, _util.shuffle)(playlist.featured_song_ids.slice())
   };
 };
 
@@ -8989,7 +9005,7 @@ var receiveFullSearchResults = exports.receiveFullSearchResults = function recei
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createSongs = undefined;
+exports.shuffle = exports.createSongs = undefined;
 
 var _gracefulFs = __webpack_require__(193);
 
@@ -9019,6 +9035,16 @@ var createSongs = exports.createSongs = function createSongs(createSong) {
       return createSong(file);
     });
   };
+};
+
+var shuffle = exports.shuffle = function shuffle(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
 };
 
 /***/ }),
@@ -15111,7 +15137,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (_ref) {
   var playlist = _ref.playlist,
-      playPlaylist = _ref.playPlaylist;
+      playPlaylist = _ref.playPlaylist,
+      shufflePlaylist = _ref.shufflePlaylist;
   return _react2.default.createElement(
     "header",
     { className: "header--playlist header--main-content" },
@@ -15127,6 +15154,13 @@ exports.default = function (_ref) {
         onClick: playPlaylist(playlist),
         className: "button--play-playlist" },
       "Play"
+    ),
+    _react2.default.createElement(
+      "button",
+      {
+        onClick: shufflePlaylist(playlist),
+        className: "button--shuffle-playlist" },
+      "Shuffle"
     ),
     _react2.default.createElement(
       "p",
@@ -15190,7 +15224,8 @@ var Playlist = function (_React$Component) {
         { className: 'article--playlist' },
         _react2.default.createElement(_PlaylistHeader2.default, {
           playlist: this.props.playlist,
-          playPlaylist: this.props.playPlaylist }),
+          playPlaylist: this.props.playPlaylist,
+          shufflePlaylist: this.props.shufflePlaylist }),
         _react2.default.createElement(_SongsListContainer2.default, { song_ids: this.props.playlist.featured_song_ids }),
         _react2.default.createElement(
           'h2',
@@ -15278,6 +15313,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     playPlaylist: function playPlaylist(playlist) {
       return function () {
         return dispatch((0, _playlists.playPlaylist)(playlist));
+      };
+    },
+    shufflePlaylist: function shufflePlaylist(playlist) {
+      return function () {
+        return dispatch((0, _playlists.shufflePlaylist)(playlist));
       };
     }
   };
