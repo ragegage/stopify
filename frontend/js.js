@@ -792,6 +792,8 @@ var addToPlaylist = exports.addToPlaylist = function addToPlaylist(song, playlis
       dispatch({
         type: "SONG_ADDED_TO_PLAYLIST"
       });
+    }).fail(function (res) {
+      return console.log(res);
     });
   };
 };
@@ -15958,6 +15960,7 @@ var MoreOptionsButton = function (_React$Component) {
               return _react2.default.createElement(
                 'li',
                 {
+                  className: 'li--remove-from-playlist',
                   onClick: _this4.handleRemoveFromPlaylist.bind(_this4, props.match.params.id)
                 },
                 'Remove from this playlist'

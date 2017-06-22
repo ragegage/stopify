@@ -96,6 +96,7 @@ export const addToPlaylist = (song, playlist) => dispatch => (
         type: "SONG_ADDED_TO_PLAYLIST"
       })
     })
+    .fail(res => console.log(res))
 )
 
 export const playlistEffectOver = () => ({

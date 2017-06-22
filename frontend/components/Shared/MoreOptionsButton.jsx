@@ -67,6 +67,7 @@ class MoreOptionsButton extends React.Component {
             }
             <Route path="/playlist/:id" render={(props) => (
               <li
+                className="li--remove-from-playlist"
                 onClick={this.handleRemoveFromPlaylist
                            .bind(this, props.match.params.id)}
                 >Remove from this playlist</li>
