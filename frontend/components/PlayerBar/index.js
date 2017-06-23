@@ -69,6 +69,7 @@ https://github.com/CookPete/react-player/blob/master/src/demo/App.js
           `button--player-add-to-queue
           ${currentQueueEffect ? 'button--queue-effect' : ''}`
         }>
+        <div className="div--queue-length">{currentQueue.length}</div>
         <ul className="ul--current-queue">
           {
             currentQueue.reverse().map(queuedSong => (

@@ -159,7 +159,7 @@ a {
   border-radius: 8px;
   border: none;
   background-color: black;
-  color: pink;
+  color: #E90076;
   font-size: 20px;
   cursor: pointer;
 }
@@ -506,6 +506,17 @@ a {
   background-position: center;
   background-repeat: no-repeat;
   background-color: #fff;
+}
+
+.div--queue-length {
+  position: absolute;
+  top: -12px;
+  right: -8px;
+  background-color: #E90076;
+  color: white;
+  padding: 4px;
+  border-radius: 8px;
+  font-size: 14px;
 }
 
 .ul--current-queue {

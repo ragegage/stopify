@@ -15030,6 +15030,11 @@ var PlayerBar = function PlayerBar(_ref) {
         {
           className: 'button--player-add-to-queue\n          ' + (currentQueueEffect ? 'button--queue-effect' : '') },
         _react2.default.createElement(
+          'div',
+          { className: 'div--queue-length' },
+          currentQueue.length
+        ),
+        _react2.default.createElement(
           'ul',
           { className: 'ul--current-queue' },
           currentQueue.reverse().map(function (queuedSong) {
