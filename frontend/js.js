@@ -16304,7 +16304,7 @@ var SongsHeader = function SongsHeader(_ref) {
     _react2.default.createElement(
       'button',
       { onClick: requestAllSongs },
-      'Another 100!'
+      'Another 50!'
     )
   );
 };
@@ -16823,7 +16823,7 @@ exports.default = function () {
     case "RECEIVE_SONGS":
       return {
         all: _extends({}, state.all, action.payload.all),
-        byId: Array.from(new Set(state.byId.concat(action.payload.byId)))
+        byId: Array.from(new Set(action.payload.byId.concat(state.byId)))
       };
     case "RECEIVE_SONG":
       return {

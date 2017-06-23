@@ -8,7 +8,7 @@ export default (state = songs, action) => {
     case "RECEIVE_SONGS":
       return {
         all: {...state.all, ...action.payload.all},
-        byId: Array.from(new Set(state.byId.concat(action.payload.byId)))
+        byId: Array.from(new Set(action.payload.byId.concat(state.byId)))
       }
     case "RECEIVE_SONG":
       return {
