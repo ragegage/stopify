@@ -16284,20 +16284,40 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(6);
+
+var _songs = __webpack_require__(9);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
+var SongsHeader = function SongsHeader(_ref) {
+  var requestAllSongs = _ref.requestAllSongs;
   return _react2.default.createElement(
-    "header",
-    { className: "header--songs header--main-content" },
-    _react2.default.createElement("img", { src: "", className: "img--songs img--main-content" }),
+    'header',
+    { className: 'header--songs header--main-content' },
+    _react2.default.createElement('img', { src: '', className: 'img--songs img--main-content' }),
     _react2.default.createElement(
-      "h1",
-      { className: "h1--songs h1--main" },
-      "Songs"
+      'h1',
+      { className: 'h1--songs h1--main' },
+      'Songs'
+    ),
+    _react2.default.createElement(
+      'button',
+      { onClick: requestAllSongs },
+      'Another 100!'
     )
   );
 };
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestAllSongs: function requestAllSongs() {
+      return dispatch((0, _songs.requestAllSongs)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SongsHeader);
 
 /***/ }),
 /* 160 */
@@ -16313,10 +16333,6 @@ Object.defineProperty(exports, "__esModule", {
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(6);
-
-var _songs = __webpack_require__(9);
 
 var _SongsHeader = __webpack_require__(159);
 
@@ -16336,36 +16352,6 @@ exports.default = function () {
     _react2.default.createElement(_SongsListContainer2.default, null)
   );
 };
-
-// deprecated code (when this component requested all the songs)
-//
-// class Songs extends React.Component {
-//   render() {
-//     return (
-//       <article className="article--songs">
-//         <SongsHeader/>
-//         <SongsListContainer/>
-//       </article>
-//     )
-//   }
-//
-//   componentDidMount() {
-//     this.props.requestAllSongs()
-//   }
-// }
-//
-// const mapDispatchToProps = (dispatch) => ({
-//   requestAllSongs: () => dispatch(requestAllSongs())
-// })
-//
-// export default connect(null, mapDispatchToProps)(Songs)
-
-// export default () => (
-//   <article className="article--songs">
-//     <SongsHeader/>
-//     <SongsListContainer/>
-//   </article>
-// )
 
 /***/ }),
 /* 161 */
