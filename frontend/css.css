@@ -496,6 +496,22 @@ a {
 }
 
 /*volume and queue controls*/
+.button--small-player {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  background-image: url(./images/small_player.png);
+  border: none;
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+.button--small-player:hover {
+  background-color: #bbb;
+}
+
 .button--player-add-to-queue {
   width: 30px;
   height: 30px;

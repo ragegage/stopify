@@ -15025,6 +15025,12 @@ var PlayerBar = function PlayerBar(_ref) {
     _react2.default.createElement(
       'aside',
       { className: 'aside--player-other-controls' },
+      _react2.default.createElement('button', {
+        className: 'button--small-player',
+        onClick: function onClick() {
+          window.resizeTo(400, 400);
+        }
+      }),
       _react2.default.createElement(
         'button',
         {
@@ -16226,19 +16232,6 @@ var SideMenu = function (_React$Component) {
                 onChange: (0, _util.createSongs)(this.props.createSong),
                 type: 'file'
               })
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: 'li--type' },
-            _react2.default.createElement(
-              'button',
-              {
-                onClick: function onClick() {
-                  window.resizeTo(400, 400);
-                }
-              },
-              'small player mode'
             )
           )
         )

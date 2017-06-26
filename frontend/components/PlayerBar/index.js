@@ -65,6 +65,12 @@ https://github.com/CookPete/react-player/blob/master/src/demo/App.js
     </section>
     <aside className="aside--player-other-controls">
       <button
+        className="button--small-player"
+        onClick={() => {
+          window.resizeTo(400, 400);
+        }}
+        ></button>
+      <button
         className={
           `button--player-add-to-queue
           ${currentQueueEffect ? 'button--queue-effect' : ''}`

@@ -39,13 +39,6 @@ class SideMenu extends React.Component {
               />
             </label>
           </li>
-          <li className="li--type">
-            <button
-              onClick={() => {
-                window.resizeTo(400, 400); 
-              }}
-              >small player mode</button>
-          </li>
         </ul>
       </aside>
     )
