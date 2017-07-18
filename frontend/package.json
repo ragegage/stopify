@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
+    "webpack": "webpack",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=images/stopify.icns --prune=true --out=release-builds",
     "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=images/stopify.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",
     "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=images/stopify.png --prune=true --out=release-builds"
