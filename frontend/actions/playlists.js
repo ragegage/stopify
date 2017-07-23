@@ -14,7 +14,7 @@ export const createPlaylist = playlistName => dispatch => {
     playlist: {
       name: playlistName
     }
-  }).then(song => dispatch(receivePlaylist(song)))
+  }).then(playlist => dispatch(receivePlaylist(playlist)))
 }
 
 export const receivePlaylists = playlists => ({

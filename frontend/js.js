@@ -6031,8 +6031,8 @@ var createPlaylist = exports.createPlaylist = function createPlaylist(playlistNa
       playlist: {
         name: playlistName
       }
-    }).then(function (song) {
-      return dispatch(receivePlaylist(song));
+    }).then(function (playlist) {
+      return dispatch(receivePlaylist(playlist));
     });
   };
 };
@@ -15501,7 +15501,7 @@ var Playlists = function (_React$Component) {
       return _react2.default.createElement(
         'article',
         { className: 'article--playlists' },
-        _react2.default.createElement(_PlaylistsHeader2.default, null),
+        _react2.default.createElement(_PlaylistsHeader2.default, { createPlaylist: this.props.createPlaylist }),
         _react2.default.createElement(_PlaylistsListContainer2.default, null)
       );
     }
@@ -16726,18 +16726,30 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var artists = {
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var playlists = {
   all: {},
   byId: []
 };
 
 exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : artists;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : playlists;
   var action = arguments[1];
 
   switch (action.type) {
     case "RECEIVE_PLAYLISTS":
       return action.payload;
+    case "RECEIVE_PLAYLIST":
+      return {
+        all: _extends({}, state.all, _defineProperty({}, action.payload.id, action.payload)),
+        byId: [].concat(_toConsumableArray(state.byId), [action.payload.id])
+      };
     default:
       return state;
   }

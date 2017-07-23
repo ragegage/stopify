@@ -10,7 +10,7 @@ class Playlists extends React.Component {
   render() {
     return (
       <article className="article--playlists">
-        <PlaylistsHeader/>
+        <PlaylistsHeader createPlaylist={this.props.createPlaylist}/>
         <PlaylistsListContainer/>
       </article>
     )

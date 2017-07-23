@@ -1,5 +1,12 @@
 # notes
 
+notes for future development:
+
+- autogenerate playlists based on historical song groupings
+  - pick a song, and it'll generate a playlist based on that
+  - songs that have been played together in the past are deemed to be similar
+  - kind of markov chain-esque
+
 <!-- playlists table: -->
 create_table :playlists do |t|
   t.string :name, null: false
