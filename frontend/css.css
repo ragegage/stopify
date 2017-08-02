@@ -398,6 +398,12 @@ a {
   background-color: #222;
 }
 
+.div--player-title {
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
 /*player song info*/
 .aside--player-song-info {
   min-width: 200px;
