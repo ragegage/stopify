@@ -67,9 +67,9 @@ https://github.com/CookPete/react-player/blob/master/src/demo/App.js
       <button
         className="button--small-player"
         onClick={() => {
-          if (window.innerWidth === 400)
-            window.resizeTo(400, 400)
-          else window.resizeTo(4000, 4000)
+          if (window.innerWidth < 401)
+            window.resizeTo(4000, 4000)
+          else window.resizeTo(400, 400)
         }}
         ></button>
       <button

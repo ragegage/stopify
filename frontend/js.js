@@ -15028,7 +15028,7 @@ var PlayerBar = function PlayerBar(_ref) {
       _react2.default.createElement('button', {
         className: 'button--small-player',
         onClick: function onClick() {
-          window.resizeTo(400, 400);
+          if (window.innerWidth < 401) window.resizeTo(4000, 4000);else window.resizeTo(400, 400);
         }
       }),
       _react2.default.createElement(

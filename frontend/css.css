@@ -400,8 +400,8 @@ a {
 
 .div--player-title {
   white-space: nowrap;
-  max-width: 100%;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 /*player song info*/
